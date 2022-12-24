@@ -1,0 +1,33 @@
+{
+    "manifest_version": 3,
+    "name": "Unboxr",
+    "description": "Unboxr is a Chrome extension that allows you to view influencers' unboxing videos, coupons, and promotions as you browser products.",
+    "version": "1.0.0",
+    "icons": {
+        "16": "images/16-unboxr.png",
+        "48": "images/48-unboxr.png",
+        "128": "images/128-unboxr.png"
+    },
+    
+    "permissions": [
+        "tabs",
+        "activeTab"
+    ],
+
+    "action": {
+        "default_title": "Click Me",  
+        "default_popup": "popup.html"
+      },
+
+      "background": {
+        "service_worker": "background.js"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["*://*.amazon.com/*"],
+            "js": ["content.js"],
+            "run_at": "document_start"
+        }
+    ]
+}
