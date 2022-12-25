@@ -2,7 +2,7 @@
 databases:
   - name: unboxr-API
     databaseName: unboxr
-    user: unboxr-admin
+    user: unboxrAdmin
 
 services:
   - type: web
