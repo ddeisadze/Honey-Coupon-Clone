@@ -10,7 +10,7 @@ services:
     name: unboxrAPI
     env: python
     buildCommand: "./backend/build.sh"
-    startCommand: "gunicorn unboxrAPI.wsgi:application"
+    startCommand: "gunicorn backend.wsgi:application"
     plan: free
     envVars:
       - key: DATABASE_URL
