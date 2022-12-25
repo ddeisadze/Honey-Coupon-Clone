@@ -22,10 +22,10 @@ DATABASES = {
         default='postgresql://postgres:postgres@localhost:5432/mysite',        
         conn_max_age=600    )}
 
-MIDDLEWARE = [
+MIDDLEWARE.extend([
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware'
-]
+])
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

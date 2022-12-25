@@ -23,3 +23,5 @@ services:
         value: 4
       - key: PYTHON_VERSION
         value: 3.8.3
+      - key: DEPLOYMENT_ENVIRONMENT
+        value: prod
