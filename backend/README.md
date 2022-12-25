@@ -1,0 +1,1 @@
+Build instructiosn for render from https://render.com/docs/deploy-django#update-your-app-for-render

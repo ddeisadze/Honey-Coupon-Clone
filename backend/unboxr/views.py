@@ -1,16 +1,17 @@
 from django.shortcuts import render
 from django.core import serializers as core_serializers
+from django.forms.models import model_to_dict
 
 # Create your views here.
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework import status, permissions, serializers
+from django.http import JsonResponse
 
-from .models import Product, ProductSkuId, Promotion
+from .models import Product, ProductSkuId, Promotion, PromotionSerializer
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-
 
 class FindInfluencerForm(serializers.Serializer):
     product_id_type = serializers.CharField()
@@ -48,7 +49,11 @@ class FindInfluencerVideoByProductInfo(APIView):
 
             promotions = Promotion.objects.filter(product=product)
 
-            qs_json = core_serializers.serialize('json', promotions)
-            return HttpResponse(qs_json, content_type='application/json')
+            if len(promotions) < 1:
+                return HttpResponse('No promotions found', status=status.HTTP_404_NOT_FOUND)
 
-        return HttpResponse('result')
+            get_first_prom = promotions[0] # there should be only for now 
+
+            return JsonResponse(PromotionSerializer(get_first_prom).data, safe=False) 
+
+        return HttpResponse('No promotions found', status=status.HTTP_404_NOT_FOUND)
