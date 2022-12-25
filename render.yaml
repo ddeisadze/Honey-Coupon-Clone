@@ -8,7 +8,7 @@ services:
   - type: web
     name: unboxr-API
     env: python
-    buildCommand: "./build.sh"
+    buildCommand: "./backend/build.sh"
     startCommand: "gunicorn unboxr-API.wsgi:application"
     envVars:
       - key: DATABASE_URL
