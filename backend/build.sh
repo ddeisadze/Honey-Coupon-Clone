@@ -3,7 +3,8 @@
 cd backend
 set -o errexit
 
-poetry lock --no-update
+pip install --upgrade pip
+
 poetry install
 
 python manage.py collectstatic --no-input
