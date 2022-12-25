@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # exit on error
+cd backend
 set -o errexit
 
 poetry install
