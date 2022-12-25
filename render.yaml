@@ -3,6 +3,7 @@ databases:
   - name: unboxrAPI
     databaseName: unboxr
     user: admin
+    plan: free
 
 services:
   - type: web
@@ -10,6 +11,7 @@ services:
     env: python
     buildCommand: "./backend/build.sh"
     startCommand: "gunicorn unboxrAPI.wsgi:application"
+    plan: free
     envVars:
       - key: DATABASE_URL
         fromDatabase:
