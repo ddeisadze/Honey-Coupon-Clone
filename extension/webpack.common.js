@@ -6,7 +6,7 @@ module.exports = {
     entry: {
         popup : path.resolve("./src/popup/popup.tsx"),
         background: path.resolve("./src/background/background.ts"),
-        content: path.resolve("./src/contentScript/contentScript.tsx"),
+        content: path.resolve("./src/contentScript/index.tsx"),
     },
     module: {
         rules:[
@@ -40,7 +40,7 @@ module.exports = {
     optimization: {
         splitChunks:{
             chunks(chunk){
-                return chunk.name !== 'contentScript';
+                return chunk.name !== 'content';
             }
         }
     }
