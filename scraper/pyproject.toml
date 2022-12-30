@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "scraping"
+version = "0.1.0"
+description = ""
+authors = ["David Deisadze <ddeisadze@outlook.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+selenium = "^4.7.2"
+webdriver-manager = "^3.8.5"
+spacy = "^3.4.4"
+nltk = "^3.8"
+scrapy = "^2.7.1"
+
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.0.0"
+pandas = "^1.5.2"
+notebook = "^6.5.2"
+spacymoji = "^3.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
