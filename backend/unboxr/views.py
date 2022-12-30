@@ -57,3 +57,6 @@ class FindInfluencerVideoByProductInfo(APIView):
             return JsonResponse(PromotionSerializer(get_first_prom).data, safe=False) 
 
         return HttpResponse('No promotions found', status=status.HTTP_404_NOT_FOUND)
+
+class FindPromotionVideoByProductInfo(APIView):
+    

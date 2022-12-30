@@ -5,7 +5,10 @@ import Lottie from "lottie-react";
 
 interface Props {
     onClick?: Function,
-    size?: number
+    size?: number,
+    onHoverEnter?: Function,
+    onHoverExit?: Function,
+
 }
 
 function UnboxrButton(props: Props) {
@@ -13,11 +16,13 @@ function UnboxrButton(props: Props) {
     const [isLoop, setLoop] = useState(false);
 
     const onMouseEnter = () => {
+        lottieRef.current.setSpeed(3)
         console.log("mouseover", lottieRef)
-        setLoop(true);
+        setLoop(false);
         lottieRef.current.setDirection(1);
         lottieRef.current.goToAndPlay(22);
         // lottieRef.current.goToAndPlay(22)
+        props.onHoverEnter?.call()
     }
 
     const onMouseExit = () => {
@@ -26,6 +31,8 @@ function UnboxrButton(props: Props) {
         lottieRef.current.setDirection(-1);
         lottieRef.current.play();
         // lottieRef.current.goToAndStop(22);
+        props.onHoverExit?.call()
+
     }
 
     const divStyle = {
@@ -46,12 +53,14 @@ function UnboxrButton(props: Props) {
             <Lottie style={{ width: `${(props.size ?? 200) * 0.8}px`, height: `${props.size ?? 200}px`, float: "right" }}
                 onMouseLeave={onMouseExit}
                 onMouseEnter={onMouseEnter}
+                
                 lottieRef={lottieRef}
                 animationData={boxLottie}
-                initialSegment={[22, 60]}
+                initialSegment={[22, 100]}
                 autoplay={false}
-                loop={isLoop} />
-            <p style={{ "margin": "0px", "float": "inline-end", textAlign: "center" }}>Unboxing found</p>
+                loop={isLoop}
+                 />
+            {/* <p style={{ "margin": "0px", "float": "inline-end", textAlign: "center" }}>Unboxing found</p> */}
         </div>
     )
 }

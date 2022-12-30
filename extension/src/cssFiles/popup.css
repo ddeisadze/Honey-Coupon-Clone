@@ -1,0 +1,36 @@
+body {
+    scrollbar-base-color: red;
+    scrollbar-arrow-color: white;
+    
+    }
+
+#popover-content-\:r1\: {
+    display: block;
+    position: fixed;
+    bottom: 14%;
+    right: 40px;
+    height: 650px;
+    width: 380px;
+    overflow-y: scroll;
+}
+
+#entryButton {
+    position: fixed;
+    bottom: 5%;
+    right:0;
+    z-index: 99 !important;
+}
+
+
+
+#popover-body-\:r1\: {
+    height: 1000px;
+    padding: 20px;
+    width: -webkit-fill-available;
+}
+
+.css-1hcx8jb.evf3f5611 {
+    display: none !important;
+    background-color: black;
+
+}

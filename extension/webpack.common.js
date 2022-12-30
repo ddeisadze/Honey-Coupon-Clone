@@ -15,6 +15,11 @@ module.exports = {
                 use: "ts-loader",
                 test: /\.tsx$/,
                 exclude: /node_modules/
+            },
+            {
+                use: ["style-loader", "css-loader"],
+                test: /\.css$/,
+                exclude: /node_modules/
             }
         ],
     },
@@ -35,9 +40,10 @@ module.exports = {
 
         new HTMLWebpackPlugin({
             title: 'Test Contet Script',
-            filename: 'content.html',
-            chunks: ['test'],
+            filename: 'test.html',
+            chunks: ['content'],
         }),
+
     ],
     resolve: {
         extensions: [".tsx", ".ts", ".js", ".json"]
