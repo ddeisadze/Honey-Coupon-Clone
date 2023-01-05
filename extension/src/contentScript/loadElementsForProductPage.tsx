@@ -29,7 +29,8 @@ export function loadElementsForProductPage(test: boolean) {
             const companyWebsite = data.product['company_website'];
             const couponCode = data.coupon;
             const couponUrlLink = data.coupon_code_in_the_link;
-
+            console.log("yooooo");
+            
             injectUnboxrButton(couponCode, companyWebsite, couponUrlLink);
 
         }).catch(err => console.log(err));

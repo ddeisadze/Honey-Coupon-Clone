@@ -29,7 +29,9 @@ class Product(models.Model):
     
     product_description = models.TextField(blank=True)
     
+    # product_current_price = models.DecimalField(max_digits=10, decimal_places=2)
     product_price = models.DecimalField(max_digits=10, decimal_places=2)
+
     merchant_product_page = models.URLField(help_text="Link to the product page on merchant websites.")
 
     date_modified = models.DateTimeField(auto_now=True)
@@ -131,8 +133,10 @@ class Image(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     date_published = models.DateTimeField(auto_now_add=True)
 
+# class ProductPrice(models.Model):
 
-
+#     price = models.DecimalField(max_digits=10, decimal_places=2)
+#     product = models.ForeignKey("Product", related_name="price" )
 
 
 

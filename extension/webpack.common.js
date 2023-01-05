@@ -4,9 +4,9 @@ const path = require("path");
 
 module.exports = {
     entry: {
-        popup: path.resolve("./src/popup/popup.tsx"),
+        popup: path.resolve("./src/popdown/toolBarPopUp.tsx"),
         background: path.resolve("./src/background/background.ts"),
-        content: path.resolve("./src/contentScript/amazonIndex.tsx"),
+        content: path.resolve("./src/contentScript/amazon/amazonIndex.tsx"), 
         test: path.resolve("./src/contentScript/test.tsx"),
     },
     module: {
