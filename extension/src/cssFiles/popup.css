@@ -4,12 +4,13 @@ body {
     
     }
 
-#popover-content-\:r1\: {
+#popover-content-\:r1\:,
+#popover-content-\:r3\: {
     display: block;
     position: fixed;
-    bottom: 14%;
+    bottom: 18%;
     right: 40px;
-    height: 650px;
+    height: 450px;
     width: 380px;
     overflow-y: scroll;
 }
@@ -23,7 +24,8 @@ body {
 
 
 
-#popover-body-\:r1\: {
+#popover-body-\:r1\:,
+#popover-body-\:r3\: {
     height: 1000px;
     padding: 20px;
     width: -webkit-fill-available;
@@ -34,3 +36,60 @@ body {
     background-color: black;
 
 }
+
+#settings-icon {
+    position: absolute;
+    top: 8px;
+    right: 40px;
+    cursor:pointer;
+    
+}
+
+#dropDownSettings {
+    color: white;
+    height: 130px;
+    width: 110px;
+    display: none;
+    flex-direction: row;
+    background-color: black;
+    position: absolute;
+    right: 40px;
+    top: 29px;
+    z-index: 1;
+    
+
+}
+
+#dropDownSettings ul {
+    /* list-style-type: none; */
+    margin: auto;
+
+
+}
+
+#dropDownSettings ul li {
+    height: 30px;
+    display: flex;
+    padding: 5px;
+    font-size: 14px;
+    align-items: center;
+    font-weight: normal;
+    line-height: 16px;
+
+}
+
+#dropDownSettings ul li button {
+    font: inherit;
+    color: inherit;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    outline: inherit;
+    padding: 0px;
+    background: none;
+    text-align: left;
+    align-items: center;
+    font-size: 9px;
+}
+

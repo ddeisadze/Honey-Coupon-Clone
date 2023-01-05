@@ -8,11 +8,16 @@ class VideoInline(admin.TabularInline):
 
 class ImageInline(admin.TabularInline):
     model = Image
-    extra = 1
+
+@admin.register(Coupon)
+class CouponAdmin(admin.ModelAdmin):
+    model = Coupon
+
+class CouponInline(admin.TabularInline):
+    model = Coupon
 
 class InfluencerSocialMediaInline(admin.TabularInline):
     model = InfluencerSocialMedia
-    extra = 1
 
 
 @admin.register(Influencer)
@@ -31,7 +36,8 @@ class InfluencerInline(admin.TabularInline):
 class PromotionAdmin(admin.ModelAdmin):
     inlines = [
         VideoInline,
-        ImageInline
+        ImageInline, 
+        CouponInline
     ]
 
 class PromotionalInline(admin.TabularInline):

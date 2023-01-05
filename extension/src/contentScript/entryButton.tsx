@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect, ReactComponentElement } from 'react';
-import { createRoot } from 'react-dom/client';
+import React, { useState, useRef } from 'react';
 import boxLottie from '../assets/boxLottie.json'
 import Lottie from "lottie-react";
 
@@ -53,14 +52,17 @@ function UnboxrButton(props: Props) {
             <Lottie style={{ width: `${(props.size ?? 200) * 0.8}px`, height: `${props.size ?? 200}px`, float: "right" }}
                 onMouseLeave={onMouseExit}
                 onMouseEnter={onMouseEnter}
-                
+
                 lottieRef={lottieRef}
                 animationData={boxLottie}
                 initialSegment={[22, 100]}
                 autoplay={false}
                 loop={isLoop}
-                 />
+            />
             {/* <p style={{ "margin": "0px", "float": "inline-end", textAlign: "center" }}>Unboxing found</p> */}
+
+
+
         </div>
     )
 }

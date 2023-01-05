@@ -8,7 +8,8 @@ from rest_framework.views import APIView
 from rest_framework import status, permissions, serializers
 from django.http import JsonResponse
 
-from .models import Product, ProductSkuId, Promotion, PromotionSerializer
+from .models import Product, ProductSkuId, Promotion
+from .serializers.serializers import PromotionSerializer, ProductSerializer
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -43,9 +44,11 @@ class FindInfluencerVideoByProductInfo(APIView):
             product_id_type__name=serializer.data['product_id_type'],
             product_id_value=serializer.data['product_id_value']
         )
+        print(product_sku_ids)
 
         if product_sku_ids:
             product = product_sku_ids[0].product
+            print(ProductSerializer(product).data)
 
             promotions = Promotion.objects.filter(product=product)
 
@@ -58,5 +61,4 @@ class FindInfluencerVideoByProductInfo(APIView):
 
         return HttpResponse('No promotions found', status=status.HTTP_404_NOT_FOUND)
 
-class FindPromotionVideoByProductInfo(APIView):
     

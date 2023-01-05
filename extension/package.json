@@ -20,9 +20,11 @@
         "build": "webpack --progress --config webpack.prod.js"
     },
     "dependencies": {
+        "@chakra-ui/icons": "^2.0.15",
         "@chakra-ui/react": "^2.4.5",
         "@emotion/react": "11",
         "@emotion/styled": "11",
+        "chakra-ui-contextmenu": "^1.0.5",
         "css-loader": "^6.7.3",
         "framer-motion": "6",
         "global": "^4.4.0",

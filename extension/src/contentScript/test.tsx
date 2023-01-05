@@ -3,8 +3,6 @@ import { createRoot } from 'react-dom/client';
 import EntryButton from './entryButton';
 import { TikTokVideo } from './TikTokVideo';
 
-
-
 document.getElementsByTagName("body")[0].style = "height:1200px";
 const entryButtonappContainer = document.createElement('div');
 entryButtonappContainer.id = "container";
