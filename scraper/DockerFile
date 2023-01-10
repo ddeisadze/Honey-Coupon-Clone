@@ -1,0 +1,31 @@
+FROM python:3.8-slim
+
+ENV POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_VERSION=1.3.1 \
+    POETRY_ENV=production
+# Install Poetry
+RUN pip install poetry==${POETRY_VERSION}
+# Create a directory for the Scrapy project
+RUN mkdir /app
+WORKDIR /app
+
+# Copy the Scrapy project files
+COPY . /app
+
+# Install the project dependencies with Poetry
+RUN poetry install
+
+# Set the MongoDB settings as environment variables
+ENV MONGO_HOSTNAME "localhost"
+ENV MONGO_PORT "27017"
+ENV MONGO_DBNAME "unboxr"
+ENV MONGO_COLLECTION "products-crawler"
+
+# Run the MongoDB server in the background, using the volume path for the data directory and the MongoDB settings from the environment variables
+# CMD mongod --fork --logpath /var/log/mongodb.log --dbpath /data/db --bind_ip ${MONGO_HOSTNAME} --port ${MONGO_PORT} --dbpath ${MONGO_DBNAME} --collection ${MONGO_COLLECTION} -p 27017:27017
+
+# Run the Scrapy crawl command, using the MongoDB settings from the environment variables
+CMD poetry run scrapy crawl amazon_search -s MONGO_HOSTNAME=$MONGO_HOSTNAME -s MONGO_DBNAME=$MONGO_DBNAME -s MONGO_COLLECTION=$MONGO_COLLECTION -s MONGO_PORT=$MONGO_PORT -s MONGO_USER=$MONGO_USER -s MONGO_PASS=$MONGO_PASS
+
+# Run the MongoDB database in a Docker volume to persist the data
+VOLUME ["/data/db"]
