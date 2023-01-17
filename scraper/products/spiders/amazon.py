@@ -5,6 +5,7 @@ from urllib.parse import urlencode
 from urllib.parse import urljoin
 
 from products.items import AmazonProductItem
+from scraper.products.spiders.utility import parse_out_all_tables_on_page
 
 
 class AmazonSearchToProductPage(scrapy.Spider):
@@ -93,7 +94,7 @@ def parse_product_page(response):
     savingsPercentage = response.xpath(
         "//span[contains(@class, 'savingsPercentage')]//text()").extract_first()
 
-    get_all_tables = parse_tables(response)
+    get_all_tables = parse_out_all_tables_on_page(response)
 
     # category
     # //*[@id="nav-subnav"]@data-category
