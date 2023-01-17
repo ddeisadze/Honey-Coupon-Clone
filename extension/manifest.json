@@ -8,6 +8,8 @@
         "48": "images/48-unboxr.png",
         "128": "images/128-unboxr.png"
     },
+    "options_page": "options.html",
+
     
     "permissions": [
         "tabs",

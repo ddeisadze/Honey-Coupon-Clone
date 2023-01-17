@@ -1,13 +1,16 @@
 const CopyPlugin = require("copy-webpack-plugin");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
+const HtmlPlugin = require('html-webpack-plugin');
+
 const path = require("path");
 
 module.exports = {
     entry: {
-        popup: path.resolve("./src/popdown/toolBarPopUp.tsx"),
+        popup: path.resolve("./src/popup/toolBarPopUp.tsx"),
         background: path.resolve("./src/background/background.ts"),
         content: path.resolve("./src/contentScript/amazon/amazonIndex.tsx"), 
         test: path.resolve("./src/contentScript/test.tsx"),
+        options: path.resolve('./src/options/index.tsx'),
     },
     module: {
         rules: [
@@ -32,11 +35,11 @@ module.exports = {
             ],
         }),
 
-        new HTMLWebpackPlugin({
-            title: 'Unboxr',
-            filename: 'popup.html',
-            chunks: ['popup'],
-        }),
+        ...getHtmlPlugins([
+            'popup',
+            'options',
+        ])
+        ,
 
         new HTMLWebpackPlugin({
             title: 'Test Contet Script',
@@ -58,4 +61,12 @@ module.exports = {
             }
         }
     }
+}
+
+function getHtmlPlugins(chunks) {
+    return chunks.map(chunk => new HtmlPlugin({
+        title: 'Unboxr',
+        filename: `${chunk}.html`,
+        chunks: [chunk]
+    }))
 }

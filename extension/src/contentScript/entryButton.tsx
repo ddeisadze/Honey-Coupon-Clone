@@ -15,11 +15,11 @@ function UnboxrButton(props: Props) {
     const [isLoop, setLoop] = useState(false);
 
     const onMouseEnter = () => {
-        lottieRef.current.setSpeed(3)
+        lottieRef.current.setSpeed(1.5)
         console.log("mouseover", lottieRef)
         setLoop(false);
         lottieRef.current.setDirection(1);
-        lottieRef.current.goToAndPlay(22);
+        lottieRef.current.goToAndPlay(15);
         // lottieRef.current.goToAndPlay(22)
         props.onHoverEnter?.call()
     }
@@ -55,7 +55,7 @@ function UnboxrButton(props: Props) {
 
                 lottieRef={lottieRef}
                 animationData={boxLottie}
-                initialSegment={[22, 100]}
+                initialSegment={[16, 100]}
                 autoplay={false}
                 loop={isLoop}
             />

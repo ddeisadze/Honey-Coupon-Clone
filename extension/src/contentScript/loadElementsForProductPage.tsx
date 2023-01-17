@@ -3,7 +3,7 @@ import { amazonProductAttributes } from './amazon/amazonProductAttributes';
 import { extractProductInformationFromAmazonPage } from './amazon/extractProductInformationFromAmazonPage';
 import { sendSearchForInfluencerRequest } from './sendSearchForInfluencerRequest';
 
-export function loadElementsForProductPage(test: boolean) {
+export async function loadElementsForProductPage(test: boolean) {
     const windowUrl = window.location.href;
 
     const extractedProductInfo = test ? null : extractProductInformationFromAmazonPage();
@@ -22,6 +22,8 @@ export function loadElementsForProductPage(test: boolean) {
     };
 
     if (doWeHaveEnoughProductInfoToFindPromotion() || test) {
+        console.log("yoasdadssaasjnxz znncjalsajskljaaavv65")
+
         const argument = test ? testProductInfo : extractedProductInfo;
 
         sendSearchForInfluencerRequest(argument).then(data => {
@@ -34,8 +36,59 @@ export function loadElementsForProductPage(test: boolean) {
             injectUnboxrButton(couponCode, companyWebsite, couponUrlLink);
 
         }).catch(err => console.log(err));
+        console.log("yoasdadssaasjnxz znncjalsajskljaaavv2")
+
+
+        const data = {
+            url: 'https://example.com',
+        };
+        
+        // await fetch("http://127.0.0.1:8000/get_url/", {
+        //     method: 'POST', 
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(data),
+        // })
+        console.log("yoasdadssaasjnxz znncjalsajskljaaavv")
+        const controller = new AbortController();
+
+        // 5 second timeout:
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        const requestOptions: RequestInit = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+            signal: controller.signal
+        };
+    
+        return await fetch("http://127.0.0.1:8000/get_url/", requestOptions)
+            .then(response => response.json())
+            .then(data => Promise.resolve(data))
+            .catch(err => {
+                Promise.reject(err);
+                console.log(err, "err");
+            });
 
     } else {
+        // const controller = new AbortController();
+
+        // // 5 second timeout:
+        // const timeoutId = setTimeout(() => controller.abort(), 5000);
+        // const requestOptions: RequestInit = {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(windowUrl),
+        //     signal: controller.signal
+        // };
+    
+        // return await fetch("http://127.0.0.1:8000/get_url/", requestOptions)
+        //     .then(response => response.json())
+        //     .then(data => Promise.resolve(data))
+        //     .catch(err => {
+        //         Promise.reject(err);
+        //         console.log(err, "err");
+        //     });
         console.log("Could not match regex for asin in url. ", extractedProductInfo, windowUrl);
     }
 

@@ -16,6 +16,7 @@ window.onload = () => {
         loadElementsForProductPage(false);
     } else {
         // other amazon pages
+        
         loadElementsForProductPage(true);
     }
     
