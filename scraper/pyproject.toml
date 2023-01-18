@@ -25,6 +25,14 @@ pandas = "^1.5.2"
 notebook = "^6.5.2"
 spacymoji = "^3.0.1"
 
+
+[tool.poetry.group.scrapyd.dependencies]
+scrapyd = "^1.3.0"
+sqlalchemy = ">=1.2.15,<1.4.0"
+werkzeug = "2.0.2"
+scrapydweb = "^1.4.0"
+scrapyd-client = "^1.2.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

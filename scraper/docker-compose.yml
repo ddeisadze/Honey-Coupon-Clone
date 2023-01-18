@@ -12,27 +12,9 @@ services:
     ports:
       - 27017:27017
 
-  crawlab_master:
-    image: crawlabteam/crawlab
-    container_name: crawlab_master
-    restart: always
-    environment:
-      CRAWLAB_NODE_MASTER: Y
-      CRAWLAB_MONGO_HOST: localhost
-      CRAWLAB_MONGO_PORT: 27017
-      CRAWLAB_MONGO_DB: unboxr
-      CRAWLAB_MONGO_USERNAME: root
-      CRAWLAB_MONGO_PASSWORD: example
-    volumes:
-      - /opt/crawlab/master:/data # persistent crawlab data
-    ports:
-      - 8080:8080 # exposed api port
-    depends_on:
-      - mongodb
   # scrapy:
   #   build:
-  #     context: .
-  #     dockerfile: DockerFile
+  #     dockerfile: docker/ProductsScrapyDockerFile
   #   environment:
   #     MONGO_HOSTNAME: mongodb
   #     MONGO_PORT: 27017
@@ -45,5 +27,55 @@ services:
   #   depends_on:
   #     - mongodb
 
+  scrapyd:
+    image: easypi/scrapyd
+    environment:
+      MONGO_HOSTNAME: mongodb
+      MONGO_PORT: 27017
+      MONGO_DBNAME: unboxr
+      MONGO_COLLECTION: products-crawler
+      MONGO_USER: root
+      MONGO_PASS: example
+    ports:
+      - "6800:6800"
+    volumes:
+      - ./data:/var/lib/scrapyd
+      - /usr/local/lib/python3.9/dist-packages
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+
+  scrapydweb:
+    build:
+      dockerfile: docker/ScrapydwebDockerFile
+    environment:
+      SCRAPYD_SERVERS: "scrapy:secret@scrapyd:6800#default"
+      TARGET: http://scrapyd:6800
+      PROJECT: products
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    # volumes:
+    #   - ./data:/var/lib/scrapyd
+    #   - /usr/local/lib/python3.9/dist-packages
+    # restart: unless-stopped
+    depends_on:
+      - scrapyd
+    command: tail -f /dev/null
+  # scrapyrt:
+  #   image: easypi/scrapyd
+  #   command: scrapyrt -i 0.0.0.0 -p 9080
+  #   ports:
+  #     - "9080:9080"
+  #   volumes:
+  #     - .:/code
+  #   working_dir: /code
+  #   restart: unless-stopped
+
 volumes:
   mongodb:
+
+    # networks:
+    #   default:
+    #     external: true

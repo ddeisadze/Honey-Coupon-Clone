@@ -5,7 +5,7 @@ from urllib.parse import urlencode
 from urllib.parse import urljoin
 
 from products.items import AmazonProductItem
-from scraper.products.spiders.utility import parse_out_all_tables_on_page
+from products.spiders.utility import parse_out_all_tables_on_page
 
 
 class AmazonSearchToProductPage(scrapy.Spider):

@@ -1,3 +1,5 @@
+import os
+
 # Scrapy settings for products project
 #
 # For simplicity, this file contains only settings considered important or
@@ -127,3 +129,10 @@ COOKIES_ENABLED = False
 ROTATING_PROXY_LIST_PATH = 'products/proxylist.txt'
 ROTATING_PROXY_BACKOFF_BASE = 15
 ROTATING_PROXY_BACKOFF_CAP = 60
+
+MONGO_HOSTNAME = os.environ.get('MONGO_HOSTNAME', 'localhost')
+MONGO_DBNAME = os.environ.get('MONGO_DBNAME', 'unboxr')
+MONGO_COLLECTION = os.environ.get('MONGO_COLLECTION', 'products-crawler')
+MONGO_PORT = os.environ.get('MONGO_PORT', '27017')
+MONGO_USER = os.environ.get('MONGO_USER', '')
+MONGO_PASS = os.environ.get('MONGO_PASS', '')
