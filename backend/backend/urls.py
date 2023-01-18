@@ -39,8 +39,8 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
  
-    path('', FindInfluencerVideoByProductInfo.as_view(), name="sendemail"),
-    path('get_url/', CrawlAmazonProductPages.as_view(), name='get_url' ), 
+    path('', FindInfluencerVideoByProductInfo.as_view(), name="send-influencer-info"),
+    path('crawl-amazon-product-pages/', CrawlAmazonProductPages.as_view(), name='crawl-amazon-product-pages' ), 
 
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

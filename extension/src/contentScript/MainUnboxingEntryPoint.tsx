@@ -31,7 +31,7 @@ export function MainUnboxingEntryPoint(props) {
     const shouldShowUnboxrFunc = () => {
         if (shouldShowUnboxr) {
             return <>
-                <PopoverContainer couponCode={props.couponCode} setShouldShowUnboxr={setShouldShowUnboxr} companyWebsite={props.companyWebsite} couponUrlLink={props.couponUrlLink} isOpen={isPopoverOpen} onClose={() => setPopover(false)} />
+                <PopoverContainer couponCode={props.couponCode} videoLink={props.videoLink} setShouldShowUnboxr={setShouldShowUnboxr} companyWebsite={props.companyWebsite} couponUrlLink={props.couponUrlLink} isOpen={isPopoverOpen} onClose={() => setPopover(false)} />
                 <EntryButton size={150} onHoverEnter={() => { if (!isPopoverOpen){setPopover(true)}
                                                               else {setPopover(false)}}} />
             </>;

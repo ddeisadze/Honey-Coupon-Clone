@@ -1,22 +1,13 @@
-from django.shortcuts import render
-from django.core import serializers as core_serializers
-from django.forms.models import model_to_dict
-import json
-
-
 # Create your views here.
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework import status, permissions, serializers
 from django.http import JsonResponse
 
-from .models import Product, ProductSkuId, Promotion
-from .serializers.serializers import PromotionSerializer, ProductSerializer
+from .models import ProductSkuId, Promotion
+from .serializers.serializers import PromotionSerializer
 
-from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from django.views.decorators.csrf import csrf_exempt
-import requests
 
 
 class FindInfluencerForm(serializers.Serializer):
@@ -41,7 +32,6 @@ class FindInfluencerVideoByProductInfo(APIView):
 
         product_id_type = "ASIN"
 
-        # print(serializer.data)
 
         # try to find prodyct by sku
 
@@ -49,11 +39,9 @@ class FindInfluencerVideoByProductInfo(APIView):
             product_id_type__name=serializer.data['product_id_type'],
             product_id_value=serializer.data['product_id_value']
         )
-        # print(product_sku_ids)
 
         if product_sku_ids:
             product = product_sku_ids[0].product
-            # print(ProductSerializer(product).data)
 
             promotions = Promotion.objects.filter(product=product)
 
@@ -64,9 +52,6 @@ class FindInfluencerVideoByProductInfo(APIView):
 
             return JsonResponse(PromotionSerializer(get_first_prom).data, safe=False) 
 
-        return HttpResponse('No promotions found', status=status.HTTP_404_NOT_FOUND)
-
-# @csrf_exempt 
 
 
 class UrlForm(serializers.Serializer):
@@ -75,16 +60,15 @@ class UrlForm(serializers.Serializer):
  
 class CrawlAmazonProductPages(APIView):
     permission_classes = (permissions.AllowAny,)
-    @swagger_auto_schema(UrlForm)
+    @swagger_auto_schema(request_body=UrlForm)
     def post(self, request):
         serializer = UrlForm(data=request.data)
         serializer.is_valid(raise_exception=False)
 
         url = serializer.data['url']
-        print(url, "yooo")
-        scrapyd_host = 'http://localhost'
-        scrapyd_port = 8000
-        spider_name = 'my_spider'
-        params = {'project': 'my_project', 'spider': spider_name, 'url': url}
-        response = requests.post(f'{scrapyd_host}:{scrapyd_port}/schedule.json', data=params)
+        # scrapyd_host = 'http://localhost'
+        # scrapyd_port = 8000
+        # spider_name = 'my_spider'
+        # params = {'project': 'my_project', 'spider': spider_name, 'url': url}
+        # response = requests.post(f'{scrapyd_host}:{scrapyd_port}/schedule.json', data=params)
         return JsonResponse({"url":"url"})
