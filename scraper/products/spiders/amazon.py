@@ -67,6 +67,8 @@ class AmazonProductPage(scrapy.Spider):
 
 def parse_product_page(response):
     asin = None
+    product_url = None
+    
     if 'asin' in response.meta:
         asin = response.meta['asin']
         product_url = f"https://www.amazon.com/dp/{asin}"
