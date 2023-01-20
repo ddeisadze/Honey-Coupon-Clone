@@ -88,8 +88,6 @@ class Promotion(models.Model):
     influencer = models.ForeignKey(Influencer, on_delete=models.CASCADE)
     social_media_type = models.CharField(max_length=255, choices = social_choices, default="na")
 
-    # coupon_code = models.CharField(max_length=255, blank=True, null=True)
-
     coupon_description = models.TextField(blank=True, null=True)
     coupon_code_in_the_link = models.URLField(blank=True, null=True, help_text="This field will be populated if the coupon code is directly in the link")
 

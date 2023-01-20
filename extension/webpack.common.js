@@ -3,12 +3,14 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const HtmlPlugin = require('html-webpack-plugin');
 
 const path = require("path");
+const Dotenv = require('dotenv-webpack');
+
 
 module.exports = {
     entry: {
         popup: path.resolve("./src/popup/toolBarPopUp.tsx"),
-        background: path.resolve("./src/background/background.ts"),
-        content: path.resolve("./src/contentScript/amazon/amazonIndex.tsx"), 
+        content1: path.resolve("./src/contentScript/amazon/amazonIndex.tsx"), 
+        content: path.resolve("./src/contentScript/amazon/checkout/checkoutPage.tsx"),
         test: path.resolve("./src/contentScript/test.tsx"),
         options: path.resolve('./src/options/index.tsx'),
     },
@@ -34,6 +36,7 @@ module.exports = {
                 { from: path.resolve('src/assets/'), to: path.resolve('dist/assets') }
             ],
         }),
+        new Dotenv(),
 
         ...getHtmlPlugins([
             'popup',
@@ -44,12 +47,13 @@ module.exports = {
         new HTMLWebpackPlugin({
             title: 'Test Contet Script',
             filename: 'test.html',
-            chunks: ['content'],
+            chunks: ['content', 'content1'],
         }),
 
     ],
     resolve: {
-        extensions: [".tsx", ".ts", ".js", ".json"]
+        extensions: [".tsx", ".ts", ".js", ".json"],
+        
     },
     output: {
         filename: "[name].js",
@@ -57,7 +61,11 @@ module.exports = {
     optimization: {
         splitChunks: {
             chunks(chunk) {
-                return chunk.name !== 'content';
+                if(chunk.name && chunk.name.includes('content')){
+                    return false;
+                }
+                
+                return true;
             }
         }
     }

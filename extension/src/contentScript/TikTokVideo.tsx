@@ -2,7 +2,6 @@ import React from "react";
 
 export function TikTokVideo(props) {
   const idFromVideoLink = props.videoLink.match("([0-9]+)");
-  console.log(props.videoLink, "ayooo", idFromVideoLink);
 
   const embedUrl = "https://www.tiktok.com/embed/" + idFromVideoLink[0];
 

@@ -48,48 +48,16 @@ export async function loadElementsForProductPage(test: boolean) {
           videoLink
         );
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err, "ayo"));
     console.log("yoasdadssaasjnxz znncjalsajskljaaavv2");
 
-    const data = {
-      url: "https://example.com",
-    };
-
-    // await fetch("http://127.0.0.1:8000/get_url/", {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(data),
-    // })
-    console.log("yoasdadssaasjnxz znncjalsajskljaaavv");
-    const controller = new AbortController();
-
-    // 5 second timeout:
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
-    const requestOptions: RequestInit = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-      signal: controller.signal,
-    };
-
-    return await fetch(
-      "http://127.0.0.1:8000/crawl-amazon-product-pages/",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((data) => Promise.resolve(data))
-      .catch((err) => {
-        Promise.reject(err);
-        console.log(err, "err");
-      });
-  } else {
     
+  } else {
     console.log(
       "Could not match regex for asin in url. ",
       extractedProductInfo,
       windowUrl
     );
+    
   }
 }

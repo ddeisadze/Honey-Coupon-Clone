@@ -24,15 +24,19 @@
         "default_popup": "popup.html"
       },
 
-      "background": {
-        "service_worker": "background.js"
-    },
-
-    "content_scripts": [
+      "content_scripts": [
         {
-            "matches": ["*://*.amazon.com/*"],
+            "matches": ["*://*.amazon.com/*dp*"],
+            "js": ["content1.js"],
+            "run_at": "document_end"
+
+        },
+        {
+            "matches": ["https://www.amazon.com/*/buy/*"],
             "js": ["content.js"],
             "run_at": "document_end"
         }
     ]
+    
 }
+

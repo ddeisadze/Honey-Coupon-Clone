@@ -19,7 +19,6 @@ function UnboxrButton(props: Props) {
     setLoop(false);
     lottieRef.current.setDirection(1);
     lottieRef.current.goToAndPlay(15);
-    // lottieRef.current.goToAndPlay(22)
     props.onHoverEnter?.call();
   };
 
@@ -28,7 +27,6 @@ function UnboxrButton(props: Props) {
     setLoop(false);
     lottieRef.current.setDirection(-1);
     lottieRef.current.play();
-    // lottieRef.current.goToAndStop(22);
     props.onHoverExit?.call();
   };
 
@@ -61,7 +59,6 @@ function UnboxrButton(props: Props) {
         autoplay={false}
         loop={isLoop}
       />
-      {/* <p style={{ "margin": "0px", "float": "inline-end", textAlign: "center" }}>Unboxing found</p> */}
     </div>
   );
 }
