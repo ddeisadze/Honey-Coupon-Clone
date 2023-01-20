@@ -1,0 +1,31 @@
+FROM python:3.8-slim
+
+# ARG TARGETPLATFORM
+# ARG SCRAPY_VERSION=2.7.1
+# ARG SCRAPYD_VERSION=1.3.0
+# ARG SCRAPYD_CLIENT_VERSION=v1.2.2
+# ARG SCRAPYRT_VERSION=v0.13
+# ARG SPIDERMON_VERSION=1.17.0
+# ARG SCRAPY_POET_VERSION=0.6.0
+
+ADD . .
+
+ENV POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_VERSION=1.3.1 \
+    POETRY_ENV=production
+# Install Poetry
+RUN pip install poetry==${POETRY_VERSION}
+RUN poetry install --with scrapyd
+
+RUN poetry run scrapyd-deploy --build-egg crawler.egg 
+
+# COPY ./scrapyd.conf /etc/scrapyd/
+# VOLUME /etc/scrapyd/ /var/lib/scrapyd/
+
+EXPOSE 6800
+
+ADD eggs /eggs
+
+RUN mv -v crawler.egg eggs/crawler.egg
+
+CMD scrapyd
