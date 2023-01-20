@@ -31,7 +31,7 @@ export function MainUnboxingEntryPoint(props) {
       return (
         <>
           <PopoverContainer
-            couponCode={props.couponCode}
+            couponCodes={props.couponCodes}
             videoLink={props.videoLink}
             setShouldShowUnboxr={setShouldShowUnboxr}
             companyWebsite={props.companyWebsite}

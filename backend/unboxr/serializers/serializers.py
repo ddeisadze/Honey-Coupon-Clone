@@ -34,18 +34,20 @@ class InfluencerSerializer(serializers.ModelSerializer):
 class CouponSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coupon
-        fields = ['coupon_code', 'promotion']
+        fields = ['coupon_code']
         depth = 1
 
 class PromotionSerializer(serializers.ModelSerializer):
     influencer = InfluencerSerializer(read_only=True)
     product = ProductSerializer(read_only=True)
-    coupon = CouponSerializer(read_only=True)
+    # coupon = CouponSerializer(read_only=True)
+    coupons = CouponSerializer(many=True, read_only=True, source='coupon')
+
     # videos = serializers.SerializerMethodField()
     # images = serializers.SerializerMethodField()
 
     class Meta:
         model = Promotion
-        fields = ['influencer', 'product', 'videos', 'images', 'social_media_type', 'coupon_description', 'coupon_code_in_the_link', 'post_link', 'post_promotion_date', 'promotion_expiration_date', 'advertisement_link', 'date_modified', 'coupon']
+        fields = ['influencer', 'product', 'videos', 'images', 'social_media_type', 'coupon_description', 'coupon_code_in_the_link', 'post_link', 'post_promotion_date', 'promotion_expiration_date', 'advertisement_link', 'date_modified', 'coupons']
         depth = 1
 

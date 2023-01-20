@@ -185,6 +185,11 @@ function showTabs(props: any) {
           >
             <div className="coupon">
               {props.companyWebsite}
+              <ul>
+                {props.couponCodes.map((coupon) => (
+                  <li>{coupon.coupon_code}</li>
+                ))}
+              </ul>
               {props.couponUrlLink}
             </div>
           </PopoverBody>

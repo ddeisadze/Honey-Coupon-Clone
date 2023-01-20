@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { MainUnboxingEntryPoint } from "./MainUnboxingEntryPoint";
 
 export async function injectUnboxrButton(
-  couponCode: String,
+  couponCodes: Array<Object>,
   companyWebsite: String,
   couponUrlLink: String,
   videoLink: String
@@ -16,7 +16,7 @@ export async function injectUnboxrButton(
 
   entryButtonRoot.render(
     <MainUnboxingEntryPoint
-      couponCode={couponCode}
+      couponCodes={couponCodes}
       companyWebsite={companyWebsite}
       couponUrlLink={couponUrlLink}
       videoLink={videoLink}

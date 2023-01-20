@@ -34,15 +34,27 @@ export async function loadElementsForProductPage(test: boolean) {
     sendSearchForInfluencerRequest(argument)
       .then((data) => {
         console.log(data);
+ //TODO: once we have more data and more promotions for each product put in a algo that chooses the best promo
+        let videoLink = null
+        let companyWebsite = null
+        let couponCodes = [];
+        let couponUrlLink = null;
 
-        const videoLink = data.post_link;
-        const companyWebsite = data.product["company_website"];
-        const couponCode = data.coupon;
-        const couponUrlLink = data.coupon_code_in_the_link;
-        console.log("yooooo");
+        for (let promotion of data) {
+          videoLink = promotion.post_link ? promotion.post_link: null
+          companyWebsite = promotion.product["company_website"] ? promotion.product["company_website"]: null
+          couponCodes = couponCodes.concat(promotion.coupons)
+          couponUrlLink = promotion.coupon_code_in_the_link ? promotion.coupon_code_in_the_link: null
+
+
+        }
+        console.log(couponCodes);
+
+        
+        // console.log("yooooo");
 
         injectUnboxrButton(
-          couponCode,
+          couponCodes,
           companyWebsite,
           couponUrlLink,
           videoLink

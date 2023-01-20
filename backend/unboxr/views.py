@@ -47,11 +47,18 @@ class FindInfluencerVideoByProductInfo(APIView):
             if len(promotions) < 1:
                 return HttpResponse('No promotions found', status=status.HTTP_404_NOT_FOUND)
 
-            get_first_prom = promotions[0] # there should be only for now 
+            get_first_prom = promotions[0]
+            get_all_prom = promotions # there should be only for now 
+            print(get_all_prom)
             print(Coupon.objects.filter(promotion=get_first_prom))
             print(PromotionSerializer(get_first_prom).data)
 
-            return JsonResponse(PromotionSerializer(get_first_prom).data, safe=False) 
+            serialized_promos_arr = []
+            for promo in get_all_prom:
+                serialized_promos_arr.append(PromotionSerializer(promo).data)
+
+
+            return JsonResponse(serialized_promos_arr, safe=False) 
         try:
             if serializer.data['product_page']:
                 crawl_amazon_product_pages = CrawlAmazonProductPages()
