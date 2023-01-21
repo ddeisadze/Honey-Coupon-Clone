@@ -1,0 +1,75 @@
+body {
+  scrollbar-base-color: red;
+  scrollbar-arrow-color: white;
+}
+
+#entryButton {
+  position: fixed;
+  bottom: -2vh;
+  right: -1vw;
+  z-index: 99 !important;
+}
+
+#popup-container {
+  z-index: 1000 !important;
+}
+
+#popup-container div {
+  z-index: 1000 !important;
+}
+
+.css-1hcx8jb.evf3f5611 {
+  background-color: black;
+}
+
+#settings-icon {
+  position: absolute;
+  top: 1px;
+  right: 30px;
+  height: 30px;
+  width: 30px;
+}
+
+#dropDownSettings {
+  color: black;
+  display: none;
+  flex-direction: row;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+  height: 10.5vh;
+  width: 8vw;
+  right: 2.6vw;
+  top: 3vh;
+  border: 1px solid black;
+}
+
+#dropDownSettings ul li {
+  height: 30px;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  font-weight: normal;
+  line-height: 16px;
+}
+
+#dropDownSettings ul li button {
+  font: inherit;
+  color: inherit;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  outline: inherit;
+  padding: 0px;
+  background: none;
+  text-align: left;
+  align-items: center;
+  font-size: 15px;
+}
+
+.headerTitle {
+  margin: auto;
+  width: fit-content;
+  font-size: 15px;
+}
