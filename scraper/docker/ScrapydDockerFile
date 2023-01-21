@@ -24,7 +24,7 @@ RUN poetry run scrapyd-deploy --build-egg crawler.egg
 
 EXPOSE 6800
 
-ADD eggs /eggs
+RUN mkdir eggs
 
 RUN mv -v crawler.egg eggs/crawler.egg
 

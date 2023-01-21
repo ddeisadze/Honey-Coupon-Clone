@@ -62,8 +62,6 @@ services:
       PROJECT: products
     ports:
       - 5000:5000
-    volumes:
-      - .:/app
     depends_on:
       - scrapyd
 
