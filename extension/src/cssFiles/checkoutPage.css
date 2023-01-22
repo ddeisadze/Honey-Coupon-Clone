@@ -1,0 +1,13 @@
+.leftBody {
+
+    width: 40%;
+    height: 100%;
+}
+
+.rightBody {
+
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}

@@ -5,6 +5,9 @@ const HtmlPlugin = require('html-webpack-plugin');
 const path = require("path");
 const Dotenv = require('dotenv-webpack');
 
+const fileLoader = require('file-loader');
+const svgUrlLoader = require('svg-url-loader');
+
 
 module.exports = {
     entry: {
@@ -25,7 +28,12 @@ module.exports = {
                 use: ["style-loader", "css-loader"],
                 test: /\.css$/,
                 exclude: /node_modules/
-            }
+            },
+            {
+                test: /\.svg$/i,
+                issuer: /\.[jt]sx?$/,
+                use: ['@svgr/webpack'],
+              },
         ],
     },
     plugins: [
@@ -57,6 +65,8 @@ module.exports = {
     },
     output: {
         filename: "[name].js",
+        publicPath: '/svg/'
+
     },
     optimization: {
         splitChunks: {

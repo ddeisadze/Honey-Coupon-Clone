@@ -1,4 +1,4 @@
-import "/src/cssFiles/popup.css";
+import "/src/cssFiles/productPage.css";
 import { loadElementsForProductPage } from "../loadElementsForProductPage";
 
 window.onload = () => {
