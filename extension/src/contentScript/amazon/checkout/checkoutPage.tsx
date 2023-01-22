@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { sendSearchForInfluencerRequest } from '../../sendSearchForInfluencerRequest';
 import { ApplyCouponsAlert } from '../../applyCouponsAlert';
 import { createRoot } from "react-dom/client";
+import "/src/cssFiles/checkoutPage.css";
+
  
 
 window.onload = () => {

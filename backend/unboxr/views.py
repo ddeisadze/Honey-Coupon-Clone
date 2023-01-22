@@ -50,7 +50,7 @@ class FindInfluencerVideoByProductInfo(APIView):
             get_first_prom = promotions[0]
             get_all_prom = promotions # there should be only for now 
             print(get_all_prom)
-            print(Coupon.objects.filter(promotion=get_first_prom))
+            # print(Coupon.objects.filter(promotion=get_first_prom))
             print(PromotionSerializer(get_first_prom).data)
 
             serialized_promos_arr = []
