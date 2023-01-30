@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import boxLottie from "../assets/boxLottie.json";
 import Lottie from "lottie-react";
-import piggyBank from "../assets/piggyBank.json";
 
 
 interface Props {
@@ -56,7 +55,7 @@ function UnboxrButton(props: Props) {
         onMouseLeave={onMouseExit}
         onMouseEnter={onMouseEnter}
         lottieRef={lottieRef}
-        animationData={piggyBank}
+        animationData={boxLottie}
         initialSegment={[16, 100]}
         autoplay={false}
         loop={isLoop}

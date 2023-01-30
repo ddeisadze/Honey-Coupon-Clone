@@ -916,7 +916,7 @@
   "fields": {
     "influencer": 1,
     "social_media_type": "Tik",
-    "coupon_code": "coupon_code",
+    "coupon_code_in_the_link": "coupon_code",
     "coupon_description": "40% OFF",
     "post_link": "https://www.tiktok.com/@driggsy/video/7175166251935845674?is_copy_url=1&is_from_webapp=v1",
     "post_promotion_date": "2022-12-09T11:58:57Z",
@@ -933,7 +933,7 @@
   "fields": {
     "influencer": 1,
     "social_media_type": "Tik",
-    "coupon_code": "coupon_code",
+    "coupon_code_in_the_link": "coupon_code",
     "coupon_description": "n/a",
     "post_link": "https://www.tiktok.com/@driggsy/video/7167765831969934634?is_copy_url=1&is_from_webapp=v1",
     "post_promotion_date": "2022-12-19T14:31:55Z",
@@ -950,7 +950,7 @@
   "fields": {
     "influencer": 1,
     "social_media_type": "Tik",
-    "coupon_code": "coupon_code",
+    "coupon_code_in_the_link": "coupon_code",
     "coupon_description": "n",
     "post_link": "https://www.tiktok.com/@driggsy/video/7184608160097865002",
     "post_promotion_date": "2023-01-20T13:02:05Z",

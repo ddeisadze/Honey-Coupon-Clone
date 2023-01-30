@@ -11,32 +11,77 @@ import {
   PopoverAnchor,
   Button,
   ChakraProvider,
+  Divider,
 } from "@chakra-ui/react";
 import Logo from "../svg/logo.svg";
 import Lottie from "lottie-react";
-import piggyBank from "../assets/piggyBank.json";
+import piggieLottie from "../assets/piggieLottie.json";
 
+interface Props {
+  dataArray?: Array<Object>;
+  
+}
 
-export function ApplyCouponsAlert(props) {
+export function ApplyCouponsAlert(props:Props) {
   const [isAlertPopoverOpen, setAlertPopover] = useState(true);
   const cancelRef = React.useRef();
   const lottieRef = React.useRef();
   const [isLoop, setLoop] = useState(true);
 
-  console.log(props.dataArray, "fammmmmmfammmm");
+  console.log(typeof(props.dataArray), "fammmmmmfammmm");
+  console.log(props.dataArray)
   // const logo = require('../../images/logo.svg')
   // console.log(logo, "ayp");
+  console.log('ayoo');
 
-  const checkIfAmazonCheckoutHasPromoInput = () => {
+  let coupons = []
+  
+  props.dataArray.forEach(element => {
+    console.log("hahah");
+    
+    console.log(element);
+    coupons = coupons.concat(element.coupons)
+    
+  })
+  console.log(coupons, "coupons");
+  
+
+
+  const checkIfAmazonCheckoutHasPromoInput = (coupons) => {
     const input = document.getElementsByName("claimCode");
 
     if (input) {
-      input[0].value = "Hello, World!";
-      var applyButton = document.querySelector(
-        "span#gcApplyButtonId.a-button.a-button-base"
-      );
-      applyButton.click();
-    }
+      let i = 0;
+      const loop = () => {
+          if (i < coupons.length) {
+              input[0].value = coupons[i].coupon_code;
+              var applyButton = document.querySelector(
+                  "span#gcApplyButtonId.a-button.a-button-base"
+              );
+              applyButton.click();
+              i++;
+              setTimeout(loop, 1000);
+          }
+      }
+    loop();
+
+//       coupons.forEach((element, index) => {
+//         input[0].value = element.coupon_code;
+//         var applyButton = document.querySelector(
+//           "span#gcApplyButtonId.a-button.a-button-base"
+//         );
+//         applyButton.click();
+//         if(index !== coupons.length -1 ){
+//           console.log("jokjokjokjokjok");
+          
+//             setTimeout(()=>{},1000)
+//         }   
+// });
+
+
+
+  }
+    
   };
 
   return (
@@ -59,9 +104,16 @@ export function ApplyCouponsAlert(props) {
               },
             }}
           >
-            <PopoverHeader pt={4} fontWeight="bold" border="0" padding="4px">
+            <PopoverHeader
+              pt={4}
+              fontWeight="bold"
+              border="0"
+              padding="4px"
+              paddingBottom="5px"
+            >
               <Logo viewBox="110 110 160 130" height="45" width="45px" />
             </PopoverHeader>
+            {/* <Divider/> */}
             <PopoverCloseButton />
             <PopoverBody
               css={{
@@ -75,25 +127,49 @@ export function ApplyCouponsAlert(props) {
             >
               <div className="leftBody">
                 {/* <div id="piggieButton" > */}
-                  <Lottie
-                    animationData={piggyBank}
-                 
-
-
-                  />
+                <Lottie animationData={piggieLottie} />
                 {/* </div> */}
               </div>
-              <div className="rightBody">
-                <div className="coupons">
-                  <h2>2 Coupons Found!</h2>
+              <div className="rightBody"
+                style={{marginLeft: '10px'}}
+              >
+                <div
+                  className="coupons"
+                  style={{
+                    padding: "10px",
+                    textAlign: "center",
+                    border: " 2px dashed",
+                  }}
+                >
+                  <h1 style={{ fontSize: "25px" }}>2 Coupons Found!</h1>
                 </div>
 
+                <div className="buttonContainer"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row'
+                }}
+                >
                 <Button
                   colorScheme="pink"
-                  onClick={checkIfAmazonCheckoutHasPromoInput}
+                  onClick={() => checkIfAmazonCheckoutHasPromoInput(coupons)}
+                  width="150px"
+                  marginTop='15px'
                 >
                   Apply Coupons!
                 </Button>
+                <Button
+                  colorScheme="white"
+                  color='black'
+                  onClick={() => setAlertPopover(false)}
+                  width="100px"
+                  marginTop='15px'
+                >
+                  Try Later!
+                </Button>
+                </div>
+                
+                
               </div>
             </PopoverBody>
             <PopoverFooter

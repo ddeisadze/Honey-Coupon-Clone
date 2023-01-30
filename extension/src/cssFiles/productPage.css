@@ -73,3 +73,49 @@ body {
   width: fit-content;
   font-size: 15px;
 }
+
+
+.couponsContainer {
+  width: 60%;
+  height: fit-content;
+}
+
+.couponsContainer ul li{
+  list-style: none;
+  border: 2px solid rgba(0, 0, 0, 0.7);
+  margin-bottom: 20px;
+}
+
+.couponBorder {
+  border: 10px solid green;
+  height: 150px;
+}
+
+.couponContainer {
+  height: 100%;
+  width: 100%;
+  border: 2px dashed rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.couponContainer h1 {
+  font-size: 23px;
+  font-weight: 300;
+  text-transform: capitalize;
+}
+
+.coupon {
+  height: 40px;
+    width: 200px;
+    font-weight: 1000;
+    font-size: 30px;
+    background-color: green;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 5px solid darkgreen;
+}

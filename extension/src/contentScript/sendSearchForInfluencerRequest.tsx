@@ -29,7 +29,6 @@ export async function sendSearchForInfluencerRequest(
 
   return await fetch(process.env.REACT_APP_PROMOTIONS_GET_URL, requestOptions)
     .then((response) => response.json())
-    .then((data) => Promise.resolve(data))
     .catch((err) => {
       Promise.reject(err);
       console.log(err, "err");

@@ -19,6 +19,8 @@ import { SettingsIcon } from "@chakra-ui/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { faPlayCircle } from "@fortawesome/free-regular-svg-icons";
+import { faGift } from "@fortawesome/free-solid-svg-icons"
+
 import { TikTokVideo } from "./TikTokVideo";
 
 export function PopoverContainer(props) {
@@ -183,11 +185,25 @@ function showTabs(props: any) {
             width="-webkit-fill-available"
             padding="20px"
           >
-            <div className="coupon">
+            <div className="couponsContainer">
               {props.companyWebsite}
+              <h1>Coupons found!</h1>
               <ul>
                 {props.couponCodes.map((coupon) => (
-                  <li>{coupon.coupon_code}</li>
+                  <li>
+                    <div className="couponBorder">
+                      <div className="couponContainer">
+                        <FontAwesomeIcon icon={faGift} size={"3x"} color="#26850F" />
+                        <h1>25$ off with Code!</h1>
+                        <div className="coupon">
+                          {coupon.coupon_code}
+
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </li>
                 ))}
               </ul>
               {props.couponUrlLink}
