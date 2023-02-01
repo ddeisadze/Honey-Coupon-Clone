@@ -1,7 +1,9 @@
-body {
-  scrollbar-base-color: red;
-  scrollbar-arrow-color: white;
+:root {
+  --green: #39a27a;
+  --blue: #00B9FF;
+  --darkgreen: #388568;
 }
+
 
 #entryButton {
   position: fixed;
@@ -76,8 +78,9 @@ body {
 
 
 .couponsContainer {
-  width: 60%;
+  width: 275px;
   height: fit-content;
+  margin: auto;
 }
 
 .couponsContainer ul li{
@@ -87,8 +90,10 @@ body {
 }
 
 .couponBorder {
-  border: 10px solid green;
-  height: 150px;
+  border-bottom: 10px solid var(--darkgreen);
+  height: 180px;
+  padding: 10px;
+  background: var(--green);
 }
 
 .couponContainer {
@@ -99,6 +104,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background: white;
 }
 
 .couponContainer h1 {
@@ -112,10 +118,10 @@ body {
     width: 200px;
     font-weight: 1000;
     font-size: 30px;
-    background-color: green;
+    background-color: var(--green);
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 5px solid darkgreen;
+    border-bottom: 5px solid var(--darkgreen);
 }

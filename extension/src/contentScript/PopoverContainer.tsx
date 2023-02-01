@@ -193,7 +193,7 @@ function showTabs(props: any) {
                   <li>
                     <div className="couponBorder">
                       <div className="couponContainer">
-                        <FontAwesomeIcon icon={faGift} size={"3x"} color="#26850F" />
+                        <FontAwesomeIcon icon={faGift} size={"3x"} color="#96c8b6" />
                         <h1>25$ off with Code!</h1>
                         <div className="coupon">
                           {coupon.coupon_code}

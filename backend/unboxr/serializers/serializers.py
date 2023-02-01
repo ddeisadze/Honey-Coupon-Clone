@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from unboxr.models import Product, Promotion, Influencer, InfluencerSocialMedia, Coupon
+from unboxr.models import Product, Promotion, Influencer, InfluencerSocialMedia, Coupon, ProductPrice
 
 
 social_choices = (
@@ -9,11 +9,7 @@ social_choices = (
         ('Yt', 'Youtube')
     )
 
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = ['product_name', 'company_name', 'company_website', 'product_price', 'merchant_product_page', 'product_description', 'product_images', 'product_ids', 'product_categories']
-        depth = 1
+
 
 class InfluencerSocialMediaSerializer(serializers.ModelSerializer):
     platform = serializers.ChoiceField(choices=social_choices, source='social_media_type')
@@ -37,6 +33,23 @@ class CouponSerializer(serializers.ModelSerializer):
         fields = ['coupon_code']
         depth = 1
 
+class ProductPriceSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = ProductPrice
+        fields = ['price', 'date_published']
+        depth = 1
+
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    product_price_history = ProductPriceSerializer(many=True, read_only=True, source='ProductPrice')
+
+    class Meta:
+        model = Product
+        fields = ['product_name', 'company_name', 'company_website', 'product_price', 'merchant_product_page', 'product_description', 'product_images', 'product_ids', 'product_categories', 'product_price_history']
+        depth = 1
+
 class PromotionSerializer(serializers.ModelSerializer):
     influencer = InfluencerSerializer(read_only=True)
     product = ProductSerializer(read_only=True)
@@ -50,4 +63,3 @@ class PromotionSerializer(serializers.ModelSerializer):
         model = Promotion
         fields = ['influencer', 'product', 'videos', 'images', 'social_media_type', 'coupon_description', 'coupon_code_in_the_link', 'post_link', 'post_promotion_date', 'promotion_expiration_date', 'advertisement_link', 'date_modified', 'coupons']
         depth = 1
-
