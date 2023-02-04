@@ -3,10 +3,17 @@ import { amazonProductAttributes } from "./amazon/amazonProductAttributes";
 import { extractProductInformationFromAmazonPage } from "./amazon/productPage/extractProductInformationFromAmazonProductPage";
 import { sendSearchForInfluencerRequest } from "./searchPromotionsRequest";
 
-export async function loadElementsForProductPage(test: boolean) {
+export async function loadElementsForProductPage(test: boolean = false) {
   const windowUrl = window.location.href;
 
-  const extractedProductInfo = extractProductInformationFromAmazonPage();
+  let extractedProductInfo = null;
+
+  try {
+    extractedProductInfo = extractProductInformationFromAmazonPage();
+  }
+  catch {
+
+  }
 
   // DUMMY DATA FOR TEST.HTML
   const testProductInfo: amazonProductAttributes = {
@@ -21,13 +28,28 @@ export async function loadElementsForProductPage(test: boolean) {
   };
 
   const doWeHaveEnoughProductInfoToFindPromotion = () => {
-    return extractedProductInfo.asin;
+    return extractedProductInfo?.asin;
   };
 
-  if (doWeHaveEnoughProductInfoToFindPromotion() || test) {
-    const argument = test ? testProductInfo : extractedProductInfo;
+  if (test) {
 
-    sendSearchForInfluencerRequest(argument)
+    const testResponse = {
+      couponCodes: ["test1"],
+      companyWebsite: "https://www.amazon.com/dp/B0BCWNQPQ7?maas=maas_adg_api_8014460300101_static_12_26&ref_=aa_maas&aa_campaignid=capule3_launch-B0BCWNQPQ7-inf_tt-US&aa_adgroupid=seenebula_&aa_creativeid=US-ZMB3q1fkYb-projector&projector=1",
+      couponUrlLink: "https://www.amazon.com/dp/B0BCWNQPQ7?maas=maas_adg_api_8014460300101_static_12_26&ref_=aa_maas&aa_campaignid=capule3_launch-B0BCWNQPQ7-inf_tt-US&aa_adgroupid=seenebula_&aa_creativeid=US-ZMB3q1fkYb-projector&projector=1",
+      videoLink: "https://www.tiktok.com/@driggsy/video/7167765831969934634?is_copy_url=1&is_from_webapp=v1"
+    }
+
+    injectUnboxrButton(
+      testResponse.couponCodes,
+      testResponse.companyWebsite,
+      testResponse.couponUrlLink,
+      testResponse.videoLink
+    );
+  }
+
+  if (doWeHaveEnoughProductInfoToFindPromotion()) {
+    sendSearchForInfluencerRequest(extractedProductInfo)
       .then((data) => {
         //TODO: once we have more data and more promotions for each product put in a algo that chooses the best promo
         let videoLink = null;

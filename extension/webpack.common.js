@@ -12,9 +12,11 @@ const svgUrlLoader = require('svg-url-loader');
 module.exports = {
     entry: {
         popup: path.resolve("./src/popup/toolBarPopUp.tsx"),
-        product_page_content: path.resolve("./src/contentScript/amazon/productPage/amazonProductPage.tsx"), 
+        product_page_content: path.resolve("./src/contentScript/amazon/productPage/amazonProductPage.tsx"),
         checkout_page_content: path.resolve("./src/contentScript/amazon/checkout/checkoutPage.tsx"),
-        test: path.resolve("./src/contentScript/test.tsx"),
+        test_general: path.resolve("./src/contentScript/test.tsx"),
+        // test_product_page: path.resolve("./src/contentScript/test.tsx"),
+        test_checkout_page: path.resolve("./src/contentScript/test_checkout_page.tsx"),
         options: path.resolve('./src/options/index.tsx'),
     },
     module: {
@@ -33,7 +35,7 @@ module.exports = {
                 test: /\.svg$/i,
                 issuer: /\.[jt]sx?$/,
                 use: ['@svgr/webpack'],
-              },
+            },
         ],
     },
     plugins: [
@@ -53,28 +55,34 @@ module.exports = {
         ,
 
         new HTMLWebpackPlugin({
-            title: 'Test Contet Script',
-            filename: 'test.html',
-            chunks: ['product_page_content'],
+            title: 'Test Content Script',
+            filename: 'test_product_page.html',
+            chunks: ['product_page_content', 'test_general'],
+        }),
+
+        new HTMLWebpackPlugin({
+            title: 'Test Content Script',
+            filename: 'test_checkout_page.html',
+            chunks: ['checkout_page_content', 'test_general', 'test_checkout_page'],
         }),
 
     ],
     resolve: {
         extensions: [".tsx", ".ts", ".js", ".json"],
-        
+
     },
     output: {
         filename: "[name].js",
-        publicPath: '/svg/'
+        // publicPath: '/'
 
     },
     optimization: {
         splitChunks: {
             chunks(chunk) {
-                if(chunk.name && chunk.name.includes('content')){
+                if (chunk.name && chunk.name.includes('content')) {
                     return false;
                 }
-                
+
                 return true;
             }
         }

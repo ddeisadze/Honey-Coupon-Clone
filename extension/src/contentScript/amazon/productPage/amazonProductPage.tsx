@@ -1,8 +1,8 @@
 import "/src/cssFiles/productPage.css";
 import { loadElementsForProductPage } from "../../loadElementsForProductPage";
 
-window.onload = () => {  
-  
+window.onload = () => {
+
   // check if amazon product page 
   const isAmazonProductPage = () => {
     if (document.getElementById("productTitle")) {
@@ -11,11 +11,15 @@ window.onload = () => {
     return false;
   };
 
+  const environment = localStorage.getItem("ENVIRONMENT") == "test";
+
+  console.log(environment)
+  console.log(localStorage.getItem("ENVIRONMENT"))
+
   if (isAmazonProductPage()) {
-    loadElementsForProductPage(false);
+    loadElementsForProductPage(environment);
   } else {
     // other amazon pages
-
-    loadElementsForProductPage(true);
+    loadElementsForProductPage(environment);
   }
 };
