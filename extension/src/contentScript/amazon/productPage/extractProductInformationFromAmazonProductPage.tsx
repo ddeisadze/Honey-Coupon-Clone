@@ -1,4 +1,4 @@
-import { amazonProductAttributes } from "./amazonProductAttributes";
+import { amazonProductAttributes } from "../amazonProductAttributes";
 
 export function extractProductInformationFromAmazonPage(): amazonProductAttributes {
   const windowUrl = window.location.href;

@@ -1,6 +1,6 @@
 // TODO: configure webpack to load this file and amazonIndex file
 import React, { useState } from "react";
-import { sendSearchForInfluencerRequest } from "../../sendSearchForInfluencerRequest";
+import { sendSearchForInfluencerRequest } from "../../searchPromotionsRequest";
 import { ApplyCouponsAlert } from "../../applyCouponsAlert";
 import { createRoot } from "react-dom/client";
 import "/src/cssFiles/checkoutPage.css";
@@ -14,7 +14,7 @@ window.onload = async () => {
     if (element.defaultValue) {
       const promo = await sendSearchForInfluencerRequest({
         asin: element.defaultValue,
-      }).catch((err) => console.log("yoo", err));
+      }).catch((err) => console.log(err));
 
       if (promo) {
         promotions = promotions.concat(promo);

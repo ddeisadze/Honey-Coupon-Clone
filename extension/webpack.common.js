@@ -12,8 +12,8 @@ const svgUrlLoader = require('svg-url-loader');
 module.exports = {
     entry: {
         popup: path.resolve("./src/popup/toolBarPopUp.tsx"),
-        content1: path.resolve("./src/contentScript/amazon/amazonIndex.tsx"), 
-        content: path.resolve("./src/contentScript/amazon/checkout/checkoutPage.tsx"),
+        product_page_content: path.resolve("./src/contentScript/amazon/productPage/amazonProductPage.tsx"), 
+        checkout_page_content: path.resolve("./src/contentScript/amazon/checkout/checkoutPage.tsx"),
         test: path.resolve("./src/contentScript/test.tsx"),
         options: path.resolve('./src/options/index.tsx'),
     },
@@ -55,7 +55,7 @@ module.exports = {
         new HTMLWebpackPlugin({
             title: 'Test Contet Script',
             filename: 'test.html',
-            chunks: ['content', 'content1'],
+            chunks: ['product_page_content'],
         }),
 
     ],

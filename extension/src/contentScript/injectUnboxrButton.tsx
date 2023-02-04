@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { MainUnboxingEntryPoint } from "./MainUnboxingEntryPoint";
+import { MainUnboxingEntryPoint } from "./popoverContainer";
 
 export async function injectUnboxrButton(
   couponCodes: Array<Object>,

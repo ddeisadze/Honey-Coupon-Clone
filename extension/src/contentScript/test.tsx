@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import EntryButton from "./entryButton";
+import EntryButton from "./popoverEntryButton";
 
 document.getElementsByTagName("body")[0].style = "height:1200px";
 const entryButtonappContainer = document.createElement("div");

@@ -6,6 +6,8 @@ from django.http import JsonResponse
 
 from .models import ProductSkuId, Promotion, Coupon, ProductPrice
 from .serializers.serializers import PromotionSerializer, CouponSerializer
+from requests_toolbelt.multipart.encoder import MultipartEncoder
+
 
 import requests
 
@@ -39,7 +41,6 @@ class FindInfluencerVideoByProductInfo(APIView):
             product_id_type__name=serializer.data['product_id_type'],
             product_id_value=serializer.data['product_id_value']
         )
-        print(serializer.data)
 
         if product_sku_ids:
             product = product_sku_ids[0].product
@@ -55,7 +56,7 @@ class FindInfluencerVideoByProductInfo(APIView):
                         price=new_price, product=product)
                 else:
                     print("no", new_price, product.product_price,
-                          serializer.data['product_price'])
+                          serializer.data['product_price']) 
             except:
                 print("cant find current price of product")
 
@@ -76,7 +77,6 @@ class FindInfluencerVideoByProductInfo(APIView):
                 crawl_amazon_product_pages.post(request)
         except:
             pass
-        print('ayo2')
 
         return HttpResponse('No promotions found', status=status.HTTP_404_NOT_FOUND)
 
@@ -86,31 +86,24 @@ class CrawlAmazonProductPages(APIView):
 
     @swagger_auto_schema(request_body=FindInfluencerForm)
     def post(self, request):
-        print("heyy")
         serializer = FindInfluencerForm(data=request.data)
         serializer.is_valid(raise_exception=False)
-        # url = serializer.data['product_page']
-        url = "http://192.168.1.160:5000/schedule.json"
+        scrapydUrl = "http://192.168.1.160:6800/schedule.json"
 
-        payload = {
-            "project": "product",
-            "spider": "amazon_page",
-            "asin": "B0BCWNQPQ7"
-        }
+        asin = serializer.data["product_id_value"]
+
+        mp_encoder = MultipartEncoder(
+            fields={
+                "project": "default",
+                "spider": "amazon_page",
+                "asin": asin,
+            }
+        )
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Basic c2NyYXB5OnNlY3JldA=="
+            "Content-Type": mp_encoder.content_type
         }
 
-        response = requests.request("POST", url, json=payload, headers=headers)
+        response = requests.request(
+            "POST", scrapydUrl, data=mp_encoder, headers=headers, auth=('scrapy', 'secret'))
 
-        print(response.text)
-
-        # TODO: send url to scrapy crawler and crawl the uncrawled product page
-
-        # scrapyd_host = 'http://localhost'
-        # scrapyd_port = 8000
-        # spider_name = 'my_spider'
-        # params = {'project': 'my_project', 'spider': spider_name, 'url': url}
-        # response = requests.post(f'{scrapyd_host}:{scrapyd_port}/schedule.json', data=params)
-        return JsonResponse({"url": "url"})
+        return response.text
