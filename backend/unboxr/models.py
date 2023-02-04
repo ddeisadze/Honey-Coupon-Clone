@@ -23,17 +23,15 @@ class ProductImages(models.Model):
 
 class Product(models.Model):
     company_name = models.CharField(max_length=255,default="n/a")
-    company_website = models.URLField(default="n/a")
+    company_website = models.URLField(default="n/a", help_text="Website to the source company that manufactures the product.")
 
     product_name = models.CharField(max_length=255)
-    # product_sku = models.CharField(max_length=255, blank=True)
-    # product_other_id = models.CharField(max_length=255, blank=True)
     product_categories = models.ManyToManyField(Product_Category, related_name='products')
     
     product_description = models.TextField(blank=True)
     
     product_price = models.DecimalField(max_digits=10, decimal_places=2)
-    product_page = models.URLField()
+    merchant_product_page = models.URLField(help_text="Link to the product page on merchant websites.")
 
     date_modified = models.DateTimeField(auto_now=True)
     date_published = models.DateTimeField(auto_now_add=True)

@@ -1,0 +1,74 @@
+version: '3'
+
+services:
+  djangodb:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  django:
+    build:
+      context: ./backend
+      dockerfile: docker/DjangoDockerfile
+    image: xlharambe/unboxr-backend:latest
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - SCRAPYD_SERVERS=scrapyd:6080
+    depends_on:
+      - djangodb
+
+  scrapyDatabase:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_DATABASE: unboxr
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - 27017:27017
+
+  scrapyd:
+    build:
+      context: ./scraper
+      dockerfile: docker/ScrapydDockerFile
+    image: xlharambe/unboxr-scrapyd-backend:latest
+    environment:
+      MONGO_HOSTNAME: mongodb
+      MONGO_PORT: 27017
+      MONGO_DBNAME: unboxr
+      MONGO_COLLECTION: products-crawler
+      MONGO_USER: root
+      MONGO_PASS: example
+    ports:
+      - 6800:6800
+    restart: unless-stopped
+    depends_on:
+      - scrapyDatabase
+
+  scrapydweb:
+    build:
+      context: ./scraper
+      dockerfile: docker/ScrapydwebDockerFile
+    image: xlharambe/unboxr-scrapyd-ui:latest
+    environment:
+      SCRAPYD_SERVERS: "scrapy:secret@scrapyd:6800#default"
+      TARGET: http://scrapyd:6800
+      PROJECT: products
+    ports:
+      - 5000:5000
+    depends_on:
+      - scrapyd
+
+volumes:
+  mongodb:

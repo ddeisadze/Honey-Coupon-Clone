@@ -1,0 +1,22 @@
+FROM python:3.8-slim
+
+ENV POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_VERSION=1.3.1 \
+    POETRY_ENV=production \
+    SCRAPYD_HOST=http://scrapyd:6800
+
+# Install Poetry
+RUN pip install poetry==${POETRY_VERSION}
+# Create a directory for the Scrapy project
+RUN mkdir /app
+WORKDIR /app
+
+# Copy the Scrapy project files
+COPY . /app
+
+# Install the project dependencies with Poetry
+RUN --mount=type=cache,target=/home/.cache/pypoetry/cache \
+    --mount=type=cache,target=/home/.cache/pypoetry/artifacts \
+    poetry install --with scrapyd
+
+CMD poetry run scrapyd-deploy -p products

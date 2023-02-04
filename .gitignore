@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,django,react,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django,react,visualstudiocode
 
+scraper/screenshots
+
 ### Django ###
 *.log
 *.pot
@@ -10,6 +12,7 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media
+migrations
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -294,3 +297,48 @@ sketch
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django,react,visualstudiocode
+
+# postgres
+# Global excludes across all subdirectories
+*.o
+*.obj
+*.bc
+*.so
+*.so.[0-9]
+*.so.[0-9].[0-9]
+*.so.[0-9].[0-9][0-9]
+*.dylib
+*.dll
+*.exp
+*.a
+*.mo
+*.pot
+objfiles.txt
+.deps/
+*.gcno
+*.gcda
+*.gcov
+*.gcov.out
+lcov*.info
+coverage/
+coverage-html-stamp
+*.vcproj
+*.vcxproj
+win32ver.rc
+*.exe
+lib*dll.def
+lib*.pc
+
+# Local excludes in root directory
+/GNUmakefile
+/config.cache
+/config.log
+/config.status
+/pgsql.sln
+/pgsql.sln.cache
+/Debug/
+/Release/
+/tmp_install/
+/portlock/
+
+data/db/*
