@@ -14,65 +14,73 @@ import Lottie from "lottie-react";
 import piggieLottie from "../assets/piggieLottie.json";
 
 interface Props {
-  dataArray?: Array<Object>;
+  promotionsArray?: Array<Promotion>;
+}
+
+interface Promotion {
+  coupons: Array<Object>
+}
+
+function getTotalPriceForCart() {
+  const grandTotalPriceElement: HTMLSpanElement = document
+    .getElementsByClassName("grand-total-price")[0] as HTMLSpanElement;
+
+  let grandTotalPrice = parseFloat(
+    grandTotalPriceElement
+      .innerText.trim()
+      .replace(/[$,]/g, "")
+  );
+  return grandTotalPrice;
 }
 
 export function ApplyCouponsAlert(props: Props) {
   const [isAlertPopoverOpen, setAlertPopover] = useState(true);
 
   let coupons = [];
-  console.log(props.dataArray, props.dataArray.length)
-  props.dataArray.forEach((element) => {
+  props.promotionsArray.forEach((element) => {
     coupons = coupons.concat(element.coupons);
   });
 
   const checkIfAmazonCheckoutHasPromoInput = (coupons) => {
-    const input = document.getElementsByName("claimCode");
-    let grandTotalPrice = parseFloat(
-      document
-        .getElementsByClassName("grand-total-price")[0]
-        .innerText.trim()
-        .replace(/[$,]/g, "")
-    );
+    const couponInputElement: HTMLInputElement = document.getElementsByName("claimCode")[0] as HTMLInputElement;
+    let initialCartPrice = getTotalPriceForCart();
     let couponCodeThatWorked = null;
-    const applyButton = document.querySelector(
-      "span#gcApplyButtonId.a-button.a-button-base"
-    );
 
-    if (input) {
+    const applyButton: HTMLButtonElement = document.querySelector(
+      "span#gcApplyButtonId.a-button.a-button-base"
+    ) as HTMLButtonElement;
+
+    if (couponInputElement) {
       let i = 0;
 
-      const loop = () => {
+      const processCouponsAndFindWinningPrice = () => {
         if (i < coupons.length) {
-          input[0].value = coupons[i].coupon_code;
+          couponInputElement.value = coupons[i].coupon_code;
 
           applyButton.click();
-          let checkGrandTotalPrice = parseFloat(
-            document
-              .getElementsByClassName("grand-total-price")[0]
-              .innerText.trim()
-              .replace(/[$,]/g, "")
-          );
 
-          if (grandTotalPrice > checkGrandTotalPrice) {
-            grandTotalPrice = checkGrandTotalPrice;
+          let newCartPriceAfterCouponApplied = getTotalPriceForCart();
+
+          if (initialCartPrice > newCartPriceAfterCouponApplied) {
+            initialCartPrice = newCartPriceAfterCouponApplied;
             couponCodeThatWorked = coupons[i].coupon_code;
           }
           i++;
-          setTimeout(loop, 2000);
+          setTimeout(processCouponsAndFindWinningPrice, 1000);
         } else {
           if (couponCodeThatWorked) {
-            input[0].value = couponCodeThatWorked;
+            couponInputElement[0].value = couponCodeThatWorked;
 
             applyButton.click();
           }
         }
       };
-      loop();
+
+      processCouponsAndFindWinningPrice();
     }
   };
 
-  return  coupons.length > 0 ? (
+  return coupons.length > 0 ? (
     <>
       <ChakraProvider>
         <Popover

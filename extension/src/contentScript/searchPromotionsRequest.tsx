@@ -31,6 +31,5 @@ export async function sendSearchForInfluencerRequest(
     .then((response) => response.json())
     .catch((err) => {
       Promise.reject(err);
-      console.log(err, "err");
     });
 }
