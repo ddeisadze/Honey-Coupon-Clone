@@ -13,14 +13,16 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:    
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': dj_database_url.config(        
-#         # Feel free to alter this value to suit your needs.        
-#         default='postgresql://postgres:postgres@localhost:5432/mysite',        
-#         conn_max_age=600    )}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "postgres",  # set in docker-compose.yml
+        "PORT": 5432,  # default postgres port
+    }
+}
 
 MIDDLEWARE.extend([
     'django.middleware.security.SecurityMiddleware',

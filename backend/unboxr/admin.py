@@ -8,11 +8,30 @@ class VideoInline(admin.TabularInline):
 
 class ImageInline(admin.TabularInline):
     model = Image
-    extra = 1
+
+@admin.register(Coupon)
+class CouponAdmin(admin.ModelAdmin):
+    model = Coupon
+
+class CouponInline(admin.TabularInline):
+    model = Coupon
+    
+
+@admin.register(ProductPrice)
+class ProductPriceAdmin(admin.ModelAdmin):
+    model = ProductPrice
+
+class ProductPriceInline(admin.TabularInline):
+    model = ProductPrice
+    extra = 2
+
+
+    # autocomplete_fields = ['price']
+
+
 
 class InfluencerSocialMediaInline(admin.TabularInline):
     model = InfluencerSocialMedia
-    extra = 1
 
 
 @admin.register(Influencer)
@@ -31,7 +50,8 @@ class InfluencerInline(admin.TabularInline):
 class PromotionAdmin(admin.ModelAdmin):
     inlines = [
         VideoInline,
-        ImageInline
+        ImageInline, 
+        CouponInline
     ]
 
 class PromotionalInline(admin.TabularInline):
@@ -58,7 +78,8 @@ class ProductIdInline(admin.TabularInline):
 class PromotionAdmin(admin.ModelAdmin):
     inlines = [
         PromotionalInline,
-        ProductIdInline
+        ProductIdInline, 
+        ProductPriceInline
     ]
 
     # filter_horizontal  = ('product_id_type',)

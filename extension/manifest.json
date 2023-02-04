@@ -8,10 +8,15 @@
         "48": "images/48-unboxr.png",
         "128": "images/128-unboxr.png"
     },
+    "options_page": "options.html",
+
     
     "permissions": [
         "tabs",
-        "activeTab"
+        "activeTab",
+        "storage",
+        "alarms"
+
     ],
 
     "action": {
@@ -19,15 +24,19 @@
         "default_popup": "popup.html"
       },
 
-      "background": {
-        "service_worker": "background.js"
-    },
-
-    "content_scripts": [
+      "content_scripts": [
         {
-            "matches": ["*://*.amazon.com/*"],
+            "matches": ["*://*.amazon.com/*dp*"],
+            "js": ["content1.js"],
+            "run_at": "document_end"
+
+        },
+        {
+            "matches": ["https://www.amazon.com/*/buy/*"],
             "js": ["content.js"],
-            "run_at": "document_start"
+            "run_at": "document_end"
         }
     ]
+    
 }
+

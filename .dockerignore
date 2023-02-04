@@ -34,3 +34,8 @@ coverage.xml
 .hypothesis
 
 *.png
+
+**/migrations
+src/media
+*/db*
+*sqlite3
