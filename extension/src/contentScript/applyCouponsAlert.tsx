@@ -21,7 +21,7 @@ export function ApplyCouponsAlert(props: Props) {
   const [isAlertPopoverOpen, setAlertPopover] = useState(true);
 
   let coupons = [];
-
+  console.log(props.dataArray, props.dataArray.length)
   props.dataArray.forEach((element) => {
     coupons = coupons.concat(element.coupons);
   });
@@ -72,7 +72,7 @@ export function ApplyCouponsAlert(props: Props) {
     }
   };
 
-  return (
+  return  coupons.length > 0 ? (
     <>
       <ChakraProvider>
         <Popover
@@ -124,7 +124,7 @@ export function ApplyCouponsAlert(props: Props) {
                     border: " 2px dashed",
                   }}
                 >
-                  <h1 style={{ fontSize: "25px" }}>2 Coupons Found!</h1>
+                  <h1 style={{ fontSize: "25px" }}>{coupons.length} Coupons Found!</h1>
                 </div>
 
                 <div
@@ -165,5 +165,5 @@ export function ApplyCouponsAlert(props: Props) {
         </Popover>
       </ChakraProvider>
     </>
-  );
+  ) : null
 }

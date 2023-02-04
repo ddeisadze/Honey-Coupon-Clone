@@ -1,14 +1,12 @@
 import { injectUnboxrButton } from "./injectUnboxrButton";
 import { amazonProductAttributes } from "./amazon/amazonProductAttributes";
-import { extractProductInformationFromAmazonPage } from "./amazon/extractProductInformationFromAmazonPage";
-import { sendSearchForInfluencerRequest } from "./sendSearchForInfluencerRequest";
+import { extractProductInformationFromAmazonPage } from "./amazon/productPage/extractProductInformationFromAmazonProductPage";
+import { sendSearchForInfluencerRequest } from "./searchPromotionsRequest";
 
 export async function loadElementsForProductPage(test: boolean) {
   const windowUrl = window.location.href;
 
-  const extractedProductInfo = test
-    ? null
-    : extractProductInformationFromAmazonPage();
+  const extractedProductInfo = extractProductInformationFromAmazonPage();
 
   // DUMMY DATA FOR TEST.HTML
   const testProductInfo: amazonProductAttributes = {
@@ -23,35 +21,30 @@ export async function loadElementsForProductPage(test: boolean) {
   };
 
   const doWeHaveEnoughProductInfoToFindPromotion = () => {
-    return test ? null : extractedProductInfo.asin;
+    return extractedProductInfo.asin;
   };
 
   if (doWeHaveEnoughProductInfoToFindPromotion() || test) {
-    console.log("yoasdadssaasjnxz znncjalsajskljaaavv65");
-
     const argument = test ? testProductInfo : extractedProductInfo;
 
     sendSearchForInfluencerRequest(argument)
       .then((data) => {
-        console.log(data);
- //TODO: once we have more data and more promotions for each product put in a algo that chooses the best promo
-        let videoLink = null
-        let companyWebsite = null
+        //TODO: once we have more data and more promotions for each product put in a algo that chooses the best promo
+        let videoLink = null;
+        let companyWebsite = null;
         let couponCodes = [];
         let couponUrlLink = null;
 
         for (let promotion of data) {
-          videoLink = promotion.post_link ? promotion.post_link: null
-          companyWebsite = promotion.product["company_website"] ? promotion.product["company_website"]: null
-          couponCodes = couponCodes.concat(promotion.coupons)
-          couponUrlLink = promotion.coupon_code_in_the_link ? promotion.coupon_code_in_the_link: null
-
-
+          videoLink = promotion.post_link ? promotion.post_link : null;
+          companyWebsite = promotion.product["company_website"]
+            ? promotion.product["company_website"]
+            : null;
+          couponCodes = couponCodes.concat(promotion.coupons);
+          couponUrlLink = promotion.coupon_code_in_the_link
+            ? promotion.coupon_code_in_the_link
+            : null;
         }
-        console.log(couponCodes);
-
-        
-        // console.log("yooooo");
 
         injectUnboxrButton(
           couponCodes,
@@ -61,15 +54,5 @@ export async function loadElementsForProductPage(test: boolean) {
         );
       })
       .catch((err) => console.log(err, "ayo"));
-    console.log("yoasdadssaasjnxz znncjalsajskljaaavv2");
-
-    
-  } else {
-    console.log(
-      "Could not match regex for asin in url. ",
-      extractedProductInfo,
-      windowUrl
-    );
-    
   }
 }
