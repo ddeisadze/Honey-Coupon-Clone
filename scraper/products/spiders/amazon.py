@@ -5,7 +5,7 @@ from urllib.parse import urlencode
 from urllib.parse import urljoin
 
 from products.items import AmazonProductItem
-from products.spiders.utility import parse_out_all_tables_on_page
+from products.utility import parse_out_all_tables_on_page
 
 
 class AmazonSearchToProductPage(scrapy.Spider):
@@ -68,7 +68,7 @@ class AmazonProductPage(scrapy.Spider):
 def parse_product_page(response):
     asin = None
     product_url = None
-    
+
     if 'asin' in response.meta:
         asin = response.meta['asin']
         product_url = f"https://www.amazon.com/dp/{asin}"
@@ -134,6 +134,10 @@ def parse_product_page(response):
         '//*[@id="feature-bullets"]//li/span/text()').extract()
     seller_rank = response.xpath(
         '//*[text()="Amazon Best Sellers Rank:"]/parent::*//text()[not(parent::style)]').extract()
+
+    # check if there are any failures
+    if not title:
+        raise Exception("Could not extract out information from site.")
 
     yield AmazonProductItem({'Id': asin, "IdType": "asin", 'Title': title, 'MainImage': image, 'Rating': rating, 'NumberOfReviews': number_of_reviews,
                              'PricePaid': price_to_pay, 'PriceList': list_price, 'PriceDiscount': savingsPercentage, 'AvailableSizes': sizes, 'AvailableColors': colors, 'Details': bullet_points,

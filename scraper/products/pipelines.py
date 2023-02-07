@@ -5,7 +5,6 @@
 
 
 # useful for handling different item types with a single interface
-from products.oracleDb import CrawlerWriterOracle
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 import pymongo
@@ -51,9 +50,6 @@ class MongoPipeline:
         mongo_user = crawler.settings.get("MONGO_USER")
         mongo_pass = crawler.settings.get("MONGO_PASS")
 
-        print(hostname, port, dbName, mongo_collection,
-              mongo_pass, mongo_user, "inside crawler")
-
         if not hostname or not port or not dbName or not mongo_collection or not mongo_pass or not mongo_user:
             print(ValueError("Missing Mongo settings"))
             return cls(None, None, None, None, None, None, skip=True)
@@ -68,8 +64,11 @@ class MongoPipeline:
         )
 
     def open_spider(self, spider):
-        self.client = pymongo.MongoClient(self.mongo_uri)
-        self.db = self.client[self.mongo_db]
+        try:
+            self.client = pymongo.MongoClient(self.mongo_uri)
+            self.db = self.client[self.mongo_db]
+        except:
+            print("Unable to connect to Mongodb.")
 
     def close_spider(self, spider):
         self.client.close()
