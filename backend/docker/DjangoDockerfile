@@ -1,4 +1,5 @@
 FROM python:3.8-alpine
+FROM python:3.8-alpine
 
 ENV POETRY_VIRTUALENVS_CREATE=false \
     POETRY_VERSION=1.3.1 \
@@ -20,12 +21,9 @@ RUN --mount=type=cache,target=/home/.cache/pypoetry/cache \
 # RUN python manage.py makemigrations
 # RUN python manage.py migrate
 
-<<<<<<< HEAD
-=======
 # RUN python manage.py makemigrations unboxr
 # RUN python manage.py migrate unboxr
 
->>>>>>> 36593f3ef46e13bc3d0dc4d902b18df6ab73bdd2
 # RUN python manage.py loaddata dump.json
 # RUN echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@myproject.com', 'test')" | python manage.py shell
 
