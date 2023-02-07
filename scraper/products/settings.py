@@ -133,6 +133,6 @@ ROTATING_PROXY_BACKOFF_CAP = 60
 MONGO_HOSTNAME = os.environ.get('MONGO_HOSTNAME', 'localhost')
 MONGO_DBNAME = os.environ.get('MONGO_DBNAME', 'unboxr')
 MONGO_COLLECTION = os.environ.get('MONGO_COLLECTION', 'products-crawler')
-MONGO_PORT = os.environ.get('MONGO_PORT', '27017')
+MONGO_PORT = os.environ.get('MONGO_PORT', 27017)
 MONGO_USER = os.environ.get('MONGO_USER', '')
 MONGO_PASS = os.environ.get('MONGO_PASS', '')

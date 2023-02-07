@@ -8,3 +8,10 @@ use a pool of rotating IPs. For example, the free Tor project or paid services l
 
 Mongodb pipeline:
 https://docs.scrapy.org/en/latest/topics/item-pipeline.html?highlight=mongo
+
+# Poetry
+
+Use virtualenv in project
+poetry config virtualenvs.in-project true
+
+See https://stackoverflow.com/questions/59882884/vscode-doesnt-show-poetry-virtualenvs-in-select-interpreter-option
