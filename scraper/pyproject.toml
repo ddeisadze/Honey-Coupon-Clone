@@ -30,6 +30,7 @@ spacymoji = "^3.0.1"
 scrapyd = "^1.3.0"
 sqlalchemy = ">=1.2.15,<1.4.0"
 werkzeug = "2.0.2"
+APScheduler = "3.9.1"
 scrapydweb = "^1.4.0"
 scrapyd-client = "^1.2.2"
 
