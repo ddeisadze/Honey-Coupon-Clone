@@ -15,12 +15,10 @@ export async function getProductByAsin(asin: string) {
     signal: controller.signal,
   };
 
-  const promotions_route = `/products/by/asin/${asin}`;
-  const url = "http://" + process.env.BACKEND_HOSTNAME + promotions_route;
+  const base = new URL("/", process.env.BACKEND_HOSTNAME)
+  const route = new URL(`/products/by/asin/${asin}`, base);
 
-  console.log(process.env.BACKEND_HOSTNAME)
-
-  return await fetch(url, requestOptions)
+  return await fetch(route.href, requestOptions)
     .then((response) => response.json() as Promise<Product>)
     .catch((err) => {
       Promise.reject(err);

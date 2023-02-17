@@ -27,7 +27,6 @@ export function ProductPriceHistoryGraph(props: priceHistoryProps) {
         } else {
             getProductByAsin(props.asin)
                 .then((product: Product) => {
-                    console.log(product)
                     setProduct(product)
                 })
         }
@@ -36,7 +35,6 @@ export function ProductPriceHistoryGraph(props: priceHistoryProps) {
             (elm, index) => ({ x: new Date(elm.date_modified), y: parseFloat(elm.discounted_price), obj: elm }));
 
         setActiveDataPoint(listPriceData?.at(1))
-        console.log(listPriceData)
     }, [])
 
     const listPriceData: GraphDataPoint[] = product?.prices.map(
@@ -62,16 +60,18 @@ export function ProductPriceHistoryGraph(props: priceHistoryProps) {
         setActiveDataPoint(null);
     }
 
-    const activeDp = activeDataPoint ?? listPriceData?.at(1);
+    const defaultOrActiveDataPoint = activeDataPoint ?? listPriceData?.at(1);
+    const dateAddedLocaleString = new Date(defaultOrActiveDataPoint?.obj?.date_added).toLocaleDateString() ?? "N/A"
 
     return <>
         <XYPlot
+            margin={0}
             xType="time"
             width={300}
             height={150}
             onMouseLeave={() => this.setActiveDataPoint(false)}>
 
-            <YAxis tickTotal={2} tickFormat={(d) => `$${d}`} hideLine tickSizeInner={0} tickSizeOuter={0} />
+            {/* <YAxis tickTotal={2} tickFormat={(d) => `$${d}`} hideLine tickSizeInner={0} tickSizeOuter={0} /> */}
 
             <LineMarkSeries
                 strokeDasharray="15"
@@ -85,12 +85,13 @@ export function ProductPriceHistoryGraph(props: priceHistoryProps) {
 
             <AreaSeries color={"cyan"} data={discountData} curve={"curveMonotoneX"} opacity={0.15}></AreaSeries>
 
-            {activeDp &&
+            {defaultOrActiveDataPoint &&
 
-                <Crosshair values={[activeDp]}>
+                <Crosshair values={[defaultOrActiveDataPoint]}>
                     <Stack direction='column'>
-                        <Badge>{(activeDp?.obj?.date_added ?? new Date()).toLocaleDateString()}</Badge>
-                        <Badge colorScheme='green'>${activeDp.obj.discounted_price}</Badge>
+                        <Badge size="sm" variant='subtle'>{dateAddedLocaleString}</Badge>
+                        <Badge variant="solid" colorScheme='blue'>${defaultOrActiveDataPoint.obj.discounted_price} Total</Badge>
+                        <Badge variant='subtle' colorScheme='cyan'>${defaultOrActiveDataPoint.obj.discount} OFF</Badge>
                     </Stack>
                 </Crosshair>
             }
