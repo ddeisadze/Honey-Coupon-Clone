@@ -3,7 +3,6 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const HtmlPlugin = require('html-webpack-plugin');
 
 const path = require("path");
-const Dotenv = require('dotenv-webpack');
 
 const fileLoader = require('file-loader');
 const svgUrlLoader = require('svg-url-loader');
@@ -15,6 +14,7 @@ module.exports = {
         product_page_content: path.resolve("./src/contentScript/amazon/productPage/amazonProductPage.tsx"),
         checkout_page_content: path.resolve("./src/contentScript/amazon/checkout/checkoutPage.tsx"),
         test_general: path.resolve("./src/contentScript/test.tsx"),
+        test_price_history: path.resolve("./src/contentScript/test_price_history.tsx"),
         // test_product_page: path.resolve("./src/contentScript/test.tsx"),
         test_checkout_page: path.resolve("./src/contentScript/test_checkout_page.tsx"),
         options: path.resolve('./src/options/index.tsx'),
@@ -28,8 +28,7 @@ module.exports = {
             },
             {
                 use: ["style-loader", "css-loader"],
-                test: /\.css$/,
-                exclude: /node_modules/
+                test: /\.css$/
             },
             {
                 test: /\.svg$/i,
@@ -46,8 +45,6 @@ module.exports = {
                 { from: path.resolve('src/assets/'), to: path.resolve('dist/assets') }
             ],
         }),
-        new Dotenv(),
-
         ...getHtmlPlugins([
             'popup',
             'options',
@@ -64,6 +61,12 @@ module.exports = {
             title: 'Test Content Script',
             filename: 'test_checkout_page.html',
             chunks: ['checkout_page_content', 'test_general', 'test_checkout_page'],
+        }),
+
+        new HTMLWebpackPlugin({
+            title: 'Test Price History',
+            filename: 'test_price_history.html',
+            chunks: ['test_price_history'],
         }),
 
     ],

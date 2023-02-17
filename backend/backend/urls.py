@@ -21,23 +21,27 @@ from django.urls import include, re_path
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-from unboxr.views import FindInfluencerVideoByProductInfo, CrawlAmazonProductPages
+from rest_framework.routers import DefaultRouter
+from unboxr.views import FindInfluencerVideoByProductInfo, CrawlAmazonProductPages, ProductsViewSet
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Snippets API",
+      title="Unboxr API",
       default_version='v1',
-      description="Test description",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
       license=openapi.License(name="BSD License"),
    ),
    public=True,
    permission_classes=[permissions.AllowAny],
 )
 
+# Create a router and register our viewsets with it.
+router = DefaultRouter()
+router.register(r'products', ProductsViewSet, basename="product")
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    path('', include(router.urls)),
  
     path('promotions/get/', FindInfluencerVideoByProductInfo.as_view(), name="send-influencer-info"),
     path('products/crawl', CrawlAmazonProductPages.as_view(), name='crawl-amazon-product-pages' ), 

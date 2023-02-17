@@ -1,963 +1,964 @@
 [
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add log entry",
-    "content_type": [
-      "admin",
-      "logentry"
-    ],
-    "codename": "add_logentry"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change log entry",
-    "content_type": [
-      "admin",
-      "logentry"
-    ],
-    "codename": "change_logentry"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete log entry",
-    "content_type": [
-      "admin",
-      "logentry"
-    ],
-    "codename": "delete_logentry"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view log entry",
-    "content_type": [
-      "admin",
-      "logentry"
-    ],
-    "codename": "view_logentry"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add permission",
-    "content_type": [
-      "auth",
-      "permission"
-    ],
-    "codename": "add_permission"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change permission",
-    "content_type": [
-      "auth",
-      "permission"
-    ],
-    "codename": "change_permission"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete permission",
-    "content_type": [
-      "auth",
-      "permission"
-    ],
-    "codename": "delete_permission"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view permission",
-    "content_type": [
-      "auth",
-      "permission"
-    ],
-    "codename": "view_permission"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add group",
-    "content_type": [
-      "auth",
-      "group"
-    ],
-    "codename": "add_group"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change group",
-    "content_type": [
-      "auth",
-      "group"
-    ],
-    "codename": "change_group"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete group",
-    "content_type": [
-      "auth",
-      "group"
-    ],
-    "codename": "delete_group"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view group",
-    "content_type": [
-      "auth",
-      "group"
-    ],
-    "codename": "view_group"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add user",
-    "content_type": [
-      "auth",
-      "user"
-    ],
-    "codename": "add_user"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change user",
-    "content_type": [
-      "auth",
-      "user"
-    ],
-    "codename": "change_user"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete user",
-    "content_type": [
-      "auth",
-      "user"
-    ],
-    "codename": "delete_user"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view user",
-    "content_type": [
-      "auth",
-      "user"
-    ],
-    "codename": "view_user"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add content type",
-    "content_type": [
-      "contenttypes",
-      "contenttype"
-    ],
-    "codename": "add_contenttype"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change content type",
-    "content_type": [
-      "contenttypes",
-      "contenttype"
-    ],
-    "codename": "change_contenttype"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete content type",
-    "content_type": [
-      "contenttypes",
-      "contenttype"
-    ],
-    "codename": "delete_contenttype"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view content type",
-    "content_type": [
-      "contenttypes",
-      "contenttype"
-    ],
-    "codename": "view_contenttype"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add session",
-    "content_type": [
-      "sessions",
-      "session"
-    ],
-    "codename": "add_session"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change session",
-    "content_type": [
-      "sessions",
-      "session"
-    ],
-    "codename": "change_session"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete session",
-    "content_type": [
-      "sessions",
-      "session"
-    ],
-    "codename": "delete_session"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view session",
-    "content_type": [
-      "sessions",
-      "session"
-    ],
-    "codename": "view_session"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add product_ category",
-    "content_type": [
-      "unboxr",
-      "product_category"
-    ],
-    "codename": "add_product_category"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change product_ category",
-    "content_type": [
-      "unboxr",
-      "product_category"
-    ],
-    "codename": "change_product_category"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete product_ category",
-    "content_type": [
-      "unboxr",
-      "product_category"
-    ],
-    "codename": "delete_product_category"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view product_ category",
-    "content_type": [
-      "unboxr",
-      "product_category"
-    ],
-    "codename": "view_product_category"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add product images",
-    "content_type": [
-      "unboxr",
-      "productimages"
-    ],
-    "codename": "add_productimages"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change product images",
-    "content_type": [
-      "unboxr",
-      "productimages"
-    ],
-    "codename": "change_productimages"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete product images",
-    "content_type": [
-      "unboxr",
-      "productimages"
-    ],
-    "codename": "delete_productimages"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view product images",
-    "content_type": [
-      "unboxr",
-      "productimages"
-    ],
-    "codename": "view_productimages"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add product",
-    "content_type": [
-      "unboxr",
-      "product"
-    ],
-    "codename": "add_product"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change product",
-    "content_type": [
-      "unboxr",
-      "product"
-    ],
-    "codename": "change_product"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete product",
-    "content_type": [
-      "unboxr",
-      "product"
-    ],
-    "codename": "delete_product"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view product",
-    "content_type": [
-      "unboxr",
-      "product"
-    ],
-    "codename": "view_product"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add influencer social media",
-    "content_type": [
-      "unboxr",
-      "influencersocialmedia"
-    ],
-    "codename": "add_influencersocialmedia"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change influencer social media",
-    "content_type": [
-      "unboxr",
-      "influencersocialmedia"
-    ],
-    "codename": "change_influencersocialmedia"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete influencer social media",
-    "content_type": [
-      "unboxr",
-      "influencersocialmedia"
-    ],
-    "codename": "delete_influencersocialmedia"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view influencer social media",
-    "content_type": [
-      "unboxr",
-      "influencersocialmedia"
-    ],
-    "codename": "view_influencersocialmedia"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add product sku id",
-    "content_type": [
-      "unboxr",
-      "productskuid"
-    ],
-    "codename": "add_productskuid"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change product sku id",
-    "content_type": [
-      "unboxr",
-      "productskuid"
-    ],
-    "codename": "change_productskuid"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete product sku id",
-    "content_type": [
-      "unboxr",
-      "productskuid"
-    ],
-    "codename": "delete_productskuid"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view product sku id",
-    "content_type": [
-      "unboxr",
-      "productskuid"
-    ],
-    "codename": "view_productskuid"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add product id type",
-    "content_type": [
-      "unboxr",
-      "productidtype"
-    ],
-    "codename": "add_productidtype"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change product id type",
-    "content_type": [
-      "unboxr",
-      "productidtype"
-    ],
-    "codename": "change_productidtype"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete product id type",
-    "content_type": [
-      "unboxr",
-      "productidtype"
-    ],
-    "codename": "delete_productidtype"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view product id type",
-    "content_type": [
-      "unboxr",
-      "productidtype"
-    ],
-    "codename": "view_productidtype"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add influencer",
-    "content_type": [
-      "unboxr",
-      "influencer"
-    ],
-    "codename": "add_influencer"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change influencer",
-    "content_type": [
-      "unboxr",
-      "influencer"
-    ],
-    "codename": "change_influencer"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete influencer",
-    "content_type": [
-      "unboxr",
-      "influencer"
-    ],
-    "codename": "delete_influencer"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view influencer",
-    "content_type": [
-      "unboxr",
-      "influencer"
-    ],
-    "codename": "view_influencer"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add promotion",
-    "content_type": [
-      "unboxr",
-      "promotion"
-    ],
-    "codename": "add_promotion"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change promotion",
-    "content_type": [
-      "unboxr",
-      "promotion"
-    ],
-    "codename": "change_promotion"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete promotion",
-    "content_type": [
-      "unboxr",
-      "promotion"
-    ],
-    "codename": "delete_promotion"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view promotion",
-    "content_type": [
-      "unboxr",
-      "promotion"
-    ],
-    "codename": "view_promotion"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add video",
-    "content_type": [
-      "unboxr",
-      "video"
-    ],
-    "codename": "add_video"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change video",
-    "content_type": [
-      "unboxr",
-      "video"
-    ],
-    "codename": "change_video"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete video",
-    "content_type": [
-      "unboxr",
-      "video"
-    ],
-    "codename": "delete_video"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view video",
-    "content_type": [
-      "unboxr",
-      "video"
-    ],
-    "codename": "view_video"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add image",
-    "content_type": [
-      "unboxr",
-      "image"
-    ],
-    "codename": "add_image"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change image",
-    "content_type": [
-      "unboxr",
-      "image"
-    ],
-    "codename": "change_image"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete image",
-    "content_type": [
-      "unboxr",
-      "image"
-    ],
-    "codename": "delete_image"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view image",
-    "content_type": [
-      "unboxr",
-      "image"
-    ],
-    "codename": "view_image"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can add coupon",
-    "content_type": [
-      "unboxr",
-      "coupon"
-    ],
-    "codename": "add_coupon"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can change coupon",
-    "content_type": [
-      "unboxr",
-      "coupon"
-    ],
-    "codename": "change_coupon"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can delete coupon",
-    "content_type": [
-      "unboxr",
-      "coupon"
-    ],
-    "codename": "delete_coupon"
-  }
-},
-{
-  "model": "auth.permission",
-  "fields": {
-    "name": "Can view coupon",
-    "content_type": [
-      "unboxr",
-      "coupon"
-    ],
-    "codename": "view_coupon"
-  }
-},
-{
-  "model": "auth.user",
-  "fields": {
-    "password": "pbkdf2_sha256$390000$AnFQ9HFlXQ7PhBKvIyit7H$+38yV2Fou3Efv9WRMHWo2sry8rxQ5d9g48/Y7tSCQpM=",
-    "last_login": "2022-12-26T17:30:01.691Z",
-    "is_superuser": true,
-    "username": "mdeis",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2022-12-26T17:29:56.020Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "fields": {
-    "password": "pbkdf2_sha256$390000$YAtm8IOi8VE3ZiNTMDD3pI$xv5yW9wVHdYiDfpJp8oSb+TLM+fMkYxsRycnqanhEQU=",
-    "last_login": "2023-01-18T19:53:25.723Z",
-    "is_superuser": true,
-    "username": "mdeisadze",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2023-01-18T19:53:15.308Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "h7cag365v0dwaovx4z9cknvb5rd9jx7y",
-  "fields": {
-    "session_data": ".eJxVjDsOwjAUBO_iGllxEv8o6TmDte_ZxgHkSHFSIe4OkVJAuzOzLxGwrSVsLS1hiuIslDj9bgR-pLqDeEe9zZLnui4TyV2RB23yOsf0vBzu30FBK9_ajuRznwGLOAxwHbGC8kb1Djx6tqSZxmxM5zXBO9Or6IizigNIw4n3B_kdOIg:1p8Mbk:_DySz1E4BuKF9_JuIZa2C8RtI0q5Dc7OATMbN7TTgNs",
-    "expire_date": "2023-01-05T14:31:40.338Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "rkmunzx2pgfkw3pwudy6o15xu0oa8sui",
-  "fields": {
-    "session_data": ".eJxVjDsOwjAQBe_iGln-bmJKes5grb0bHEC2FCcV4u4QKQW0b2beS0Tc1hK3zkucSZyFFqffLWF-cN0B3bHemsytrsuc5K7Ig3Z5bcTPy-H-HRTs5VsrRD0pcIHzyGhMsMpDgGyCowSeOOjRagQ3KONTJgCXSGkgHICsm8T7A9C6N20:1p9rIX:uk0l0O4AJ2vBfb8_9tRomzJq9VxTbACLJRCYKYHyw3I",
-    "expire_date": "2023-01-09T17:30:01.697Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "xwonyxwkoltvcg7ou7bozxqubimau2xm",
-  "fields": {
-    "session_data": ".eJxVjDsOwjAQBe_iGlnZ9S-mpM8ZLDvexQHkSHFSIe5OIqWAdmbee4sQt7WErdESpiyuAsXll6U4PqkeIj9ivc9ynOu6TEkeiTxtk8Oc6XU727-DElvZ15wBmXXSqVfWkQVlUVuyCaPnSIja9OANo4KdG--UI-JkNQCorvPi8wXSyja3:1pIEUv:WNMD_-qqwezifBPm5x0PWKr2-IkeeJ-kz5J7NH4V-bw",
-    "expire_date": "2023-02-01T19:53:25.729Z"
-  }
-},
-{
-  "model": "unboxr.product_category",
-  "pk": 1,
-  "fields": {
-    "name": "Clothing & Accessories",
-    "description": "Clothing and accessories"
-  }
-},
-{
-  "model": "unboxr.product_category",
-  "pk": 2,
-  "fields": {
-    "name": "Electronics and Technology",
-    "description": "Tech"
-  }
-},
-{
-  "model": "unboxr.product",
-  "pk": 1,
-  "fields": {
-    "company_name": "Ridge",
-    "company_website": "https://ridge.com",
-    "product_name": "Ridge Wallet",
-    "product_description": "",
-    "product_price": "95.00",
-    "merchant_product_page": "",
-    "date_modified": "2022-12-22T17:01:52.965Z",
-    "date_published": "2022-12-22T17:01:52.965Z",
-    "product_categories": [
-      1
-    ]
-  }
-},
-{
-  "model": "unboxr.product",
-  "pk": 2,
-  "fields": {
-    "company_name": "Nebula",
-    "company_website": "https://us.seenebula.com/products/d2426-capsule-3-laser",
-    "product_name": "Anker Capsule 3 Laser Portable Projector",
-    "product_description": "Laser Engine Powers High Brightness: Stop squinting and just lean back to enjoy your favorite content with a laser light source�displaying 300 ISO Lumens of brightness in 1080p HD.\r\nFits in Your Hand: Wherever you need to go, Capsule 3 Laser is easy to pack up or just hold�weighing only 2 lb (900 g). The portable projector is 90% smaller than others with similar brightness.\r\nPlay Videos for 2.5 Hours: Yes, you can finish a long movie without worrying about power thanks to the 52Wh built-in battery. CAIC technology uses every pixel to conserve energy.\r\nSwitch Up Your Entertainment: Whether you're a cinephile or a gamer, Android TV 11.0 gives you abundant options for fun�no matter the situation. And the portable projector works with the Google Assistant and Chromecast. Download Netflix from Nebula Play,Use the Nebula Connect app on your phone to control Netflix on the projector.\r\nLet Your Ears Connect: Perk up your ears with the clash of swords or an intimate whisper with the powerful 8W Dolby Digital speaker�featuring realistic, high-fidelity sound on the portable projector.",
-    "product_price": "799.00",
-    "merchant_product_page": "",
-    "date_modified": "2022-12-29T23:00:09.680Z",
-    "date_published": "2022-12-22T19:41:09.910Z",
-    "product_categories": [
-      2
-    ]
-  }
-},
-{
-  "model": "unboxr.influencersocialmedia",
-  "pk": 1,
-  "fields": {
-    "influencer": 1,
-    "social_media_type": "Tik",
-    "social_media_username": "driggsy",
-    "date_modified": "2022-12-22T16:50:14.024Z",
-    "date_published": "2022-12-22T16:50:14.024Z"
-  }
-},
-{
-  "model": "unboxr.influencersocialmedia",
-  "pk": 2,
-  "fields": {
-    "influencer": 1,
-    "social_media_type": "Insta",
-    "social_media_username": "driggsy_",
-    "date_modified": "2022-12-22T16:50:14.024Z",
-    "date_published": "2022-12-22T16:50:14.024Z"
-  }
-},
-{
-  "model": "unboxr.productskuid",
-  "pk": 1,
-  "fields": {
-    "product": 2,
-    "product_id_value": "B0BCWNQPQ7",
-    "date_modified": "2022-12-22T20:29:50.829Z",
-    "date_published": "2022-12-22T20:29:50.829Z",
-    "product_id_type": [
-      1
-    ]
-  }
-},
-{
-  "model": "unboxr.productidtype",
-  "pk": 1,
-  "fields": {
-    "name": "asin",
-    "description": "",
-    "date_modified": "2022-12-22T20:28:57.341Z",
-    "date_published": "2022-12-22T20:28:57.341Z"
-  }
-},
-{
-  "model": "unboxr.influencer",
-  "pk": 1,
-  "fields": {
-    "name": "Dan Driggs",
-    "description": "I review tech & play Val",
-    "date_modified": "2022-12-22T16:50:14.022Z",
-    "date_published": "2022-12-22T16:50:14.022Z"
-  }
-},
-{
-  "model": "unboxr.promotion",
-  "pk": 1,
-  "fields": {
-    "influencer": 1,
-    "social_media_type": "Tik",
-    "coupon_code_in_the_link": "coupon_code",
-    "coupon_description": "40% OFF",
-    "post_link": "https://www.tiktok.com/@driggsy/video/7175166251935845674?is_copy_url=1&is_from_webapp=v1",
-    "post_promotion_date": "2022-12-09T11:58:57Z",
-    "promotion_expiration_date": "2022-12-22T11:58:57Z",
-    "advertisement_link": "http://ridge.com/driggsy",
-    "date_modified": "2022-12-22T19:35:15.458Z",
-    "date_published": "2022-12-22T17:01:16.694Z",
-    "product": 1
-  }
-},
-{
-  "model": "unboxr.promotion",
-  "pk": 2,
-  "fields": {
-    "influencer": 1,
-    "social_media_type": "Tik",
-    "coupon_code_in_the_link": "coupon_code",
-    "coupon_description": "n/a",
-    "post_link": "https://www.tiktok.com/@driggsy/video/7167765831969934634?is_copy_url=1&is_from_webapp=v1",
-    "post_promotion_date": "2022-12-19T14:31:55Z",
-    "promotion_expiration_date": "2022-12-22T14:31:55Z",
-    "advertisement_link": "https://www.amazon.com/dp/B0BCWNQPQ7",
-    "date_modified": "2023-01-19T22:36:38.594Z",
-    "date_published": "2022-12-22T19:41:09.913Z",
-    "product": 2
-  }
-},
-{
-  "model": "unboxr.promotion",
-  "pk": 3,
-  "fields": {
-    "influencer": 1,
-    "social_media_type": "Tik",
-    "coupon_code_in_the_link": "coupon_code",
-    "coupon_description": "n",
-    "post_link": "https://www.tiktok.com/@driggsy/video/7184608160097865002",
-    "post_promotion_date": "2023-01-20T13:02:05Z",
-    "promotion_expiration_date": null,
-    "advertisement_link": null,
-    "date_modified": "2023-01-20T18:05:10.955Z",
-    "date_published": "2023-01-20T18:05:10.956Z",
-    "product": 2
-  }
-}]
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": [
+        "admin",
+        "logentry"
+      ],
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": [
+        "admin",
+        "logentry"
+      ],
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": [
+        "admin",
+        "logentry"
+      ],
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": [
+        "admin",
+        "logentry"
+      ],
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add permission",
+      "content_type": [
+        "auth",
+        "permission"
+      ],
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change permission",
+      "content_type": [
+        "auth",
+        "permission"
+      ],
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": [
+        "auth",
+        "permission"
+      ],
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view permission",
+      "content_type": [
+        "auth",
+        "permission"
+      ],
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add group",
+      "content_type": [
+        "auth",
+        "group"
+      ],
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change group",
+      "content_type": [
+        "auth",
+        "group"
+      ],
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete group",
+      "content_type": [
+        "auth",
+        "group"
+      ],
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view group",
+      "content_type": [
+        "auth",
+        "group"
+      ],
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add user",
+      "content_type": [
+        "auth",
+        "user"
+      ],
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change user",
+      "content_type": [
+        "auth",
+        "user"
+      ],
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete user",
+      "content_type": [
+        "auth",
+        "user"
+      ],
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view user",
+      "content_type": [
+        "auth",
+        "user"
+      ],
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add content type",
+      "content_type": [
+        "contenttypes",
+        "contenttype"
+      ],
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change content type",
+      "content_type": [
+        "contenttypes",
+        "contenttype"
+      ],
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": [
+        "contenttypes",
+        "contenttype"
+      ],
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view content type",
+      "content_type": [
+        "contenttypes",
+        "contenttype"
+      ],
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add session",
+      "content_type": [
+        "sessions",
+        "session"
+      ],
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change session",
+      "content_type": [
+        "sessions",
+        "session"
+      ],
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete session",
+      "content_type": [
+        "sessions",
+        "session"
+      ],
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view session",
+      "content_type": [
+        "sessions",
+        "session"
+      ],
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add product_ category",
+      "content_type": [
+        "unboxr",
+        "product_category"
+      ],
+      "codename": "add_product_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change product_ category",
+      "content_type": [
+        "unboxr",
+        "product_category"
+      ],
+      "codename": "change_product_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete product_ category",
+      "content_type": [
+        "unboxr",
+        "product_category"
+      ],
+      "codename": "delete_product_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view product_ category",
+      "content_type": [
+        "unboxr",
+        "product_category"
+      ],
+      "codename": "view_product_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add product images",
+      "content_type": [
+        "unboxr",
+        "productimages"
+      ],
+      "codename": "add_productimages"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change product images",
+      "content_type": [
+        "unboxr",
+        "productimages"
+      ],
+      "codename": "change_productimages"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete product images",
+      "content_type": [
+        "unboxr",
+        "productimages"
+      ],
+      "codename": "delete_productimages"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view product images",
+      "content_type": [
+        "unboxr",
+        "productimages"
+      ],
+      "codename": "view_productimages"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add product",
+      "content_type": [
+        "unboxr",
+        "product"
+      ],
+      "codename": "add_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change product",
+      "content_type": [
+        "unboxr",
+        "product"
+      ],
+      "codename": "change_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete product",
+      "content_type": [
+        "unboxr",
+        "product"
+      ],
+      "codename": "delete_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view product",
+      "content_type": [
+        "unboxr",
+        "product"
+      ],
+      "codename": "view_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add influencer social media",
+      "content_type": [
+        "unboxr",
+        "influencersocialmedia"
+      ],
+      "codename": "add_influencersocialmedia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change influencer social media",
+      "content_type": [
+        "unboxr",
+        "influencersocialmedia"
+      ],
+      "codename": "change_influencersocialmedia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete influencer social media",
+      "content_type": [
+        "unboxr",
+        "influencersocialmedia"
+      ],
+      "codename": "delete_influencersocialmedia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view influencer social media",
+      "content_type": [
+        "unboxr",
+        "influencersocialmedia"
+      ],
+      "codename": "view_influencersocialmedia"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add product sku id",
+      "content_type": [
+        "unboxr",
+        "productskuid"
+      ],
+      "codename": "add_productskuid"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change product sku id",
+      "content_type": [
+        "unboxr",
+        "productskuid"
+      ],
+      "codename": "change_productskuid"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete product sku id",
+      "content_type": [
+        "unboxr",
+        "productskuid"
+      ],
+      "codename": "delete_productskuid"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view product sku id",
+      "content_type": [
+        "unboxr",
+        "productskuid"
+      ],
+      "codename": "view_productskuid"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add product id type",
+      "content_type": [
+        "unboxr",
+        "productidtype"
+      ],
+      "codename": "add_productidtype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change product id type",
+      "content_type": [
+        "unboxr",
+        "productidtype"
+      ],
+      "codename": "change_productidtype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete product id type",
+      "content_type": [
+        "unboxr",
+        "productidtype"
+      ],
+      "codename": "delete_productidtype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view product id type",
+      "content_type": [
+        "unboxr",
+        "productidtype"
+      ],
+      "codename": "view_productidtype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add influencer",
+      "content_type": [
+        "unboxr",
+        "influencer"
+      ],
+      "codename": "add_influencer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change influencer",
+      "content_type": [
+        "unboxr",
+        "influencer"
+      ],
+      "codename": "change_influencer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete influencer",
+      "content_type": [
+        "unboxr",
+        "influencer"
+      ],
+      "codename": "delete_influencer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view influencer",
+      "content_type": [
+        "unboxr",
+        "influencer"
+      ],
+      "codename": "view_influencer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add promotion",
+      "content_type": [
+        "unboxr",
+        "promotion"
+      ],
+      "codename": "add_promotion"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change promotion",
+      "content_type": [
+        "unboxr",
+        "promotion"
+      ],
+      "codename": "change_promotion"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete promotion",
+      "content_type": [
+        "unboxr",
+        "promotion"
+      ],
+      "codename": "delete_promotion"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view promotion",
+      "content_type": [
+        "unboxr",
+        "promotion"
+      ],
+      "codename": "view_promotion"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add video",
+      "content_type": [
+        "unboxr",
+        "video"
+      ],
+      "codename": "add_video"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change video",
+      "content_type": [
+        "unboxr",
+        "video"
+      ],
+      "codename": "change_video"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete video",
+      "content_type": [
+        "unboxr",
+        "video"
+      ],
+      "codename": "delete_video"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view video",
+      "content_type": [
+        "unboxr",
+        "video"
+      ],
+      "codename": "view_video"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add image",
+      "content_type": [
+        "unboxr",
+        "image"
+      ],
+      "codename": "add_image"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change image",
+      "content_type": [
+        "unboxr",
+        "image"
+      ],
+      "codename": "change_image"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete image",
+      "content_type": [
+        "unboxr",
+        "image"
+      ],
+      "codename": "delete_image"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view image",
+      "content_type": [
+        "unboxr",
+        "image"
+      ],
+      "codename": "view_image"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can add coupon",
+      "content_type": [
+        "unboxr",
+        "coupon"
+      ],
+      "codename": "add_coupon"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change coupon",
+      "content_type": [
+        "unboxr",
+        "coupon"
+      ],
+      "codename": "change_coupon"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can delete coupon",
+      "content_type": [
+        "unboxr",
+        "coupon"
+      ],
+      "codename": "delete_coupon"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can view coupon",
+      "content_type": [
+        "unboxr",
+        "coupon"
+      ],
+      "codename": "view_coupon"
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$390000$AnFQ9HFlXQ7PhBKvIyit7H$+38yV2Fou3Efv9WRMHWo2sry8rxQ5d9g48/Y7tSCQpM=",
+      "last_login": "2022-12-26T17:30:01.691Z",
+      "is_superuser": true,
+      "username": "mdeis",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-12-26T17:29:56.020Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "fields": {
+      "password": "pbkdf2_sha256$390000$YAtm8IOi8VE3ZiNTMDD3pI$xv5yW9wVHdYiDfpJp8oSb+TLM+fMkYxsRycnqanhEQU=",
+      "last_login": "2023-01-18T19:53:25.723Z",
+      "is_superuser": true,
+      "username": "mdeisadze",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-01-18T19:53:15.308Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "h7cag365v0dwaovx4z9cknvb5rd9jx7y",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAUBO_iGllxEv8o6TmDte_ZxgHkSHFSIe4OkVJAuzOzLxGwrSVsLS1hiuIslDj9bgR-pLqDeEe9zZLnui4TyV2RB23yOsf0vBzu30FBK9_ajuRznwGLOAxwHbGC8kb1Djx6tqSZxmxM5zXBO9Or6IizigNIw4n3B_kdOIg:1p8Mbk:_DySz1E4BuKF9_JuIZa2C8RtI0q5Dc7OATMbN7TTgNs",
+      "expire_date": "2023-01-05T14:31:40.338Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "rkmunzx2pgfkw3pwudy6o15xu0oa8sui",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGln-bmJKes5grb0bHEC2FCcV4u4QKQW0b2beS0Tc1hK3zkucSZyFFqffLWF-cN0B3bHemsytrsuc5K7Ig3Z5bcTPy-H-HRTs5VsrRD0pcIHzyGhMsMpDgGyCowSeOOjRagQ3KONTJgCXSGkgHICsm8T7A9C6N20:1p9rIX:uk0l0O4AJ2vBfb8_9tRomzJq9VxTbACLJRCYKYHyw3I",
+      "expire_date": "2023-01-09T17:30:01.697Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "xwonyxwkoltvcg7ou7bozxqubimau2xm",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGlnZ9S-mpM8ZLDvexQHkSHFSIe5OIqWAdmbee4sQt7WErdESpiyuAsXll6U4PqkeIj9ivc9ynOu6TEkeiTxtk8Oc6XU727-DElvZ15wBmXXSqVfWkQVlUVuyCaPnSIja9OANo4KdG--UI-JkNQCorvPi8wXSyja3:1pIEUv:WNMD_-qqwezifBPm5x0PWKr2-IkeeJ-kz5J7NH4V-bw",
+      "expire_date": "2023-02-01T19:53:25.729Z"
+    }
+  },
+  {
+    "model": "unboxr.product_category",
+    "pk": 1,
+    "fields": {
+      "name": "Clothing & Accessories",
+      "description": "Clothing and accessories"
+    }
+  },
+  {
+    "model": "unboxr.product_category",
+    "pk": 2,
+    "fields": {
+      "name": "Electronics and Technology",
+      "description": "Tech"
+    }
+  },
+  {
+    "model": "unboxr.product",
+    "pk": 1,
+    "fields": {
+      "company_name": "Ridge",
+      "company_website": "https://ridge.com",
+      "product_name": "Ridge Wallet",
+      "product_description": "",
+      "product_price": "95.00",
+      "merchant_product_page": "",
+      "date_modified": "2022-12-22T17:01:52.965Z",
+      "date_published": "2022-12-22T17:01:52.965Z",
+      "product_categories": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "unboxr.product",
+    "pk": 2,
+    "fields": {
+      "company_name": "Nebula",
+      "company_website": "https://us.seenebula.com/products/d2426-capsule-3-laser",
+      "product_name": "Anker Capsule 3 Laser Portable Projector",
+      "product_description": "Laser Engine Powers High Brightness: Stop squinting and just lean back to enjoy your favorite content with a laser light source�displaying 300 ISO Lumens of brightness in 1080p HD.\r\nFits in Your Hand: Wherever you need to go, Capsule 3 Laser is easy to pack up or just hold�weighing only 2 lb (900 g). The portable projector is 90% smaller than others with similar brightness.\r\nPlay Videos for 2.5 Hours: Yes, you can finish a long movie without worrying about power thanks to the 52Wh built-in battery. CAIC technology uses every pixel to conserve energy.\r\nSwitch Up Your Entertainment: Whether you're a cinephile or a gamer, Android TV 11.0 gives you abundant options for fun�no matter the situation. And the portable projector works with the Google Assistant and Chromecast. Download Netflix from Nebula Play,Use the Nebula Connect app on your phone to control Netflix on the projector.\r\nLet Your Ears Connect: Perk up your ears with the clash of swords or an intimate whisper with the powerful 8W Dolby Digital speaker�featuring realistic, high-fidelity sound on the portable projector.",
+      "product_price": "799.00",
+      "merchant_product_page": "",
+      "date_modified": "2022-12-29T23:00:09.680Z",
+      "date_published": "2022-12-22T19:41:09.910Z",
+      "product_categories": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "unboxr.influencersocialmedia",
+    "pk": 1,
+    "fields": {
+      "influencer": 1,
+      "social_media_type": "Tik",
+      "social_media_username": "driggsy",
+      "date_modified": "2022-12-22T16:50:14.024Z",
+      "date_published": "2022-12-22T16:50:14.024Z"
+    }
+  },
+  {
+    "model": "unboxr.influencersocialmedia",
+    "pk": 2,
+    "fields": {
+      "influencer": 1,
+      "social_media_type": "Insta",
+      "social_media_username": "driggsy_",
+      "date_modified": "2022-12-22T16:50:14.024Z",
+      "date_published": "2022-12-22T16:50:14.024Z"
+    }
+  },
+  {
+    "model": "unboxr.productskuid",
+    "pk": 1,
+    "fields": {
+      "product": 2,
+      "product_id_value": "B0BCWNQPQ7",
+      "date_modified": "2022-12-22T20:29:50.829Z",
+      "date_published": "2022-12-22T20:29:50.829Z",
+      "product_id_type": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "unboxr.productidtype",
+    "pk": 1,
+    "fields": {
+      "name": "asin",
+      "description": "",
+      "date_modified": "2022-12-22T20:28:57.341Z",
+      "date_published": "2022-12-22T20:28:57.341Z"
+    }
+  },
+  {
+    "model": "unboxr.influencer",
+    "pk": 1,
+    "fields": {
+      "name": "Dan Driggs",
+      "description": "I review tech & play Val",
+      "date_modified": "2022-12-22T16:50:14.022Z",
+      "date_published": "2022-12-22T16:50:14.022Z"
+    }
+  },
+  {
+    "model": "unboxr.promotion",
+    "pk": 1,
+    "fields": {
+      "influencer": 1,
+      "social_media_type": "Tik",
+      "coupon_code_in_the_link": "coupon_code",
+      "coupon_description": "40% OFF",
+      "post_link": "https://www.tiktok.com/@driggsy/video/7175166251935845674?is_copy_url=1&is_from_webapp=v1",
+      "post_promotion_date": "2022-12-09T11:58:57Z",
+      "promotion_expiration_date": "2022-12-22T11:58:57Z",
+      "advertisement_link": "http://ridge.com/driggsy",
+      "date_modified": "2022-12-22T19:35:15.458Z",
+      "date_published": "2022-12-22T17:01:16.694Z",
+      "product": 1
+    }
+  },
+  {
+    "model": "unboxr.promotion",
+    "pk": 2,
+    "fields": {
+      "influencer": 1,
+      "social_media_type": "Tik",
+      "coupon_code_in_the_link": "coupon_code",
+      "coupon_description": "n/a",
+      "post_link": "https://www.tiktok.com/@driggsy/video/7167765831969934634?is_copy_url=1&is_from_webapp=v1",
+      "post_promotion_date": "2022-12-19T14:31:55Z",
+      "promotion_expiration_date": "2022-12-22T14:31:55Z",
+      "advertisement_link": "https://www.amazon.com/dp/B0BCWNQPQ7",
+      "date_modified": "2023-01-19T22:36:38.594Z",
+      "date_published": "2022-12-22T19:41:09.913Z",
+      "product": 2
+    }
+  },
+  {
+    "model": "unboxr.promotion",
+    "pk": 3,
+    "fields": {
+      "influencer": 1,
+      "social_media_type": "Tik",
+      "coupon_code_in_the_link": "coupon_code",
+      "coupon_description": "n",
+      "post_link": "https://www.tiktok.com/@driggsy/video/7184608160097865002",
+      "post_promotion_date": "2023-01-20T13:02:05Z",
+      "promotion_expiration_date": null,
+      "advertisement_link": null,
+      "date_modified": "2023-01-20T18:05:10.955Z",
+      "date_published": "2023-01-20T18:05:10.956Z",
+      "product": 2
+    }
+  }
+]

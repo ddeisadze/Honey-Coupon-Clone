@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import boxLottie from "../assets/boxLottie.json";
-import Lottie from "lottie-react";
+import Lottie, { LottieRef } from "lottie-react";
 
 
 interface Props {
@@ -11,24 +11,22 @@ interface Props {
 }
 
 function UnboxrButton(props: Props) {
-  const lottieRef = useRef();
+  const lottieRef: LottieRef = useRef() as LottieRef;
   const [isLoop, setLoop] = useState(false);
 
   const onMouseEnter = () => {
     lottieRef.current.setSpeed(1.5);
-    console.log("mouseover", lottieRef);
     setLoop(false);
     lottieRef.current.setDirection(1);
     lottieRef.current.goToAndPlay(15);
-    props.onHoverEnter?.call();
+    props.onHoverEnter?.call({});
   };
 
   const onMouseExit = () => {
-    console.log("mousexit", lottieRef);
     setLoop(false);
     lottieRef.current.setDirection(-1);
     lottieRef.current.play();
-    props.onHoverExit?.call();
+    props.onHoverExit?.call({});
   };
 
   const divStyle = {
@@ -59,7 +57,7 @@ function UnboxrButton(props: Props) {
         initialSegment={[16, 100]}
         autoplay={false}
         loop={isLoop}
-  
+
       />
     </div>
   );

@@ -1,12 +1,10 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { MainUnboxingEntryPoint } from "./popoverContainer";
+import { Promotion } from "../api/backendModels";
+import { UnboxingPopoverIcon } from "./popoverContainer";
 
 export async function injectUnboxrButton(
-  couponCodes: Array<Object>,
-  companyWebsite: String,
-  couponUrlLink: String,
-  videoLink: String
+  promotion: Promotion
 ) {
   const entryButtonappContainer = document.createElement("div");
   const entryButtonRoot = createRoot(entryButtonappContainer);
@@ -15,11 +13,8 @@ export async function injectUnboxrButton(
   document.body.appendChild(entryButtonappContainer);
 
   entryButtonRoot.render(
-    <MainUnboxingEntryPoint
-      couponCodes={couponCodes}
-      companyWebsite={companyWebsite}
-      couponUrlLink={couponUrlLink}
-      videoLink={videoLink}
+    <UnboxingPopoverIcon
+      promotion={promotion}
     />
   );
 }

@@ -16,19 +16,13 @@ class CouponAdmin(admin.ModelAdmin):
 class CouponInline(admin.TabularInline):
     model = Coupon
     
-
 @admin.register(ProductPrice)
 class ProductPriceAdmin(admin.ModelAdmin):
     model = ProductPrice
 
 class ProductPriceInline(admin.TabularInline):
     model = ProductPrice
-    extra = 2
-
-
-    # autocomplete_fields = ['price']
-
-
+    extra = 0
 
 class InfluencerSocialMediaInline(admin.TabularInline):
     model = InfluencerSocialMedia
@@ -44,7 +38,7 @@ class InfluencerAdmin(admin.ModelAdmin):
 
 class InfluencerInline(admin.TabularInline):
     model = Influencer
-    extra = 1
+    extra = 0
 
 @admin.register(Promotion)
 class PromotionAdmin(admin.ModelAdmin):
@@ -56,7 +50,7 @@ class PromotionAdmin(admin.ModelAdmin):
 
 class PromotionalInline(admin.TabularInline):
     model = Promotion
-    extra = 1
+    extra = 0
 
 @admin.register(ProductIdType)
 class ProductIdType(admin.ModelAdmin):
@@ -67,8 +61,8 @@ class ProductIdTypeInline(admin.TabularInline):
     model = ProductIdType
 
 class ProductIdInline(admin.TabularInline):
-    model = ProductSkuId
-    extra = 1
+    model = ProductIdValue
+    extra = 0
 
     autocomplete_fields = ['product_id_type']
 

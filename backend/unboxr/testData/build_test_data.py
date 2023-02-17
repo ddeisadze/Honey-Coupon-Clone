@@ -1,12 +1,9 @@
-from django.test import TestCase
-from unboxr.models import Product_Category, ProductImages, Product, ProductPrice, InfluencerSocialMedia, ProductIdValue, ProductIdType, Influencer
-import pytest
+# from django.contrib.auth.models import User
+from unboxr.models import Product_Category, ProductImages, Product, ProductPrice, InfluencerSocialMedia, ProductSkuId, ProductIdType, Influencer
 
 
-# Create your tests here.
-@pytest.fixture
-@pytest.mark.django_db(transaction=True)
-def fixture() -> None:
+def populate_test_data():
+    # Create test product categories
     product_category_1 = Product_Category.objects.create(
         name='Fashion',
         description='Clothing, shoes and accessories'
@@ -41,12 +38,11 @@ def fixture() -> None:
     for product_id_type in product_id_types:
         ProductIdType.objects.create(**product_id_type)
 
-    product_sku_id = ProductIdValue.objects.create(
+    product_sku_id = ProductSkuId.objects.create(
         product=product,
-        product_id_value='B0BCWNQPQ7'
+        product_id_value='B0BCWNQPQ7',
+        product_id_type=ProductIdType.objects.filter(name="ASIN")
     )
-    
-    product_sku_id.product_id_type.set(ProductIdType.objects.filter(name="ASIN"))
 
     influencer = Influencer.objects.create(
         name="Dan Driggs",
@@ -66,6 +62,3 @@ def fixture() -> None:
     ]
     for product_category in product_categories:
         Product_Category.objects.create(**product_category)
-
-def test(live_server, fixture):
-    print("hello")
