@@ -1,5 +1,5 @@
 from django.test import TestCase
-from unboxr.models import Product_Category, ProductImages, Product, ProductPrice, InfluencerSocialMedia, ProductSkuId, ProductIdType, Influencer
+from unboxr.models import Product_Category, ProductImages, Product, ProductPrice, InfluencerSocialMedia, ProductIdValue, ProductIdType, Influencer
 import pytest
 
 
@@ -41,7 +41,7 @@ def fixture() -> None:
     for product_id_type in product_id_types:
         ProductIdType.objects.create(**product_id_type)
 
-    product_sku_id = ProductSkuId.objects.create(
+    product_sku_id = ProductIdValue.objects.create(
         product=product,
         product_id_value='B0BCWNQPQ7'
     )

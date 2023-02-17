@@ -22,8 +22,17 @@ import { faPlayCircle } from "@fortawesome/free-regular-svg-icons";
 import { faGift } from "@fortawesome/free-solid-svg-icons"
 
 import { TikTokVideo } from "./tikTokUnboxingVideoContainer";
+import { ProductPriceHistoryGraph } from "./priceHistory";
+import { Promotion } from "../api/backendModels";
 
-export function PopoverContainer(props) {
+interface PopoverProps {
+  promotion: Promotion,
+  setShouldShowUnboxr: () => void,
+  isOpen: boolean,
+  onClose: () => void
+}
+
+export function PopoverContainer(props: PopoverProps) {
   const toggleSettingsPopDown = () => {
     const dropDownSetting = document.getElementById("dropDownSettings");
 
@@ -39,7 +48,7 @@ export function PopoverContainer(props) {
 
     chrome.storage.local.set(
       { snoozeStart: startSnoozeUTC, snoozeEnd: endOfSnoozeUTC },
-      () => {}
+      () => { }
     );
   };
 
@@ -49,6 +58,7 @@ export function PopoverContainer(props) {
         placement="top-start"
         trigger="hover"
         isOpen={props.isOpen}
+        // isOpen={true}
         onClose={props.onClose}
         arrowSize={50}
       >
@@ -57,7 +67,9 @@ export function PopoverContainer(props) {
           overflowY="scroll"
           display="block"
           position="fixed"
-          width="20.5vw"
+          width="40vw"
+          maxWidth="400px"
+          minWidth="300px"
           bottom="12vh"
           right="2.5vw"
           height="80vh"
@@ -153,30 +165,20 @@ function showDropDownSettings(props: any, snoozeOneDay: () => void) {
   );
 }
 
-function showTabs(props: any) {
+function showTabs(props: PopoverProps) {
   return (
     <Tabs isFitted>
-      <TabList>
-        <Tab>
-          <FontAwesomeIcon icon={faPlayCircle} size={"xl"} color="#00B9FF" />
-        </Tab>
-        <Tab>
-          <FontAwesomeIcon icon={faDollarSign} size={"xl"} color="#26850F" />
-        </Tab>
-      </TabList>
 
       <TabPanels>
         <TabPanel>
           <PopoverBody
             height="1000px"
-            width="-webkit-fill-available"
-            padding="20px"
           >
-            <TikTokVideo videoLink={props.videoLink}></TikTokVideo>
-            <div className="coupon">
-              {props.companyWebsite}
-              {props.couponUrlLink}
-            </div>
+            <h2>Price trend</h2>
+            <ProductPriceHistoryGraph product={props.promotion.product}></ProductPriceHistoryGraph>
+
+            <h2>Unboxing Reel</h2>
+            <TikTokVideo videoLink={props.promotion.post_link}></TikTokVideo>
           </PopoverBody>
         </TabPanel>
         <TabPanel>
@@ -186,10 +188,10 @@ function showTabs(props: any) {
             padding="20px"
           >
             <div className="couponsContainer">
-              {props.companyWebsite}
+              {/* {props.companyWebsite} */}
               <h1>Coupons found!</h1>
               <ul>
-                {props.couponCodes.map((coupon) => (
+                {props.promotion.coupons.map((coupon) => (
                   <li>
                     <div className="couponBorder">
                       <div className="couponContainer">
@@ -206,7 +208,7 @@ function showTabs(props: any) {
                   </li>
                 ))}
               </ul>
-              {props.couponUrlLink}
+              {/* {props.couponUrlLink} */}
             </div>
           </PopoverBody>
         </TabPanel>

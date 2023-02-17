@@ -41,16 +41,16 @@ class ProductPriceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductPrice
-        fields = '__all__'
+        exclude = ('product',)
         depth = 1
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    prices = ProductPriceSerializer(many=True, read_only=True, source='prices')
+    prices = ProductPriceSerializer(many=True, read_only=True)
 
     class Meta:
         model = Product
-        fields = ['product_name', 'company_name', 'company_website', 'product_price', 'merchant_product_page',
+        fields = ['product_name', 'company_name', 'company_website', 'merchant_product_page',
                   'product_description', 'product_images', 'product_ids', 'product_categories', 'prices']
         depth = 1
 

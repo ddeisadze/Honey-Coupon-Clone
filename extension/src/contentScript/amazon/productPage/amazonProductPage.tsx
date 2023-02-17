@@ -13,9 +13,6 @@ window.onload = () => {
 
   const environment = localStorage.getItem("ENVIRONMENT") == "test";
 
-  console.log(environment)
-  console.log(localStorage.getItem("ENVIRONMENT"))
-
   if (isAmazonProductPage()) {
     loadElementsForProductPage(environment);
   } else {

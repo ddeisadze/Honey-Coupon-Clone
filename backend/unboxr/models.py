@@ -52,19 +52,32 @@ class Product(models.Model):
 class ProductPrice(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='prices')
-    source = models.URLField(default="n/a")
-    product_url = models.URLField(default="n/a")
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    source = models.URLField(default="n/a", blank=True)
+    
+    list_price = models.DecimalField(max_digits=10, decimal_places=2)
     discounted_price = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True)
+    
     discount = models.DecimalField(
-        max_digits=10, decimal_places=2, blank=True, null=True)
+        max_digits=10, decimal_places=2, blank=True, default=0)
 
     date_modified = models.DateTimeField(auto_now=True)
     date_added = models.DateTimeField(auto_now_add=True)
+    
+    @property
+    def calculate_discount(self):
+        list_price = self.list_price
+        discounted_price = self.list_price if not self.discounted_price else self.discounted_price
+        
+        return list_price - discounted_price
+    
+    def save(self, *args, **kwargs):
+          self.discount = self.calculate_discount
+          super(ProductPrice, self).save(*args, **kwargs)
 
     def __str__(self) -> str:
-        return f"{self.product} - {self.total_price} - {self.source}"
+        return f"{self.product} - {self.list_price} - {self.source}"
 
 
 class InfluencerSocialMedia(models.Model):
@@ -84,9 +97,10 @@ class InfluencerSocialMedia(models.Model):
         }
 
 
-class ProductSkuId(models.Model):
+class ProductIdValue(models.Model):
     product = models.ForeignKey(
         Product, related_name="product_ids", on_delete=models.CASCADE)
+    
     product_id_type = models.ManyToManyField(
         "ProductIdType", related_name='product_id_type')
     product_id_value = models.CharField(max_length=255)

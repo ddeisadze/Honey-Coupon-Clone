@@ -1,12 +1,15 @@
 # Create your views here.
 from django.http import HttpResponse
 from rest_framework.views import APIView
-from rest_framework import status, permissions, serializers
+from rest_framework import status, permissions, serializers, viewsets 
 from django.http import JsonResponse
+from rest_framework.decorators import action
+from drf_yasg import openapi
 
-from .models import ProductSkuId, Promotion, Coupon, ProductPrice
-from .serializers.serializers import PromotionSerializer, CouponSerializer
+from .models import ProductIdValue, Promotion, Coupon, Product
+from .serializers.serializers import PromotionSerializer, CouponSerializer, ProductSerializer
 from requests_toolbelt.multipart.encoder import MultipartEncoder
+from django import http
 
 
 import requests
@@ -14,7 +17,7 @@ import requests
 from drf_yasg.utils import swagger_auto_schema
 
 
-class FindInfluencerForm(serializers.Serializer):
+class SearchRequestForm(serializers.Serializer):
     product_id_type = serializers.CharField(default='asin')
     product_id_value = serializers.CharField()
     product_name = serializers.CharField()
@@ -24,20 +27,23 @@ class FindInfluencerForm(serializers.Serializer):
     product_page = serializers.CharField()
     product_description = serializers.CharField()
 
+
+
+
 # this view is a generic search that find the product based on
-
-
 class FindInfluencerVideoByProductInfo(APIView):
     permission_classes = (permissions.AllowAny,)
 
-    @swagger_auto_schema(request_body=FindInfluencerForm)
+    @swagger_auto_schema(request_body=SearchRequestForm, responses={
+        "200" : PromotionSerializer
+    })
     def post(self, request):
-        serializer = FindInfluencerForm(data=request.data)
+        serializer = SearchRequestForm(data=request.data)
 
         serializer.is_valid(raise_exception=False)
 
         # try to find product by sku
-        product_sku_ids = ProductSkuId.objects.filter(
+        product_sku_ids = ProductIdValue.objects.filter(
             product_id_type__name=serializer.data['product_id_type'],
             product_id_value=serializer.data['product_id_value']
         )
@@ -72,7 +78,6 @@ class FindInfluencerVideoByProductInfo(APIView):
         try:
             # print(serializer.data)
             if serializer.data['product_page']:
-                print('ayo')
                 crawl_amazon_product_pages = CrawlAmazonProductPages()
                 crawl_amazon_product_pages.post(request)
         except:
@@ -81,12 +86,13 @@ class FindInfluencerVideoByProductInfo(APIView):
         return HttpResponse('No promotions found', status=status.HTTP_404_NOT_FOUND)
 
 
+@swagger_auto_schema()
 class CrawlAmazonProductPages(APIView):
     permission_classes = (permissions.AllowAny,)
 
-    @swagger_auto_schema(request_body=FindInfluencerForm)
+    @swagger_auto_schema(request_body=SearchRequestForm)
     def post(self, request):
-        serializer = FindInfluencerForm(data=request.data)
+        serializer = SearchRequestForm(data=request.data)
         serializer.is_valid(raise_exception=False)
         scrapydUrl = "http://192.168.1.160:6800/schedule.json"
 
@@ -107,3 +113,22 @@ class CrawlAmazonProductPages(APIView):
             "POST", scrapydUrl, data=mp_encoder, headers=headers, auth=('scrapy', 'secret'))
 
         return response.text
+
+@swagger_auto_schema()
+class ProductsViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    
+    @action(detail=False, methods=["get"], url_path="by/asin/(?P<asin>[^/.]+)")
+    def by_asin(self, request, asin):
+        if not asin or asin is "":
+            return http.HttpResponseBadRequest("Asin was invalid.")
+        
+        product_id_search = ProductIdValue.objects.filter(
+            product_id_type__name="asin",
+            product_id_value=asin
+        )
+        
+        if product_id_search:
+            product = product_id_search[0].product
+            return JsonResponse(ProductSerializer(product).data, safe=False)

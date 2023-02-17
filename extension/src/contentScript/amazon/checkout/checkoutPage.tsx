@@ -1,9 +1,10 @@
 // TODO: configure webpack to load this file and amazonIndex file
 import React, { useState } from "react";
-import { sendSearchForInfluencerRequest } from "../../searchPromotionsRequest";
+import { sendSearchForInfluencerRequest } from "../../../api/backendRequests";
 import { ApplyCouponsAlert } from "../../applyCouponsAlert";
 import { createRoot } from "react-dom/client";
 import "/src/cssFiles/checkoutPage.css";
+import { Promotion, Coupon } from "../../../api/backendModels";
 
 
 window.onload = async () => {
@@ -11,11 +12,28 @@ window.onload = async () => {
 
   const isTest = localStorage.getItem('ENVIRONMENT') == "test";
 
-  let promotions: Array<promotion> = [];
+  let promotions: Array<Promotion> = [];
 
   if (isTest) {
     promotions.push({
-      coupons: ["TEST"]
+      coupons: [
+        {
+          coupon_code: "TEST"
+        }
+      ],
+
+
+      influencer: undefined,
+      product: undefined,
+      videos: [],
+      images: [],
+      social_media_type: "",
+      coupon_description: "",
+      post_link: "",
+      post_promotion_date: undefined,
+      promotion_expiration_date: undefined,
+      advertisement_link: "",
+      date_modified: undefined
     })
 
   } else {
@@ -23,7 +41,8 @@ window.onload = async () => {
       const element: HTMLInputElement = asinsInputArray[elementIndex] as HTMLInputElement;
       if (element.defaultValue) {
         const promo = await sendSearchForInfluencerRequest({
-          asin: element.defaultValue,
+          product_id_type: "asin",
+          product_id_value: element.defaultValue
         }).catch((err) => console.log(err));
 
         if (promo) {
