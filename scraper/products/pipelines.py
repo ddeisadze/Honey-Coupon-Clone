@@ -76,9 +76,11 @@ class MongoPipeline:
     def process_item(self, item, spider):
         if (self.skip):
             return item
+        
         spider_info = {
             "name": spider.name,
         }
+        
         if spider.name == 'amazon_search':
             spider_info['searchTerm'] = spider.current_search_term
 

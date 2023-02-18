@@ -46,18 +46,17 @@ class AmazonSearchToProductPage(scrapy.Spider):
 
 class AmazonListOfProductPages(scrapy.Spider):
     name = "amazon_page_list"
+    base_url = "www.amazon.com"
     
     def __init__(self, urls=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        print(urls)
-        print(args)
-        print(kwargs)
         self.urls = urls.split(",")
     
     def start_requests(self):
         if self.urls and len(self.urls) > 0:
             for url in self.urls:
-                yield scrapy.Request(url=url, callback=parse_product_page, meta={'url': url})
+                print(str(url))
+                yield scrapy.Request(url=str(url), callback=parse_product_page, meta={'url': url})
         
         print("No urls found.")
         return None
@@ -91,6 +90,9 @@ def parse_product_page(response):
         product_url = f"https://www.amazon.com/dp/{asin}"
     elif 'url' in response.meta:
         product_url = response.meta['url']
+        asin_re = re.search(r'/[dg]p/([^/]+)', product_url, flags=re.IGNORECASE)
+        if asin_re:
+            asin = asin_re.group(1)
     else:
         raise ValueError("Either url or asin must be provided")
 
