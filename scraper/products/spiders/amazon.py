@@ -44,6 +44,23 @@ class AmazonSearchToProductPage(scrapy.Spider):
             url = urljoin("https://www.amazon.com", next_page)
             yield scrapy.Request(url=url, callback=self.parse_keyword_response)
 
+class AmazonListOfProductPages(scrapy.Spider):
+    name = "amazon_page_list"
+    
+    def __init__(self, urls=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print(urls)
+        print(args)
+        print(kwargs)
+        self.urls = urls.split(",")
+    
+    def start_requests(self):
+        if self.urls and len(self.urls) > 0:
+            for url in self.urls:
+                yield scrapy.Request(url=url, callback=parse_product_page, meta={'url': url})
+        
+        print("No urls found.")
+        return None
 
 class AmazonProductPage(scrapy.Spider):
     name = 'amazon_page'
