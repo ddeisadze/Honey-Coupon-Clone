@@ -45,7 +45,7 @@ services:
       dockerfile: docker/ScrapydDockerFile
     image: xlharambe/unboxr-scrapyd-backend:latest
     environment:
-      MONGO_HOSTNAME: mongodb
+      MONGO_HOSTNAME: scrapyDatabase
       MONGO_PORT: 27017
       MONGO_DBNAME: unboxr
       MONGO_COLLECTION: products-crawler
