@@ -102,6 +102,8 @@ def parse_product_page(response):
         image = re.search('"large":"(.*?)"', response.text).groups()[0]
     except:
         image = None
+        
+    brand_name = response.xpath("//table//tr[td//text()[contains(., 'Brand')]]//td[2]//span//text()").extract_first()
 
     rating = response.xpath('//*[@id="acrPopover"]/@title').extract_first()
     number_of_reviews = response.xpath(
@@ -158,7 +160,7 @@ def parse_product_page(response):
     if not title:
         raise Exception("Could not extract out information from site.")
 
-    yield AmazonProductItem({'Id': asin, "IdType": "asin", 'Title': title, 'MainImage': image, 'Rating': rating, 'NumberOfReviews': number_of_reviews,
+    yield AmazonProductItem({'Id': asin, "IdType": "asin", 'Title': title, brand_name: brand_name else None, 'MainImage': image, 'Rating': rating, 'NumberOfReviews': number_of_reviews,
                              'PricePaid': price_to_pay, 'PriceList': list_price, 'PriceDiscount': savingsPercentage, 'AvailableSizes': sizes, 'AvailableColors': colors, 'Details': bullet_points,
                              'SellerRank': seller_rank, 'ProductUrl': product_url, 'AllTables': get_all_tables})
 
