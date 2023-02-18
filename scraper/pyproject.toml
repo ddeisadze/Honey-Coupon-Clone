@@ -20,7 +20,6 @@ pymongo = "^4.3.3"
 scrapy-rotating-proxies = "^0.6.2"
 
 [tool.poetry.group.dev.dependencies]
-jupyter = "^1.0.0"
 pandas = "^1.5.2"
 notebook = "^6.5.2"
 spacymoji = "^3.0.1"

@@ -42,7 +42,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'drf_yasg',
-    'corsheaders'
+    'corsheaders',
+    'django_extensions'
     ]
 
 REST_FRAMEWORK = {
