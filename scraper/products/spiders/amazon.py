@@ -4,6 +4,7 @@ import json
 from urllib.parse import urlencode
 from urllib.parse import urljoin
 
+
 from products.items import AmazonProductItem
 from products.utility import parse_out_all_tables_on_page
 
@@ -23,19 +24,25 @@ class AmazonSearchToProductPage(scrapy.Spider):
     def start_requests(self):
         if self.search_term:
             self.search_terms = [self.search_term]
+            self.search_terms = self.search_term.split(' ')
+
 
         for term in self.search_terms:
             self.current_search_term = term
+            print(term, "ayoooooooayoaoyooyoayoy")
             url = 'https://www.amazon.com/s?' + urlencode({'k': term})
             yield scrapy.Request(url=url, callback=self.parse_keyword_response)
 
     def parse_keyword_response(self, response):
         products = response.xpath('//*[@data-asin]')
+        prices = response.xpath('//*[contains(@class, "a-price-whole")]/text()').getall()
+        # print(prices)
+
 
         for product in products:
             asin = product.xpath('@data-asin').extract_first()
             product_url = f"https://www.amazon.com/dp/{asin}"
-            yield scrapy.Request(url=product_url, callback=parse_product_page, meta={'asin': asin})
+            # yield scrapy.Request(url=product_url, callback=parse_product_page, meta={'asin': asin})
 
         next_page = response.xpath(
             "//a[contains(@class, 's-pagination-next')]/@href").extract_first()
@@ -160,3 +167,47 @@ def extract_table_to_json(tbody):
     # Convert the dictionary to a JSON string
     json_data = json.dumps(data)
     return json_data
+
+
+class AmazonSpider(scrapy.Spider):
+    name = "amazon_best_seller"
+    base_url = "www.amazon.com"
+
+    print('YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+
+    def start_requests(self):
+        url="https://www.amazon.com/Best-Sellers-Electronics/zgbs/electronics/"
+        yield scrapy.Request(url=url, callback=self.parse_hrefs_from_electronic_categories)
+
+    def parse_hrefs_from_electronic_categories(self, response):
+        # print(response.body.decode("utf-8"))
+        a_tags = response.xpath('/html/body/div[1]/div[3]/div/div/div[2]/div/div/div[2]/div[2]//a')
+        hrefs = [a.xpath('./@href').get() for a in a_tags]
+        print(hrefs)
+        for href in hrefs:
+            print(href)
+            electronics_categories=f"https://www.amazon.com/{href}"
+            # print(electronics_categories)
+            yield scrapy.Request(url=electronics_categories, callback=self.parse_items_from_each_category)
+            break
+    def parse_items_from_each_category(self, response):
+        # grid = response.xpath('/html/body/div[1]/div[3]/div/div/div[1]/div/div/div[2]/div[1]/div[1]')
+        for i in range(0, 51):
+            item_xpath = '/html/body/div[1]/div[3]/div/div/div[1]/div/div/div[2]/div[1]/div[1]/div[{}]/div/div[2]/div/div[2]/div/div/a/div/span/span'.format(i)
+            item_price = response.xpath(item_xpath).get()
+            print(item_price, i, item_xpath)
+        # grid_xpath = '/html/body/div[1]/div[3]/div/div/div[1]/div/div/div[2]/div[1]/div[1]'
+        # child_divs = response.xpath(grid_xpath + '/div')
+        # for child_div in child_divs:
+        #     price = child_div.xpath('./div').get()
+        #     print(price)
+        # for item in grid:
+        #     price = item.xpath('./div[1]/div/div[2]/div/div/a/div/span/span/text()').get()
+            # print(item)
+    # Extract the data you want here
+        # log.start(loglevel='DEBUG', logstdout=False)
+        # print(response)
+        # print ('PRINT OUTPUT AFTER')

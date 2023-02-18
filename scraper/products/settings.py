@@ -68,7 +68,7 @@ ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
     "products.pipelines.DuplicatesPipeline": 100,
     # 'products.pipelines.DatabasePipeline': 300,
-    "products.pipelines.MongoPipeline": 200,
+    # "products.pipelines.MongoPipeline": 200,
 }
 
 
@@ -113,8 +113,8 @@ DOWNLOADER_MIDDLEWARES = {
     "scrapy.downloadermiddlewares.retry.RetryMiddleware": 15,
     "scrapy_fake_useragent.middleware.RandomUserAgentMiddleware": 400,
     "scrapy_fake_useragent.middleware.RetryUserAgentMiddleware": 401,
-    "rotating_proxies.middlewares.RotatingProxyMiddleware": 610,
-    "rotating_proxies.middlewares.BanDetectionMiddleware": 620,
+    # "rotating_proxies.middlewares.RotatingProxyMiddleware": 610,
+    # "rotating_proxies.middlewares.BanDetectionMiddleware": 620,
 }
 
 USER_AGENT = "Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148"
@@ -130,9 +130,9 @@ ROTATING_PROXY_LIST_PATH = "products/proxylist.txt"
 ROTATING_PROXY_BACKOFF_BASE = 15
 ROTATING_PROXY_BACKOFF_CAP = 60
 
-MONGO_HOSTNAME = os.environ.get("MONGO_HOSTNAME", "localhost")
-MONGO_DBNAME = os.environ.get("MONGO_DBNAME", "unboxr")
-MONGO_COLLECTION = os.environ.get("MONGO_COLLECTION", "products-crawler")
-MONGO_PORT = os.environ.get("MONGO_PORT", "27017")
-MONGO_USER = os.environ.get("MONGO_USER", "")
-MONGO_PASS = os.environ.get("MONGO_PASS", "")
+# MONGO_HOSTNAME = os.environ.get("MONGO_HOSTNAME", "localhost")
+# MONGO_DBNAME = os.environ.get("MONGO_DBNAME", "unboxr")
+# MONGO_COLLECTION = os.environ.get("MONGO_COLLECTION", "products-crawler")
+# MONGO_PORT = os.environ.get("MONGO_PORT", "27017")
+# MONGO_USER = os.environ.get("MONGO_USER", "")
+# MONGO_PASS = os.environ.get("MONGO_PASS", "")
