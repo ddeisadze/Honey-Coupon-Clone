@@ -1,27 +1,49 @@
 services:
   djangodb:
-    image: postgres
+    image: postgres:13.0
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=unboxr
+      - POSTGRES_USER=unboxr
+      - POSTGRES_PASSWORD=unboxr
 
-  django:
+  # djangoDev:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: docker/DjangoDockerfile
+  #   image: xlharambe/unboxr-backend:latest
+  #   volumes:
+  #     - .:/code
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - POSTGRES_NAME=postgres
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_HOST=postgres
+  #     - SCRAPYD_SERVERS=scrapyd:6080
+  #     - SECRET_KEY=TEST
+  #     - DEPLOYMENT_ENVIRONMENT=prod
+  #   depends_on:
+  #     - djangodb
+
+  djangoProd:
     build:
       context: ./backend
-      dockerfile: docker/DjangoDockerfile
+      dockerfile: docker/DjangoProductionDockerfile
     image: xlharambe/unboxr-backend:latest
     volumes:
       - .:/code
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
     ports:
       - "8000:8000"
     environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_HOST=postgres
+      - POSTGRES_NAME=unboxr
+      - POSTGRES_USER=unboxr
+      - POSTGRES_PASSWORD=unboxr
+      - POSTGRES_HOST=djangodb
       - SCRAPYD_SERVERS=scrapyd:6080
       - SECRET_KEY=TEST
       - DEPLOYMENT_ENVIRONMENT=prod
@@ -73,3 +95,6 @@ services:
 
 volumes:
   mongodb:
+  static_volume:
+  media_volume:
+  postgres_data:

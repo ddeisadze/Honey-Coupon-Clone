@@ -12,27 +12,27 @@ export function UnboxingPopoverIcon(props: UnboxingPopoverIconProps) {
   const [isPopoverOpen, setPopover] = useState(false);
   const [shouldShowUnboxr, setShouldShowUnboxr] = useState(true);
 
-  // const snoozer = async () => {
-  //   let snooze = await isSnoozeOver();
-  //   if (snooze != shouldShowUnboxr) {
-  //     setShouldShowUnboxr(snooze);
-  //   }
-  // };
+  const snoozer = async () => {
+    let snooze = await isSnoozeOver();
+    if (snooze != shouldShowUnboxr) {
+      setShouldShowUnboxr(snooze);
+    }
+  };
 
-  // snoozer();
+  snoozer();
 
-  // useEffect(() => {
-  //   if (!shouldShowUnboxr) {
-  //     const alarm = setInterval(async function () {
-  //       let snooze = await isSnoozeOver();
-  //       if (snooze != shouldShowUnboxr) {
-  //         setShouldShowUnboxr(snooze);
-  //         clearInterval(alarm);
-  //       }
-  //       snooze = true;
-  //     }, 1000);
-  //   }
-  // }, [shouldShowUnboxr]);
+  useEffect(() => {
+    if (!shouldShowUnboxr) {
+      const alarm = setInterval(async function () {
+        let snooze = await isSnoozeOver();
+        if (snooze != shouldShowUnboxr) {
+          setShouldShowUnboxr(snooze);
+          clearInterval(alarm);
+        }
+        snooze = true;
+      }, 1000);
+    }
+  }, [shouldShowUnboxr]);
 
   const shouldShowUnboxrFunc = () => {
     if (shouldShowUnboxr) {

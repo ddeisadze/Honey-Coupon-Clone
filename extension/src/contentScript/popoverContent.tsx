@@ -140,6 +140,7 @@ function showDropDownSettings(props: any, snoozeOneDay: () => void) {
             aria-label="Snooze for 24 hours"
             onClick={() => {
               snoozeOneDay();
+              // #TODO: Move this one layer up.
               props.setShouldShowUnboxr(false);
             }}
           >

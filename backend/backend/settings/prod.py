@@ -4,7 +4,7 @@ from backend.settings.common import *
 
 ENVIRONMENT = "PROD"
 
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', default=False)
 
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
@@ -15,13 +15,18 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
+print(os.environ.get('POSTGRES_NAME', "postgres"))
+print(os.environ.get('POSTGRES_USER', "postgres"))
+print(os.environ.get('POSTGRES_PASSWORD', "postgres"))
+
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "postgres",  # set in docker-compose.yml
+        "NAME": os.environ.get('POSTGRES_NAME', "postgres"),
+        "USER": os.environ.get('POSTGRES_USER', "postgres"),
+        "PASSWORD": os.environ.get('POSTGRES_PASSWORD', "postgres"),
+        "HOST": os.environ.get('POSTGRES_HOST', "postgres"),
         "PORT": 5432,  # default postgres port
     }
 }
