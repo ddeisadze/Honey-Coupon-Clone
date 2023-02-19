@@ -47,6 +47,7 @@ services:
       - SCRAPYD_SERVERS=scrapyd:6080
       - SECRET_KEY=TEST
       - DEPLOYMENT_ENVIRONMENT=prod
+      - DEBUG=True
     depends_on:
       - djangodb
 
