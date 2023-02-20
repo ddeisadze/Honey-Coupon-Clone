@@ -8,12 +8,18 @@ from products.items import AmazonProductItem
 from products.utility import parse_out_all_tables_on_page
 
 
-class AmazonSearchToProductPage(scrapy.Spider):
+class AmazonBaseSpider(scrapy.Spider):
+    base_url = "www.amazon.com"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.job_id = kwargs.get('_job', None)
+
+class AmazonSearchToProductPage(AmazonBaseSpider):
     """Works only on search pages and some category pages"""
     name = 'amazon_search'
     search_terms = ["best seller electronics", "laptop", "bluetooth headphones",
                     "earbuds"]
-    base_url = "www.amazon.com"
     current_search_term = None
 
     def __init__(self, search_term=None, *args, **kwargs):
@@ -44,9 +50,8 @@ class AmazonSearchToProductPage(scrapy.Spider):
             url = urljoin("https://www.amazon.com", next_page)
             yield scrapy.Request(url=url, callback=self.parse_keyword_response)
 
-class AmazonListOfProductPages(scrapy.Spider):
+class AmazonListOfProductPages(AmazonBaseSpider):
     name = "amazon_page_list"
-    base_url = "www.amazon.com"
     
     def __init__(self, urls=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -61,9 +66,8 @@ class AmazonListOfProductPages(scrapy.Spider):
         print("No urls found.")
         return None
 
-class AmazonProductPage(scrapy.Spider):
+class AmazonProductPage(AmazonBaseSpider):
     name = 'amazon_page'
-    base_url = "www.amazon.com"
 
     def __init__(self, asin=None, url=None, *args, **kwargs):
         super().__init__(*args, **kwargs)

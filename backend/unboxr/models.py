@@ -41,6 +41,8 @@ class Product(models.Model):
 
     date_modified = models.DateTimeField(auto_now=True)
     date_published = models.DateTimeField(auto_now_add=True)
+    
+    is_active = models.BooleanField(default=False, help_text="If set to true, product is live for public viewing.")
 
     def __str__(self) -> str:
         return self.product_name + " - " + self.company_name + " - "

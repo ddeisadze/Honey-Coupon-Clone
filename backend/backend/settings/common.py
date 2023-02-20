@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -42,7 +44,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'drf_yasg',
-    'corsheaders'
+    'corsheaders',
+    'django_celery_beat'
     ]
 
 REST_FRAMEWORK = {
@@ -138,3 +141,27 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH=True
+
+SCRAPYD_HOST_NAME = os.environ.get("SCRAPYD_HOST_NAME", "localhost")
+SCRAPYD_PORT = os.environ.get("SCRAPYD_PORT", 6800)
+SCRAPYD_USERNAME = os.environ.get("SCRAPYD_USERNAME", "scrapy")
+SCRAPYD_PASSWORD = os.environ.get("SCRAPYD_PASSWORD", "secret")
+SCRAPYD_PROJECT = os.environ.get("SCRAPYD_PROJECT", "default")
+
+MONGO_HOSTNAME = os.environ.get('MONGO_HOSTNAME', 'localhost')
+MONGO_DBNAME = os.environ.get('MONGO_DBNAME', 'unboxr')
+MONGO_COLLECTION = os.environ.get('MONGO_COLLECTION', 'products-crawler')
+MONGO_PORT = os.environ.get('MONGO_PORT', 27017)
+MONGO_USER = os.environ.get('MONGO_USER', 'root')
+MONGO_PASS = os.environ.get('MONGO_PASS', 'example')
+
+CELERY_TIMEZONE = "US/Eastern"
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', "redis://redis:6379")
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', "redis://redis:6379")
+
+# CELERY_BEAT_SCHEDULE = {
+#     "get_prices_for_active_products": {
+#         "task": "unboxr.tasks.get_new_price_for_product_on_amazon",
+#         "schedule": crontab(minute="*/1"),
+#     },
+# }

@@ -55,7 +55,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ['product_name', 'company_name', 'company_website', 'merchant_product_page',
-                  'product_description', 'product_images', 'product_ids', 'product_categories', 'prices']
+                  'product_description', 'product_images', 'product_ids', 'product_categories', 'prices', 'is_active']
         depth = 1
 
 

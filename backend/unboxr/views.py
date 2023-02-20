@@ -6,16 +6,17 @@ from django.http import JsonResponse
 from rest_framework.decorators import action
 from drf_yasg import openapi
 
-from .models import ProductIdValue, Promotion, Coupon, Product
+from api.scrapyd import ScrapydDjango
+from .models import ProductIdValue, Promotion, Coupon, Product, ProductPrice
 from .serializers.serializers import PromotionSerializer, CouponSerializer, ProductSerializer
-from requests_toolbelt.multipart.encoder import MultipartEncoder
 from django import http
-
-
-import requests
+import os
 
 from drf_yasg.utils import swagger_auto_schema
 
+from .tasks import get_new_price_for_product_on_amazon
+
+scrapyd = ScrapydDjango()
 
 class SearchRequestForm(serializers.Serializer):
     product_id_type = serializers.CharField(default='asin')
@@ -26,9 +27,6 @@ class SearchRequestForm(serializers.Serializer):
     product_price = serializers.CharField()
     product_page = serializers.CharField()
     product_description = serializers.CharField()
-
-
-
 
 # this view is a generic search that find the product based on
 class FindInfluencerVideoByProductInfo(APIView):
@@ -85,34 +83,13 @@ class FindInfluencerVideoByProductInfo(APIView):
 
         return HttpResponse('No promotions found', status=status.HTTP_404_NOT_FOUND)
 
-
 @swagger_auto_schema()
 class CrawlAmazonProductPages(APIView):
     permission_classes = (permissions.AllowAny,)
 
     @swagger_auto_schema(request_body=SearchRequestForm)
-    def post(self, request):
-        serializer = SearchRequestForm(data=request.data)
-        serializer.is_valid(raise_exception=False)
-        scrapydUrl = "http://192.168.1.160:6800/schedule.json"
-
-        asin = serializer.data["product_id_value"]
-
-        mp_encoder = MultipartEncoder(
-            fields={
-                "project": "default",
-                "spider": "amazon_page",
-                "asin": asin,
-            }
-        )
-        headers = {
-            "Content-Type": mp_encoder.content_type
-        }
-
-        response = requests.request(
-            "POST", scrapydUrl, data=mp_encoder, headers=headers, auth=('scrapy', 'secret'))
-
-        return response.text
+    def post(self, asin):        
+        return scrapyd.schedule_amazon_page_scrapy(asin)
 
 @swagger_auto_schema()
 class ProductsViewSet(viewsets.ModelViewSet):
@@ -132,3 +109,9 @@ class ProductsViewSet(viewsets.ModelViewSet):
         if product_id_search:
             product = product_id_search[0].product
             return JsonResponse(ProductSerializer(product).data, safe=False)
+    
+    @action(detail = False, methods=["get"], url_path="cel")
+    def start_task(self, request):
+        asin = "B0BCWNQPQ7"
+        get_new_price_for_product_on_amazon()
+        return JsonResponse({})
