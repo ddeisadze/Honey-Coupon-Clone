@@ -8,26 +8,6 @@ services:
       - POSTGRES_USER=unboxr
       - POSTGRES_PASSWORD=unboxr
 
-  # djangoDev:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: docker/DjangoDockerfile
-  #   image: xlharambe/unboxr-backend:latest
-  #   volumes:
-  #     - .:/code
-  #   ports:
-  #     - "8000:8000"
-  #   environment:
-  #     - POSTGRES_NAME=postgres
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=postgres
-  #     - POSTGRES_HOST=postgres
-  #     - SCRAPYD_SERVERS=scrapyd:6080
-  #     - SECRET_KEY=TEST
-  #     - DEPLOYMENT_ENVIRONMENT=prod
-  #   depends_on:
-  #     - djangodb
-
   djangoProd:
     build:
       context: ./backend
@@ -39,25 +19,8 @@ services:
       - media_volume:/home/app/web/mediafiles
     ports:
       - "8000:8000"
-    environment:
-      - POSTGRES_NAME=unboxr
-      - POSTGRES_USER=unboxr
-      - POSTGRES_PASSWORD=unboxr
-      - POSTGRES_HOST=djangodb
-      - SECRET_KEY=TEST
-      - DEPLOYMENT_ENVIRONMENT=prod
-      - DEBUG=True
-      - MONGO_HOSTNAME=scrapyDatabase
-      - MONGO_PORT=27017
-      - MONGO_DBNAME=unboxr
-      - MONGO_COLLECTION=products-crawler
-      - MONGO_USER=root
-      - MONGO_PASS=example
-      - SCRAPYD_PROJECT=default
-      - SCRAPYD_PORT=6800
-      - SCRAPYD_USERNAME=scrapy
-      - SCRAPYD_PASSWORD=secret
-      - SCRAPYD_HOST_NAME=scrapyd
+    env_file:
+      - docker/env.prod
     depends_on:
       - djangodb
 
@@ -75,33 +38,10 @@ services:
       context: ./backend
       dockerfile: docker/CeleryDockerfile
     command: celery -A backend worker --loglevel=debug
-    # command: tail -f /dev/null
     volumes:
       - .app:/usr/src/django
-    environment:
-      - DEPLOYMENT_ENVIRONMENT=prod
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - POSTGRES_NAME=unboxr
-      - POSTGRES_USER=unboxr
-      - POSTGRES_PASSWORD=unboxr
-      - POSTGRES_HOST=djangodb
-      - SECRET_KEY=TEST
-      - DEBUG=True
-      - MONGO_HOSTNAME=scrapyDatabase
-      - MONGO_PORT=27017
-      - MONGO_DBNAME=unboxr
-      - MONGO_COLLECTION=products-crawler
-      - MONGO_USER=root
-      - MONGO_PASS=example
-      - SCRAPYD_PROJECT=default
-      - SCRAPYD_PORT=6800
-      - SCRAPYD_USERNAME=scrapy
-      - SCRAPYD_PASSWORD=secret
-      - SCRAPYD_HOST_NAME=scrapyd
-      - DEBUG=1
-      - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
-      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    env_file:
+      - docker/env.prod
     depends_on:
       - redis
       - celery-beat
@@ -113,30 +53,20 @@ services:
     command: celery -A backend beat --loglevel=debug --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - .app:/usr/src/django
-    environment:
-      - DEPLOYMENT_ENVIRONMENT=dev
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    #   # - DEBUG=1
-    #   # - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
-    #   # - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    env_file:
+      - docker/env.prod
     depends_on:
       - redis
 
-  celer-flower:
+  celery-flower:
     build:
       context: ./backend
       dockerfile: docker/CeleryDockerfile
     command: celery -A backend flower --port=5566
     volumes:
       - .app:/usr/src/django
-    environment:
-      - DEPLOYMENT_ENVIRONMENT=dev
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    #   # - DEBUG=1
-    #   # - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
-    #   # - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    env_file:
+      - docker/env.prod
     ports:
       - 5566:5566
     depends_on:

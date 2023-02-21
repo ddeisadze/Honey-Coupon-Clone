@@ -72,10 +72,12 @@ def get_new_price_for_product_on_amazon():
             discounted_price_clean = float(price_to_pay.strip("$"))
             list_price_clean = float((list_price if list_price else price_to_pay).strip("$"))
             
-            with transaction.atomic():
-                models.ProductPrice(discounted_price=discounted_price_clean, list_price=list_price_clean, product = product, source="http://amazon.com").save()
+            # with transaction.atomic():
+            models.ProductPrice(discounted_price=discounted_price_clean, list_price=list_price_clean, product = product, source="http://amazon.com").save()
                 
-                transaction.on_commit(commited)
+                # transaction.commit()
+                
+                # transaction.on_commit(commited)
 
 # @celery_app.on_after_finalize.connect
 # def setup_periodic_tasks(sender, **kwargs):
