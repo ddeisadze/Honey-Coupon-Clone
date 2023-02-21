@@ -10,7 +10,6 @@ ENV POETRY_VIRTUALENVS_CREATE=false \
 # Install Poetry
 RUN pip install poetry==${POETRY_VERSION}
 # Create a directory for the Scrapy project
-RUN mkdir /app
 WORKDIR /app
 
 # Copy the Scrapy project files

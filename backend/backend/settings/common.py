@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-4wrb0-+0u6by*=$kur3jiiu+v0^(6_ykwnt$*5bl&xjixn&l44
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -155,13 +155,10 @@ MONGO_PORT = os.environ.get('MONGO_PORT', 27017)
 MONGO_USER = os.environ.get('MONGO_USER', 'root')
 MONGO_PASS = os.environ.get('MONGO_PASS', 'example')
 
-CELERY_TIMEZONE = "US/Eastern"
-CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', "redis://redis:6379")
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', "redis://redis:6379")
 
-# CELERY_BEAT_SCHEDULE = {
-#     "get_prices_for_active_products": {
-#         "task": "unboxr.tasks.get_new_price_for_product_on_amazon",
-#         "schedule": crontab(minute="*/1"),
-#     },
-# }
+TIME_ZONE = "US/Eastern"
+CELERY_TIMEZONE = "US/Eastern"
+CELERY_ENABLE_UTC = False
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', "redis://localhost:6379")
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', "redis://localhost:6379")
+CELERY_EAGER_PROPAGATES_EXCEPTIONS=True

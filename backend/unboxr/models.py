@@ -80,8 +80,8 @@ class ProductPrice(models.Model):
         return 0
     
     def save(self, *args, **kwargs):
-          self.discount = self.calculate_discount
-          super(ProductPrice, self).save(*args, **kwargs)
+        self.discount = self.calculate_discount
+        super(ProductPrice, self).save(*args, **kwargs)
 
     def __str__(self) -> str:
         return f"{self.product} - {self.list_price} - {self.source}"

@@ -98,7 +98,7 @@ class ProductsViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=["get"], url_path="by/asin/(?P<asin>[^/.]+)")
     def by_asin(self, request, asin):
-        if not asin or asin is "":
+        if not asin or asin == "":
             return http.HttpResponseBadRequest("Asin was invalid.")
         
         product_id_search = ProductIdValue.objects.filter(

@@ -1,6 +1,7 @@
 from celery import shared_task
 from celery.schedules import crontab
 from backend.celery import app as celery_app
+from django.db import transaction
 
 from api.scrapyd import ScrapydDjango
 from db.mongo import MongoDbDjango
@@ -10,6 +11,9 @@ import time
 
 mongo = MongoDbDjango()
 scrapyd = ScrapydDjango()
+
+def commited(*args, **kwargs):
+    print("Commited", args, kwargs)
 
 @shared_task
 def get_new_price_for_product_on_amazon():
@@ -33,6 +37,10 @@ def get_new_price_for_product_on_amazon():
         else:
             failed.append(resp)
             continue
+    
+    if len(active_products) < 0:
+        print("No active products")
+        return 
     
     # check if jobs are complete
     should_we_poll_again = True
@@ -58,17 +66,20 @@ def get_new_price_for_product_on_amazon():
         item = mongo.get_items_from_crawler(asin=asin, job_id=jobid)
         
         if item:
-            discounted_price = item.get("crawledData", None).get("PricePaid", None)
+            price_to_pay = item.get("crawledData", None).get("PricePaid", None)
             list_price = item.get("crawledData", None).get("PriceList", None)
             
-            discounted_price_clean = float(discounted_price.strip("$"))
-            list_price_clean = float(list_price.strip("$"))
-        
-            models.ProductPrice(discounted_price=discounted_price_clean, list_price=list_price_clean, product = product, source="http://amazon.com").save()
+            discounted_price_clean = float(price_to_pay.strip("$"))
+            list_price_clean = float((list_price if list_price else price_to_pay).strip("$"))
+            
+            with transaction.atomic():
+                models.ProductPrice(discounted_price=discounted_price_clean, list_price=list_price_clean, product = product, source="http://amazon.com1").save()
+                
+                transaction.on_commit(commited)
 
-@celery_app.on_after_finalize.connect
-def setup_periodic_tasks(sender, **kwargs):
-    sender.add_periodic_task(
-        crontab(hour=22, minute=59, day_of_week=0),
-        get_new_price_for_product_on_amazon
-    )
+# @celery_app.on_after_finalize.connect
+# def setup_periodic_tasks(sender, **kwargs):
+#     sender.add_periodic_task(
+#         crontab(hour=22, minute=59, day_of_week=0),
+#         get_new_price_for_product_on_amazon
+#     )
