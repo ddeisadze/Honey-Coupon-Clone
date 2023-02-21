@@ -73,7 +73,7 @@ def get_new_price_for_product_on_amazon():
             list_price_clean = float((list_price if list_price else price_to_pay).strip("$"))
             
             with transaction.atomic():
-                models.ProductPrice(discounted_price=discounted_price_clean, list_price=list_price_clean, product = product, source="http://amazon.com1").save()
+                models.ProductPrice(discounted_price=discounted_price_clean, list_price=list_price_clean, product = product, source="http://amazon.com").save()
                 
                 transaction.on_commit(commited)
 

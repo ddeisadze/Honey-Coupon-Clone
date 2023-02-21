@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-python manage.py loaddata ../export-02-20.json --ignorenonexistent --app unboxr
+python manage.py loaddata ../dumpData.json --ignorenonexistent --app unboxr
