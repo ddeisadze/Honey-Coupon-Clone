@@ -8,12 +8,18 @@ from products.items import AmazonProductItem
 from products.utility import parse_out_all_tables_on_page
 
 
-class AmazonSearchToProductPage(scrapy.Spider):
+class AmazonBaseSpider(scrapy.Spider):
+    base_url = "www.amazon.com"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.job_id = kwargs.get('_job', None)
+
+class AmazonSearchToProductPage(AmazonBaseSpider):
     """Works only on search pages and some category pages"""
     name = 'amazon_search'
     search_terms = ["best seller electronics", "laptop", "bluetooth headphones",
                     "earbuds"]
-    base_url = "www.amazon.com"
     current_search_term = None
 
     def __init__(self, search_term=None, *args, **kwargs):
@@ -44,10 +50,24 @@ class AmazonSearchToProductPage(scrapy.Spider):
             url = urljoin("https://www.amazon.com", next_page)
             yield scrapy.Request(url=url, callback=self.parse_keyword_response)
 
+class AmazonListOfProductPages(AmazonBaseSpider):
+    name = "amazon_page_list"
+    
+    def __init__(self, urls=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.urls = urls.split(",")
+    
+    def start_requests(self):
+        if self.urls and len(self.urls) > 0:
+            for url in self.urls:
+                print(str(url))
+                yield scrapy.Request(url=str(url), callback=parse_product_page, meta={'url': url})
+        
+        print("No urls found.")
+        return None
 
-class AmazonProductPage(scrapy.Spider):
+class AmazonProductPage(AmazonBaseSpider):
     name = 'amazon_page'
-    base_url = "www.amazon.com"
 
     def __init__(self, asin=None, url=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -74,6 +94,9 @@ def parse_product_page(response):
         product_url = f"https://www.amazon.com/dp/{asin}"
     elif 'url' in response.meta:
         product_url = response.meta['url']
+        asin_re = re.search(r'/[dg]p/([^/]+)', product_url, flags=re.IGNORECASE)
+        if asin_re:
+            asin = asin_re.group(1)
     else:
         raise ValueError("Either url or asin must be provided")
 
@@ -83,6 +106,9 @@ def parse_product_page(response):
         image = re.search('"large":"(.*?)"', response.text).groups()[0]
     except:
         image = None
+        
+    brand_name = response.xpath("//table//tr[td//text()[contains(., 'Brand')]]//td[2]//span//text()").extract_first()
+    print(brand_name)
 
     rating = response.xpath('//*[@id="acrPopover"]/@title').extract_first()
     number_of_reviews = response.xpath(
@@ -139,7 +165,7 @@ def parse_product_page(response):
     if not title:
         raise Exception("Could not extract out information from site.")
 
-    yield AmazonProductItem({'Id': asin, "IdType": "asin", 'Title': title, 'MainImage': image, 'Rating': rating, 'NumberOfReviews': number_of_reviews,
+    yield AmazonProductItem({'Id': asin, "IdType": "asin", 'Title': title, 'BrandName': brand_name, 'MainImage': image, 'Rating': rating, 'NumberOfReviews': number_of_reviews,
                              'PricePaid': price_to_pay, 'PriceList': list_price, 'PriceDiscount': savingsPercentage, 'AvailableSizes': sizes, 'AvailableColors': colors, 'Details': bullet_points,
                              'SellerRank': seller_rank, 'ProductUrl': product_url, 'AllTables': get_all_tables})
 

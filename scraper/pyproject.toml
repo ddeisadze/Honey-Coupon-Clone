@@ -20,7 +20,6 @@ pymongo = "^4.3.3"
 scrapy-rotating-proxies = "^0.6.2"
 
 [tool.poetry.group.dev.dependencies]
-jupyter = "^1.0.0"
 pandas = "^1.5.2"
 notebook = "^6.5.2"
 spacymoji = "^3.0.1"
@@ -32,6 +31,7 @@ sqlalchemy = ">=1.2.15,<1.4.0"
 werkzeug = "2.0.2"
 scrapydweb = "^1.4.0"
 scrapyd-client = "^1.2.2"
+apscheduler = "3.9.1"
 
 [build-system]
 requires = ["poetry-core"]

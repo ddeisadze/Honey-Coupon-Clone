@@ -31,4 +31,4 @@ RUN mkdir eggs
 
 RUN mv -v crawler.egg eggs/crawler.egg
 
-CMD scrapyd
+CMD scrapyd --pidfile=

@@ -19,7 +19,17 @@ pillow = "^9.3.0"
 django-cors-headers = "^3.13.0"
 requests-toolbelt = "^0.10.1"
 pytest-django = "^4.5.2"
+celery = "^5.2.7"
+django-celery-beat = "^2.4.0"
+redis = "^4.5.1"
+pymongo = "^4.3.3"
+flower = "^1.2.0"
 
+
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.0.0"
+ipython = "^8.10.0"
+django-extensions = "^3.2.1"
 
 [build-system]
 requires = ["poetry-core"]

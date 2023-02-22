@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from unboxr.models import Product, Promotion, Influencer, InfluencerSocialMedia, Coupon, ProductPrice
-
+from unboxr.models import Product, Promotion, Influencer, InfluencerSocialMedia, Coupon, ProductPrice, ProductIdValue
 
 social_choices = (
     ('Tik', 'Tik Tok'),
@@ -8,7 +7,6 @@ social_choices = (
     ('Fb', 'Facebook'),
     ('Yt', 'Youtube')
 )
-
 
 class InfluencerSocialMediaSerializer(serializers.ModelSerializer):
     platform = serializers.ChoiceField(
@@ -38,31 +36,33 @@ class CouponSerializer(serializers.ModelSerializer):
 
 
 class ProductPriceSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = ProductPrice
         exclude = ('product',)
         depth = 1
 
+class ProductIdValues(serializers.ModelSerializer):
+    product_id_type = serializers.CharField(source='product_id_type.name')
+    
+    class Meta:
+        model = ProductIdValue
+        fields = ("product_id_value", "product_id_type")
 
 class ProductSerializer(serializers.ModelSerializer):
     prices = ProductPriceSerializer(many=True, read_only=True)
+    product_ids = ProductIdValues(many = True)
 
     class Meta:
         model = Product
         fields = ['product_name', 'company_name', 'company_website', 'merchant_product_page',
-                  'product_description', 'product_images', 'product_ids', 'product_categories', 'prices']
+                  'product_description', 'product_images', 'product_ids', 'product_categories', 'prices', 'is_active']
         depth = 1
 
 
 class PromotionSerializer(serializers.ModelSerializer):
     influencer = InfluencerSerializer(read_only=True)
     product = ProductSerializer(read_only=True)
-    # coupon = CouponSerializer(read_only=True)
     coupons = CouponSerializer(many=True, read_only=True, source='coupon')
-
-    # videos = serializers.SerializerMethodField()
-    # images = serializers.SerializerMethodField()
 
     class Meta:
         model = Promotion

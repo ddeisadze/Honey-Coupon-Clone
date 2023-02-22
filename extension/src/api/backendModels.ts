@@ -15,8 +15,7 @@ export interface ProductId {
     product_id_value: string;
     date_modified: Date;
     date_published: Date;
-    product: number;
-    product_id_type: number[];
+    product_id_type: string
 }
 
 export interface ProductCategory {
@@ -39,11 +38,11 @@ export interface Product {
     product_name: string;
     company_name: string;
     company_website: string;
-    merchant_product_page: string;
+    merchant_product_page?: string;
     product_description: string;
-    product_images: any[];
+    product_images?: any[];
     product_ids: ProductId[];
-    product_categories: ProductCategory[];
+    product_categories?: ProductCategory[];
     prices: ProductPrice[];
 }
 
@@ -54,8 +53,8 @@ export interface Coupon {
 export interface Promotion {
     influencer: Influencer;
     product: Product;
-    videos: any[];
-    images: any[];
+    videos?: any[];
+    images?: any[];
     social_media_type: string;
     coupon_description: string;
     coupon_code_in_the_link?: any;
@@ -64,7 +63,7 @@ export interface Promotion {
     promotion_expiration_date: Date;
     advertisement_link: string;
     date_modified: Date;
-    coupons: Coupon[];
+    coupons?: Coupon[];
 }
 
 

@@ -41,6 +41,8 @@ class Product(models.Model):
 
     date_modified = models.DateTimeField(auto_now=True)
     date_published = models.DateTimeField(auto_now_add=True)
+    
+    is_active = models.BooleanField(default=False, help_text="If set to true, product is live for public viewing.")
 
     def __str__(self) -> str:
         return self.product_name + " - " + self.company_name + " - "
@@ -70,11 +72,16 @@ class ProductPrice(models.Model):
         list_price = self.list_price
         discounted_price = self.list_price if not self.discounted_price else self.discounted_price
         
-        return list_price - discounted_price
+        discount_applied = list_price - discounted_price
+        
+        if discount_applied > 0:
+            return discount_applied
+        
+        return 0
     
     def save(self, *args, **kwargs):
-          self.discount = self.calculate_discount
-          super(ProductPrice, self).save(*args, **kwargs)
+        self.discount = self.calculate_discount
+        super(ProductPrice, self).save(*args, **kwargs)
 
     def __str__(self) -> str:
         return f"{self.product} - {self.list_price} - {self.source}"
@@ -101,8 +108,9 @@ class ProductIdValue(models.Model):
     product = models.ForeignKey(
         Product, related_name="product_ids", on_delete=models.CASCADE)
     
-    product_id_type = models.ManyToManyField(
-        "ProductIdType", related_name='product_id_type')
+    product_id_type = models.ForeignKey(
+        "ProductIdType", related_name='product_id_type', on_delete=models.CASCADE, default=1)
+    
     product_id_value = models.CharField(max_length=255)
 
     date_modified = models.DateTimeField(auto_now=True)

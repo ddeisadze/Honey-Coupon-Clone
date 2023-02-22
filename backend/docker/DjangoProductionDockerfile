@@ -2,22 +2,31 @@ FROM python:3.8
 
 RUN python -m pip install --upgrade pip
 
+RUN pip install --upgrade pip
+
 ENV POETRY_VIRTUALENVS_CREATE=false \
     POETRY_VERSION=1.3.1 \
     POETRY_ENV=production
 # Install Poetry
 RUN pip install poetry==${POETRY_VERSION}
 # Create a directory for the Scrapy project
-RUN mkdir /app
 WORKDIR /app
 
 # Copy the Scrapy project files
 COPY . /app
 
+RUN rm -rf requirementsProd.txt
+
+RUN poetry export -f requirements.txt --output requirementsProd.txt
+
 # Install the project dependencies with Poetry
-RUN --mount=type=cache,target=/home/.cache/pypoetry/cache \
-    --mount=type=cache,target=/home/.cache/pypoetry/artifacts \
-    poetry install
+# RUN --mount=type=cache,target=/home/.cache/pypoetry/cache \
+#     --mount=type=cache,target=/home/.cache/pypoetry/artifacts \
+#     poetry install
+
+RUN pip install -r requirementsProd.txt
+
+RUN pip install uvicorn gunicorn
 
 # RUN python manage.py makemigrations
 # RUN python manage.py migrate
@@ -31,4 +40,4 @@ RUN --mount=type=cache,target=/home/.cache/pypoetry/cache \
 # to export data use python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes --indent 2 > dump.json
 EXPOSE 8000
 
-CMD python manage.py runserver 0.0.0.0:8000
+CMD python -m gunicorn backend.asgi:application -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000
