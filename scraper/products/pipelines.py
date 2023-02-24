@@ -79,6 +79,7 @@ class MongoPipeline:
         
         spider_info = {
             "name": spider.name,
+            "job_id": spider.job_id
         }
         
         if spider.name == 'amazon_search':

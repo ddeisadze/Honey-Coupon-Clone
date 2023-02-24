@@ -65,7 +65,12 @@ export function ProductPriceHistoryGraph(props: priceHistoryProps) {
 
     return <>
         <XYPlot
-            margin={0}
+            margin={{
+                bottom: 10,
+                top: 10,
+                left: 10,
+                right: 10
+            }}
             xType="time"
             width={300}
             height={150}

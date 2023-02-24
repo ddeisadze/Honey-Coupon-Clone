@@ -26,6 +26,10 @@ export async function loadElementsForProductPage(test: boolean = false) {
       {
         post_link: "https://www.tiktok.com/@driggsy/video/7167765831969934634?is_copy_url=1&is_from_webapp=v1",
         product: {
+          company_name: "Test",
+          merchant_product_page: "Test",
+          product_description: "Test",
+          product_name: "Test",
           prices: [
             {
               "id": 1,

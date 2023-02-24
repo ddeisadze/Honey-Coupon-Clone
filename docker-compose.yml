@@ -1,32 +1,76 @@
 services:
   djangodb:
-    image: postgres
+    image: postgres:13.0
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=unboxr
+      - POSTGRES_USER=unboxr
+      - POSTGRES_PASSWORD=unboxr
 
-  django:
+  djangoProd:
     build:
       context: ./backend
-      dockerfile: docker/DjangoDockerfile
+      dockerfile: docker/DjangoProductionDockerfile
     image: xlharambe/unboxr-backend:latest
     volumes:
-      - .:/code
+      - .app:/usr/src/django
+      - static_volume:/home/app/web/staticfiles
+      - media_volume:/home/app/web/mediafiles
     ports:
       - "8000:8000"
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_HOST=postgres
-      - SCRAPYD_SERVERS=scrapyd:6080
-      - SECRET_KEY=TEST
-      - DEPLOYMENT_ENVIRONMENT=prod
+    env_file:
+      - docker/env.prod
     depends_on:
       - djangodb
+
+  redis:
+    image: redis:alpine
+    command: redis-server
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/data
+      - redis-conf:/usr/local/etc/redis/redis.conf
+
+  celery:
+    build:
+      context: ./backend
+      dockerfile: docker/CeleryDockerfile
+    command: celery -A backend worker --loglevel=debug
+    volumes:
+      - .app:/usr/src/django
+    env_file:
+      - docker/env.prod
+    depends_on:
+      - redis
+      - celery-beat
+
+  celery-beat:
+    build:
+      context: ./backend
+      dockerfile: docker/CeleryDockerfile
+    command: celery -A backend beat --loglevel=debug --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - .app:/usr/src/django
+    env_file:
+      - docker/env.prod
+    depends_on:
+      - redis
+
+  celery-flower:
+    build:
+      context: ./backend
+      dockerfile: docker/CeleryDockerfile
+    command: celery -A backend flower --port=5566
+    volumes:
+      - .app:/usr/src/django
+    env_file:
+      - docker/env.prod
+    ports:
+      - 5566:5566
+    depends_on:
+      - celery
 
   scrapyDatabase:
     image: mongo:latest
@@ -68,8 +112,15 @@ services:
       PROJECT: products
     ports:
       - 5000:5000
+    restart: unless-stopped
     depends_on:
       - scrapyd
 
 volumes:
+  .app:
   mongodb:
+  static_volume:
+  media_volume:
+  postgres_data:
+  redis-data:
+  redis-conf:
