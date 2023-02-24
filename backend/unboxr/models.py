@@ -29,7 +29,7 @@ class Product(models.Model):
     company_name = models.CharField(max_length=255, default="n/a")
     company_website = models.URLField(
         default="n/a", help_text="Website to the source company that manufactures the product.")
-
+    
     product_name = models.CharField(max_length=255)
     product_categories = models.ManyToManyField(
         Product_Category, related_name='products')

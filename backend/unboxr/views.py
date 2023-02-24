@@ -68,6 +68,8 @@ class FindInfluencerVideoByProductInfo(APIView):
 
             get_all_prom = Promotion.objects.filter(product=product)
 
+            Product(company_name="yoyo", )
+
             serialized_promos_arr = []
             for promo in get_all_prom:
                 serialized_promos_arr.append(PromotionSerializer(promo).data)
