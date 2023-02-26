@@ -124,6 +124,8 @@ def parse_product_page(response):
 
     get_all_tables = parse_out_all_tables_on_page(response)
 
+    category = response.xpath("//table[@id='productDetails_detailBullets_sections1']/tr[th[contains(text(), 'Best Sellers Rank')]]/td/span/span/a/text()").extract_first()
+
     # category
     # //*[@id="nav-subnav"]@data-category
 
@@ -167,7 +169,7 @@ def parse_product_page(response):
 
     yield AmazonProductItem({'Id': asin, "IdType": "asin", 'Title': title, 'BrandName': brand_name, 'MainImage': image, 'Rating': rating, 'NumberOfReviews': number_of_reviews,
                              'PricePaid': price_to_pay, 'PriceList': list_price, 'PriceDiscount': savingsPercentage, 'AvailableSizes': sizes, 'AvailableColors': colors, 'Details': bullet_points,
-                             'SellerRank': seller_rank, 'ProductUrl': product_url, 'AllTables': get_all_tables})
+                             'SellerRank': seller_rank, 'ProductUrl': product_url, 'AllTables': get_all_tables, 'ProductCategory': category, })
 
 
 def extract_table_to_json(tbody):
