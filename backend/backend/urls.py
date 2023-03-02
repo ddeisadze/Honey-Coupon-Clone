@@ -22,7 +22,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
 from rest_framework.routers import DefaultRouter
-from unboxr.views import FindInfluencerVideoByProductInfo, CrawlAmazonProductPages, ProductsViewSet
+from unboxr.views import FindInfluencerVideoByProductInfo, CrawlAmazonProductPages, ProductsViewSet, ProductEmailAlertViewSet
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -36,17 +36,23 @@ schema_view = get_schema_view(
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
-router.register(r'products', ProductsViewSet, basename="product")
+router.register(r'products', ProductsViewSet)
+router.register(r'products-alerts', ProductEmailAlertViewSet, basename="products-alerts")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    path('', include(router.urls)),
+    path('api/unboxr/', include(router.urls)),
  
     path('promotions/get/', FindInfluencerVideoByProductInfo.as_view(), name="send-influencer-info"),
     path('products/crawl', CrawlAmazonProductPages.as_view(), name='crawl-amazon-product-pages' ), 
-
+    
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    
+    path('', include('users.urls')),
+    
+    path('accounts/', include('allauth.urls')),
+ 
 ]

@@ -9,17 +9,15 @@ import {
   Button,
   ChakraProvider,
 } from "@chakra-ui/react";
-import Logo from "../svg/logo.svg";
+// import Logo from "../svg/logo.svg";
 import Lottie from "lottie-react";
 import piggieLottie from "../assets/piggieLottie.json";
+import { Promotion } from "../api/backendModels";
 
 interface Props {
   promotionsArray?: Array<Promotion>;
 }
 
-interface Promotion {
-  coupons: Array<Object>
-}
 
 function getTotalPriceForCart() {
   const grandTotalPriceElement: HTMLSpanElement = document
@@ -107,7 +105,7 @@ export function ApplyCouponsAlert(props: Props) {
               padding="4px"
               paddingBottom="5px"
             >
-              <Logo viewBox="110 110 160 130" height="45" width="45px" />
+              {/* <Logo viewBox="110 110 160 130" height="45" width="45px" /> */}
             </PopoverHeader>
             <PopoverCloseButton />
             <PopoverBody

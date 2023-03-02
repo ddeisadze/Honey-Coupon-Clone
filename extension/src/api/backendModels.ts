@@ -11,10 +11,9 @@ export interface Influencer {
 }
 
 export interface ProductId {
-    id: number;
     product_id_value: string;
-    date_modified: Date;
-    date_published: Date;
+    date_modified?: Date;
+    date_published?: Date;
     product_id_type: string
 }
 
@@ -34,13 +33,17 @@ export interface ProductPrice {
     date_added: Date;
 }
 
+export interface ProductImage {
+    image_url: string
+}
+
 export interface Product {
     product_name: string;
     company_name: string;
     company_website: string;
     merchant_product_page?: string;
     product_description: string;
-    product_images?: any[];
+    product_images?: ProductImage[];
     product_ids: ProductId[];
     product_categories?: ProductCategory[];
     prices: ProductPrice[];
@@ -51,7 +54,7 @@ export interface Coupon {
 }
 
 export interface Promotion {
-    influencer: Influencer;
+    influencer?: Influencer;
     product: Product;
     videos?: any[];
     images?: any[];

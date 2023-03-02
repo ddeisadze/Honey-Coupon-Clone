@@ -1,0 +1,54 @@
+{% load mjml %}
+
+{% mjml %}
+
+<mjml>
+  <mj-head>
+    <mj-title>Unboxr | Discounts Found</mj-title>
+    <mj-preview>Amazon Coupon found for {{product.product_name}}</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"></mj-all>
+      <mj-text font-weight="400" font-size="16px" color="#000000" line-height="24px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"></mj-text>
+    </mj-attributes>
+    <mj-style inline="inline">
+      .body-section {
+      -webkit-box-shadow: 1px 4px 11px 0px rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 1px 4px 11px 0px rgba(0, 0, 0, 0.15);
+      box-shadow: 1px 4px 11px 0px rgba(0, 0, 0, 0.15);
+      }
+    </mj-style>
+    <mj-style inline="inline">
+      .text-link {
+      color: #5e6ebf
+      }
+    </mj-style>
+    <mj-style inline="inline">
+      .footer-link {
+      color: #888888
+      }
+    </mj-style>
+
+  </mj-head>
+  <mj-body background-color="#d2b48c" width="600px">
+    {% comment %} <mj-spacer height="50px" /> {% endcomment %}
+    <mj-section background-color="#fafafa">
+      <mj-column width="400px">
+
+        <mj-text font-size="40px" font-family="Helvetica Neue" color="#626262">We found savings of ${{coupon_off}}!</mj-text>
+        <mj-image align="right" width="300px" src="{{product_image_url}}" />
+
+        <mj-text align="center" font-size="20px" font-family="Helvetica Neue" color="#626262">{{product.product_name}}</mj-text>
+
+        <mj-text align="center" color="#525252">
+          We found a new coupon for this product. Get <b>${{coupon_off}}</b> OFF. New price is ${{new_price}}.
+        </mj-text>
+
+        <mj-button background-color="#F45E43" href="{{product.merchant_product_page}}">View on Amazon</mj-button>
+
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>
+
+{% endmjml %}

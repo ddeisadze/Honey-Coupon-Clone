@@ -1,12 +1,8 @@
 from rest_framework import serializers
-from unboxr.models import Product, Promotion, Influencer, InfluencerSocialMedia, Coupon, ProductPrice, ProductIdValue
+from unboxr.models import Product, Promotion, Influencer, InfluencerSocialMedia, Coupon, ProductPrice, ProductIdValue, ProductEmailAlert, social_choices, AlertTypes
+from rest_framework import exceptions
+from rest_framework.fields import CurrentUserDefault
 
-social_choices = (
-    ('Tik', 'Tik Tok'),
-    ('Insta', 'Instagram'),
-    ('Fb', 'Facebook'),
-    ('Yt', 'Youtube')
-)
 
 class InfluencerSocialMediaSerializer(serializers.ModelSerializer):
     platform = serializers.ChoiceField(
@@ -41,7 +37,7 @@ class ProductPriceSerializer(serializers.ModelSerializer):
         exclude = ('product',)
         depth = 1
 
-class ProductIdValues(serializers.ModelSerializer):
+class ProductIdValuesSerializer(serializers.ModelSerializer):
     product_id_type = serializers.CharField(source='product_id_type.name')
     
     class Meta:
@@ -50,7 +46,7 @@ class ProductIdValues(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     prices = ProductPriceSerializer(many=True, read_only=True)
-    product_ids = ProductIdValues(many = True)
+    product_ids = ProductIdValuesSerializer(many = True)
 
     class Meta:
         model = Product
@@ -69,3 +65,43 @@ class PromotionSerializer(serializers.ModelSerializer):
         fields = ['influencer', 'product', 'videos', 'images', 'social_media_type', 'coupon_description', 'coupon_code_in_the_link',
                   'post_link', 'post_promotion_date', 'promotion_expiration_date', 'advertisement_link', 'date_modified', 'coupons']
         depth = 1
+
+class ProductEmailAlertSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductEmailAlert
+        fields = '__all__'
+
+class ProductEmailAlertCreateSerializer(serializers.Serializer):
+    # email = serializers.EmailField()
+    alert_type = serializers.ChoiceField(
+    choices=AlertTypes.choices)    
+    product = ProductIdValuesSerializer()
+
+    def create(self, validated_data):
+        product = validated_data.get('product')
+        product_id_value = product.get('product_id_value')
+        product_id_type_name = product.get('product_id_type').get('name')
+        
+        product_id = ProductIdValue.objects.filter(
+            product_id_type__name=product_id_type_name,
+            product_id_value=product_id_value).first()
+        
+        if not product_id:
+            raise exceptions.NotFound("Id not found")
+        
+        product = product_id.product
+        
+        new_alert = ProductEmailAlert(
+            product=product,
+            alert_type = validated_data.get("alert_type"),
+            owner = self.context.get("request").user
+        )
+        
+        new_alert.save()
+        
+        print(new_alert)
+        
+        return {
+            "alert_type" : new_alert.alert_type,
+            "product" : product_id
+                }

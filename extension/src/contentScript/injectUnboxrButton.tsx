@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Promotion } from "../api/backendModels";
-import { UnboxingPopoverIcon } from "./popoverContainer";
+import { UnboxingPopoverIcon } from "./UnboxingPopoverIcon";
 
 export async function injectUnboxrButton(
   promotion: Promotion
