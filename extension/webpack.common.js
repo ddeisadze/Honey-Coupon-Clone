@@ -3,6 +3,7 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const HtmlPlugin = require('html-webpack-plugin');
 
 const path = require("path");
+const ZipPlugin = require('zip-webpack-plugin');
 
 const fileLoader = require('file-loader');
 const svgUrlLoader = require('svg-url-loader');
@@ -13,11 +14,12 @@ module.exports = {
         popup: path.resolve("./src/popup/toolBarPopUp.tsx"),
         product_page_content: path.resolve("./src/contentScript/amazon/productPage/amazonProductPage.tsx"),
         checkout_page_content: path.resolve("./src/contentScript/amazon/checkout/checkoutPage.tsx"),
-        test_general: path.resolve("./src/contentScript/test.tsx"),
-        test_price_history: path.resolve("./src/contentScript/test_price_history.tsx"),
-        // test_product_page: path.resolve("./src/contentScript/test.tsx"),
-        test_checkout_page: path.resolve("./src/contentScript/test_checkout_page.tsx"),
+        test_general: path.resolve("./src/contentScript/test_index/test_general.tsx"),
+        test_price_history: path.resolve("./src/contentScript/test_index/test_price_history.tsx"),
+        test_checkout_page: path.resolve("./src/contentScript/test_index/test_checkout_page.tsx"),
         options: path.resolve('./src/options/index.tsx'),
+        background: path.resolve('./src/background/backgroundIndex.tsx'),
+        loginPage: path.resolve('./src/login/loginPopupIndex.tsx')
     },
     module: {
         rules: [
@@ -69,6 +71,23 @@ module.exports = {
             chunks: ['test_price_history'],
         }),
 
+        new HTMLWebpackPlugin({
+            title: 'Unboxr | Login',
+            filename: 'login.html',
+            chunks: ['loginPage'],
+        }),
+
+        new ZipPlugin({
+            path: 'dist/',
+            // OPTIONAL: defaults to the Webpack output filename (above) or,
+            // if not present, the basename of the path
+            filename: 'unboxr.zip',
+
+            // OPTIONAL: defaults to 'zip'
+            // the file extension to use instead of 'zip'
+            extension: 'ext'
+        }),
+
     ],
     resolve: {
         extensions: [".tsx", ".ts", ".js", ".json"],
@@ -78,6 +97,9 @@ module.exports = {
         filename: "[name].js",
         // publicPath: '/'
 
+    },
+    experiments: {
+        topLevelAwait: true
     },
     optimization: {
         splitChunks: {

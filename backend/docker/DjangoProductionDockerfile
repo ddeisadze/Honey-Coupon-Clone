@@ -28,16 +28,6 @@ RUN pip install -r requirementsProd.txt
 
 RUN pip install uvicorn gunicorn
 
-# RUN python manage.py makemigrations
-# RUN python manage.py migrate
-
-# RUN python manage.py makemigrations unboxr
-# RUN python manage.py migrate unboxr
-
-# RUN python manage.py loaddata dump.json
-# RUN echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@myproject.com', 'test')" | python manage.py shell
-
-# to export data use python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes --indent 2 > dump.json
 EXPOSE 8000
 
 CMD python -m gunicorn backend.asgi:application -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000

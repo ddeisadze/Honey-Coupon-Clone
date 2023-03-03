@@ -1,7 +1,7 @@
-import { ProductPriceHistoryGraph } from "./priceHistory";
 
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { ProductPriceHistoryGraph } from "../priceHistory";
 
 
 const container = document.createElement("div");

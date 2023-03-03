@@ -24,12 +24,29 @@ export async function loadElementsForProductPage(test: boolean = false) {
 
     injectUnboxrButton(
       {
+        influencer: null,
+        social_media_type: "tiktok",
+        advertisement_link: null,
+        date_modified: null,
+        coupon_description: "",
+        post_promotion_date: new Date(),
+        promotion_expiration_date: new Date(),
+        coupon_code_in_the_link: null,
         post_link: "https://www.tiktok.com/@driggsy/video/7167765831969934634?is_copy_url=1&is_from_webapp=v1",
         product: {
           company_name: "Test",
+          product_ids: [
+            {
+              product_id_type: "asin",
+              product_id_value: "B0BCWNQPQ7"
+            }
+          ],
           merchant_product_page: "Test",
           product_description: "Test",
           product_name: "Test",
+          product_images: [{
+            image_url: "https://m.media-amazon.com/images/I/619NJGBXTvL._AC_SX679_.jpg"
+          }],
           prices: [
             {
               "id": 1,

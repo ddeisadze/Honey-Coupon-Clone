@@ -9,34 +9,67 @@
         "128": "images/128-unboxr.png"
     },
     "options_page": "options.html",
-
-    
     "permissions": [
         "tabs",
         "activeTab",
         "storage",
-        "alarms"
-
+        "alarms",
+        "identity",
+        "identity.email",
+        "cookies",
+        "webRequest",
+        "*://*.google.com/*",
+        "http://localhost:*/*"
     ],
-
     "action": {
-        "default_title": "Click Me",  
+        "default_title": "Click Me",
         "default_popup": "popup.html"
-      },
-
-      "content_scripts": [
+    },
+    "oauth2": {
+        "client_id": "175988724842-gf3n3gpffkq14r2qamaeinudjusn3mch.apps.googleusercontent.com",
+        "scopes": [
+            "openid",
+            "email",
+            "profile"
+        ]
+    },
+    "content_scripts": [
         {
-            "matches": ["*://*.amazon.com/*dp*", "https://www.amazon.com/dp/*"],
-            "js": ["product_page_content.js"],
+            "matches": [
+                "*://*.amazon.com/*dp*",
+                "https://www.amazon.com/dp/*"
+            ],
+            "js": [
+                "product_page_content.js"
+            ],
             "run_at": "document_end"
-
         },
         {
-            "matches": ["https://www.amazon.com/*/buy/*", "https://www.amazon.com/gp/buy/shipoptionselect/*", "https://www.amazon.com/gp/buy/spc/*"],
-            "js": ["checkout_page_content.js"],
+            "matches": [
+                "https://www.amazon.com/*/buy/*",
+                "https://www.amazon.com/gp/buy/shipoptionselect/*",
+                "https://www.amazon.com/gp/buy/spc/*"
+            ],
+            "js": [
+                "checkout_page_content.js"
+            ],
             "run_at": "document_end"
         }
-    ]
-    
+    ],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+    "sandbox": {
+        "pages": [
+            "login.html"
+        ]
+    },
+    "host_permissions": [
+        "*://*/*"
+    ],
+    "content_security_policy": {
+        "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals;; script-src 'self' *.google.com/*; script-src-elem https://accounts.google.com/gsi/client"
+    },
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxrSUFZ5ZcSGEpNHXqmw3hiBwbi+GhHtjEcda1YmfSax+OWKMF90ETu3nRbjKK7JAatWtetf56ERY5BFVEyBzAQURk2wNYik4LUqsAqLZKRmUtOZ/P+IF2L5QcMNx5awFudqMl9Ise4Of6DHJ9+y6N+t+Uu+OsZYz0VAsk6wmrPWgiXeYTpNU3JLO+H1+2GneND4rC3lplYrXvsla1VFhkjbjUL3EMcuu+FQSQtr63hk7Gjeeo/BrVif17uUOGGwip32zxOonn7JIcT4gwesrrcAOLAcQgrMtB2JoVTcjGck5+8Zuf0vMWKf5bFenCJ41Y6joi/BAO6ZSTkOUGi5tSwIDAQAB"
 }
-
