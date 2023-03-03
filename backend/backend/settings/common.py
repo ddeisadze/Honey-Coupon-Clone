@@ -187,14 +187,16 @@ CELERY_EAGER_PROPAGATES_EXCEPTIONS=True
 
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
-    "SENDGRID_API_KEY": "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",
+    "SENDGRID_API_KEY": os.environ.get('SENDGRID_API_KEY', None),
 }
 EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"  # or sendgrid.EmailBackend, or...
-DEFAULT_FROM_EMAIL = "ddeisadze7@gmail.com"  # if you don't already have this in settings
-SERVER_EMAIL = "ddeisadze7@gmail.com"
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', None) # if you don't already have this in settings
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL', None)
 
 MJML_BACKEND_MODE = 'tcpserver'
-MJML_TCPSERVERS = None
+MJML_TCPSERVERS = os.environ.get('MJML_TCPSERVERS', [
+    ('localhost', 28102),
+])
 
 AUTH_USER_MODEL = 'users.CustomUser'
 

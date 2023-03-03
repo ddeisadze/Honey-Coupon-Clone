@@ -59,7 +59,6 @@ export enum AlertTypeEnum {
 }
 
 export interface SubscribeToProductRequest {
-  // email: string,
   alert_type: AlertTypeEnum,
   product: {
     product_id_value: string,

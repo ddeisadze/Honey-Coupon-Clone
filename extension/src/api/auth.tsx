@@ -1,18 +1,26 @@
 export const googleLogin = async (accesstoken) => {
 
-    const url = "http://localhost:8000/rest-auth/google/";
-    const options = {
+    const controller = new AbortController();
+
+    // 5 second timeout:
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+    const base = new URL("/", process.env.BACKEND_HOSTNAME)
+    const route = new URL(`rest-auth/google/`, base);
+
+    const requestOptions: RequestInit = {
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json;charset=UTF-8",
         },
+        signal: controller.signal,
         body: JSON.stringify({
             access_token: accesstoken
         }),
     };
 
-    return fetch(url, options)
+    return fetch(route.href, requestOptions)
         .then(response => {
             if (response.ok) {
                 return response.json().catch(err => {
@@ -31,23 +39,30 @@ export const googleLogin = async (accesstoken) => {
 
 export const emailRegistration = async ({ email, password }) => {
 
-    const url = "http://localhost:8000/rest-auth/register/";
-    const options = {
+    const controller = new AbortController();
+
+    // 5 second timeout:
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+    const base = new URL("/", process.env.BACKEND_HOSTNAME)
+    const route = new URL(`rest-auth/register/`, base);
+
+    const requestOptions: RequestInit = {
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json;charset=UTF-8",
         },
+        signal: controller.signal,
         body: JSON.stringify({
             email: email,
             username: email,
             password1: password,
             password2: password
-
         }),
     };
 
-    return fetch(url, options)
+    return fetch(route.href, requestOptions)
         .then(response => {
             if (response.ok) {
                 return response.json().catch(err => {
@@ -66,8 +81,15 @@ export const emailRegistration = async ({ email, password }) => {
 
 export const emailLogin = async ({ email, password }) => {
 
-    const url = "http://localhost:8000/rest-auth/login/";
-    const options = {
+    const controller = new AbortController();
+
+    // 5 second timeout:
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+    const base = new URL("/", process.env.BACKEND_HOSTNAME)
+    const route = new URL(`rest-auth/login/`, base);
+
+    const requestOptions: RequestInit = {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -78,9 +100,10 @@ export const emailLogin = async ({ email, password }) => {
             username: email,
             password: password
         }),
+        signal: controller.signal,
     };
 
-    return fetch(url, options)
+    return fetch(route.href, requestOptions)
         .then(response => {
             if (response.ok) {
                 return response.json().catch(err => {

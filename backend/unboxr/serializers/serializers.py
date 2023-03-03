@@ -72,7 +72,6 @@ class ProductEmailAlertSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductEmailAlertCreateSerializer(serializers.Serializer):
-    # email = serializers.EmailField()
     alert_type = serializers.ChoiceField(
     choices=AlertTypes.choices)    
     product = ProductIdValuesSerializer()
@@ -98,8 +97,6 @@ class ProductEmailAlertCreateSerializer(serializers.Serializer):
         )
         
         new_alert.save()
-        
-        print(new_alert)
         
         return {
             "alert_type" : new_alert.alert_type,

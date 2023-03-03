@@ -77,7 +77,6 @@ def get_new_price_for_product_on_amazon():
             
             check_if_coupon_was_added(mongo_scraped_object, productModel)
 
-# @shared_task
 def on_coupon_detection_send_alert_to_subscribed_users(productModel : models.Product, coupon_object):
     get_all_users_to_email = models.ProductEmailAlert.objects.filter(
         product = productModel,
@@ -111,12 +110,6 @@ def on_coupon_detection_send_alert_to_subscribed_users(productModel : models.Pro
             message.attach_alternative(html_body, "text/html")
             message.send(fail_silently=False)
 
-            # send_mail(
-            # f'New Coupon for {productModel.product_name}',
-            # f'Go to amazon now, you will save ${discount_value}. Total price will be ${float(productModel.current_price()) - discount_value}. Here is the product link {productModel.merchant_product_page}',
-            # 'ddeisadze7@gmail.com',
-            # [email],
-            # fail_silently=False)
             alert_subscriber.email_last_sent = timezone.now()
         else:
             print("not sending")

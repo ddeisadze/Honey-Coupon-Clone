@@ -20,7 +20,6 @@ export function MainProductView(props: MainProductViewProps) {
     const [isUserSubscribedToCurrentProduct, setIsUserSubscribedToCurrentProduct] = useState(false);
 
     useEffect(() => {
-        console.log("useaffect")
         chrome?.runtime?.onMessage.addListener((e: OnLoginMessageToExtension) => {
 
             console.log(e, "asdasds")
@@ -48,11 +47,6 @@ export function MainProductView(props: MainProductViewProps) {
         const product_asin = props.promotion.product.product_ids.filter(t => t.product_id_type == "asin")[0].product_id_value;
 
         getAlertForUserByAsin(product_asin).then(e => {
-            console.log("alert for users", e)
-            // if (!e) {
-            //     return setIsUserSubscribedToCurrentProduct(false)
-            // }
-
             return setIsUserSubscribedToCurrentProduct(true)
         }).catch(e => {
             setIsUserSubscribedToCurrentProduct(false)
