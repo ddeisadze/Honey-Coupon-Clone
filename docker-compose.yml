@@ -116,6 +116,38 @@ services:
     depends_on:
       - scrapyd
 
+  torProxy1:
+    image: 'dperson/torproxy:latest'
+    ports:
+      - '9990:8118'
+    environment:
+      - TOR_NewCircuitPeriod=60
+    restart: always
+
+  torProxy2:
+    image: 'dperson/torproxy:latest'
+    ports:
+      - '9991:8118'
+    environment:
+      - TOR_NewCircuitPeriod=60
+    restart: always
+
+  torProxy3:
+    image: 'dperson/torproxy:latest'
+    ports:
+      - '9992:8118'
+    environment:
+      - TOR_NewCircuitPeriod=60
+    restart: always
+
+  torProxy4:
+    image: 'dperson/torproxy:latest'
+    ports:
+      - '9993:8118'
+    environment:
+      - TOR_NewCircuitPeriod=60
+    restart: always
+
 volumes:
   .app:
   mongodb:
