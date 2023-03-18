@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.conf import settings
 
 
 social_choices = (
@@ -8,6 +9,28 @@ social_choices = (
     ('Fb', 'Facebook'),
     ('Yt', 'Youtube')
 )
+
+class AlertTypes(models.TextChoices):
+        COUPON = 'NCP', ('New Coupon')
+
+class ProductEmailAlert(models.Model):
+    product = models.ForeignKey("Product", on_delete=models.CASCADE, related_name='email_alert')
+    active = models.BooleanField(default=True)
+    
+    class AlertTypes(models.TextChoices):
+        COUPON = 'NCP', ('New Coupon')
+    
+    alert_type = models.TextField(max_length=3, choices=AlertTypes.choices)
+    
+    email_last_sent = models.DateTimeField(blank=True, null=True)
+    
+    date_modified = models.DateTimeField(auto_now=True)
+    date_published = models.DateTimeField(auto_now_add=True)
+    
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='email_alerts', on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together = ('owner', 'alert_type', 'product')
 
 
 class Product_Category(models.Model):
@@ -19,7 +42,8 @@ class Product_Category(models.Model):
 
 
 class ProductImages(models.Model):
-    image = models.ImageField(upload_to='product_images')
+    image = models.ImageField(upload_to='product_images', blank=True)
+    image_url = models.URLField(blank=True)
     product = models.ForeignKey(
         "Product", related_name='product_images', on_delete=models.CASCADE, blank=True)
 
@@ -48,7 +72,9 @@ class Product(models.Model):
         return self.product_name + " - " + self.company_name + " - "
 
     def current_price(self):
-        return self.prices.order_by('-date_modified').first().total_price
+        latest_price = self.prices.order_by('-date_modified').first()
+        
+        return latest_price.discounted_price if latest_price.discounted_price else latest_price.list_price
 
 
 class ProductPrice(models.Model):

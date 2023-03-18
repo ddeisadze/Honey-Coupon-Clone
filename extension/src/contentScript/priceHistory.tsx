@@ -5,6 +5,8 @@ import { XYPlot, XAxis, YAxis, HorizontalGridLines, LineMarkSeries, Crosshair, H
 import "react-vis/dist/style.css";
 import { Product, ProductPrice } from "../api/backendModels";
 import { Badge, Highlight, Stack } from "@chakra-ui/react";
+import { useToken } from '@chakra-ui/react'
+
 
 interface priceHistoryProps {
     asin?: string,
@@ -20,6 +22,15 @@ interface GraphDataPoint {
 export function ProductPriceHistoryGraph(props: priceHistoryProps) {
     const [product, setProduct] = useState<Product>(null);
     const [activeDataPoint, setActiveDataPoint] = useState<GraphDataPoint>();
+
+    const [orange, gray] = useToken(
+        // the key within the theme, in this case `theme.colors`
+        'colors',
+        // the subkey(s), resolving to `theme.colors.red.100`
+        ['orange.400', 'gray.400'],
+        // a single fallback or fallback array matching the length of the previous arg
+    )
+
 
     useEffect(() => {
         if (props.product) {
@@ -79,24 +90,26 @@ export function ProductPriceHistoryGraph(props: priceHistoryProps) {
             {/* <YAxis tickTotal={2} tickFormat={(d) => `$${d}`} hideLine tickSizeInner={0} tickSizeOuter={0} /> */}
 
             <LineMarkSeries
-                strokeDasharray="15"
-                size={4}
+                // strokeDasharray="5, 5"
+                strokeStyle={"dashed"}
+                size={3}
                 yDomain={[minValue?.y, maxValue?.y ?? 100]}
                 xType={"time"}
                 curve={'curveMonotoneX'}
                 data={listPriceData}
+                color={gray}
                 onNearestX={_onNearestX}
             />
 
-            <AreaSeries color={"cyan"} data={discountData} curve={"curveMonotoneX"} opacity={0.15}></AreaSeries>
+            <AreaSeries color={orange} opacity={.75} data={discountData} curve={"curveMonotoneX"} ></AreaSeries>
 
             {defaultOrActiveDataPoint &&
 
                 <Crosshair values={[defaultOrActiveDataPoint]}>
                     <Stack direction='column'>
-                        <Badge size="sm" variant='subtle'>{dateAddedLocaleString}</Badge>
-                        <Badge variant="solid" colorScheme='blue'>${defaultOrActiveDataPoint.obj.discounted_price} Total</Badge>
-                        <Badge variant='subtle' colorScheme='cyan'>${defaultOrActiveDataPoint.obj.discount} OFF</Badge>
+                        <Badge size="sm">{dateAddedLocaleString}</Badge>
+                        <Badge variant="subtle" color={gray}>${defaultOrActiveDataPoint.obj.discounted_price} Total</Badge>
+                        <Badge variant='subtle' color={orange}>${defaultOrActiveDataPoint.obj.discount} OFF</Badge>
                     </Stack>
                 </Crosshair>
             }

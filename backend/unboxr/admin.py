@@ -24,6 +24,9 @@ class ProductPriceInline(admin.TabularInline):
     model = ProductPrice
     extra = 0
 
+class ProductImagesInline(admin.TabularInline):
+    model = ProductImages
+
 class InfluencerSocialMediaInline(admin.TabularInline):
     model = InfluencerSocialMedia
 
@@ -73,9 +76,13 @@ class PromotionAdmin(admin.ModelAdmin):
     inlines = [
         PromotionalInline,
         ProductIdInline, 
-        ProductPriceInline
+        ProductPriceInline,
+        ProductImagesInline
     ]
 
     # filter_horizontal  = ('product_id_type',)
+@admin.register(ProductEmailAlert)
+class ProductEmailAlert(admin.ModelAdmin):
+    model = ProductEmailAlert
 
 admin.site.register(Product_Category)

@@ -1,23 +1,23 @@
-from django.test import TestCase
-from unboxr.models import Product_Category, ProductImages, Product, ProductPrice, InfluencerSocialMedia, ProductIdValue, ProductIdType, Influencer
+from unboxr import models
+from unboxr import tasks
 import pytest
 
 
 # Create your tests here.
 @pytest.fixture
-@pytest.mark.django_db(transaction=True)
-def fixture() -> None:
-    product_category_1 = Product_Category.objects.create(
-        name='Fashion',
-        description='Clothing, shoes and accessories'
-    )
-    electronics_category = Product_Category.objects.create(
+def product() -> models.Product:
+    product_category_1 = models.Product_Category.objects.create(
+            name='Fashion',
+            description='Clothing, shoes and accessories'
+        )
+    
+    electronics_category =  models.Product_Category.objects.create(
         name='Electronics',
         description='Gadgets and appliances'
     )
 
     # Create a test product
-    product = Product.objects.create(
+    product =  models.Product.objects.create(
         company_name='Nebula',
         company_website='https://us.seenebula.com/products/d2426-capsule-3-laser',
         product_name='Capsule 3 Laser',
@@ -28,44 +28,43 @@ def fixture() -> None:
     # Add product categories to the product
     product.product_categories.add(electronics_category)
 
-    product_price = ProductPrice.objects.create(
+    models.ProductPrice.objects.create(
         product=product,
         source='https://www.amazon.com/gp/product/B0BCWNQPQ7/ref=ox_sc_saved_image_7?smid=A294P4X9EWVXLJ&psc=1',
-        total_price='799.99'
+        list_price=799.99,
+        discounted_price=799.99
     )
-
+    
     # Populate the ProductIdType model
     product_id_types = [{"name": "ASIN", "description": "Amazon Standard Identification Number"},    {"name": "UPC", "description": "Universal Product Code"},    {
         "name": "EAN", "description": "European Article Number"},    {"name": "ISBN", "description": "International Standard Book Number"}]
 
     for product_id_type in product_id_types:
-        ProductIdType.objects.create(**product_id_type)
+         models.ProductIdType.objects.create(**product_id_type)
 
-    product_sku_id = ProductIdValue.objects.create(
+    product_sku_id =  models.ProductIdValue.objects.create(
         product=product,
         product_id_value='B0BCWNQPQ7'
     )
     
-    product_sku_id.product_id_type.set(ProductIdType.objects.filter(name="ASIN"))
+    return product
 
-    influencer = Influencer.objects.create(
-        name="Dan Driggs",
-        description="Tech Influencer"
+@pytest.fixture
+def subscriber(product):
+    return models.ProductEmailAlert.objects.create(
+        product = product,
+        email = "ddeisadze7@gmail.com",
+        active = True,
+        alert_type = models.AlertTypes.COUPON
     )
 
-    # Create test data for InfluencerSocialMedia
-    influencer_sm_1 = InfluencerSocialMedia.objects.create(
-        influencer=influencer, social_media_type="Tik", social_media_username="driggsy")
-
-    # Populate the Product_Category model
-    product_categories = [
-        {"name": "Electronics", "description": "Electronics and gadgets"},
-        {"name": "Fashion", "description": "Clothing and accessories"},
-        {"name": "Home & Kitchen", "description": "Home appliances and kitchen utensils"},
-        {"name": "Sports & Outdoors", "description": "Sports equipment and outdoor gear"}
-    ]
-    for product_category in product_categories:
-        Product_Category.objects.create(**product_category)
-
-def test(live_server, fixture):
-    print("hello")
+@pytest.mark.django_db
+class TestExample:
+    def test_send_email(product, subscriber):
+        tasks.on_coupon_detection_send_alert_to_subscribed_users(
+            product,
+            {
+                "discountValue" : "80"
+            }
+        )
+        # assert product == 2

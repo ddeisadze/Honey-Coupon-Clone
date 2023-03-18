@@ -41,19 +41,37 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'unboxr',
-
+    'users',
+    
+    'dj_rest_auth',
     'rest_framework',
     'drf_yasg',
     'corsheaders',
-    'django_celery_beat'
+    'django_celery_beat',
+    'anymail',
+    'mjml',
+    
+    'dj_rest_auth.registration',
+    'rest_framework.authtoken',
+    'django.contrib.sites',
+    
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    # social providers
+    "allauth.socialaccount.providers.google"
     ]
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+        'rest_framework.permissions.AllowAny'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication'
+        ]
 }
 
 MIDDLEWARE = [
@@ -72,7 +90,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,6 +134,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Django All Auth config. Add all of this.
+AUTHENTICATION_BACKENDS = (    "django.contrib.auth.backends.ModelBackend",    "allauth.account.auth_backends.AuthenticationBackend",
+)
 
 
 # Internationalization
@@ -162,3 +184,52 @@ CELERY_ENABLE_UTC = False
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', "redis://localhost:6379")
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND', "redis://localhost:6379")
 CELERY_EAGER_PROPAGATES_EXCEPTIONS=True
+
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "SENDGRID_API_KEY": os.environ.get('SENDGRID_API_KEY', None),
+}
+EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', None) # if you don't already have this in settings
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL', None)
+
+MJML_BACKEND_MODE = 'tcpserver'
+MJML_TCPSERVERS = os.environ.get('MJML_TCPSERVERS', [
+    ('localhost', 28102),
+])
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_UNIQUE_EMAIL = True
+LOGIN_REDIRECT_URL = "/"
+
+SITE_ID = 2
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+SWAGGER_SETTINGS = {
+        'SECURITY_DEFINITIONS': {
+            'api_key': {
+                'type': 'apiKey',
+                'in': 'header',
+                'name': 'Authorization'
+            }
+    }
+}

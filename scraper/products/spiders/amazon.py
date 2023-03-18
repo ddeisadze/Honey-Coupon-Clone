@@ -171,8 +171,40 @@ def parse_product_page(response):
 
     yield AmazonProductItem({'Id': asin, "IdType": "asin", 'Title': title, 'BrandName': brand_name, 'MainImage': image, 'Rating': rating, 'NumberOfReviews': number_of_reviews,
                              'PricePaid': price_to_pay, 'PriceList': list_price, 'PriceDiscount': savingsPercentage, 'AvailableSizes': sizes, 'AvailableColors': colors, 'Details': bullet_points,
+<<<<<<< HEAD
                              'SellerRank': seller_rank, 'ProductUrl': product_url, 'AllTables': get_all_tables, 'Product_Categories': categories})
+=======
+                             'SellerRank': seller_rank, 'ProductUrl': product_url, 'AllTables': get_all_tables, 'Coupons' : detect_amazon_coupon(response)})
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515
 
+
+def detect_amazon_coupon(response):
+    # high level span container has class promoPriceBlockMessage
+     
+    coupon_selector = response.xpath('//span/label[contains(@id, "couponText")]/text()')
+    
+    cleaned_coupons = []
+    for selector in coupon_selector:
+        c_text = selector.extract()
+        print(c_text)
+        if c_text == " ":
+            continue
+        
+        cleaned = c_text.strip()
+        discount_re = selector.re("\d+")
+        discount = discount_re[0] if discount_re else None
+        
+        if discount:
+            cleaned_coupons.append({
+                "discount_value" :  discount,
+                "text": cleaned
+            })
+     
+    if len(cleaned_coupons) > 0:
+        return {
+            "all_detected_coupon_text" :  cleaned_coupons,
+            "first_one": cleaned_coupons[0]
+        }
 
 def extract_table_to_json(tbody):
     data = {}

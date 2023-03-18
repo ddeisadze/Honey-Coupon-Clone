@@ -7,14 +7,17 @@ from rest_framework.decorators import action
 from drf_yasg import openapi
 
 from api.scrapyd import ScrapydDjango
-from .models import ProductIdValue, Promotion, Coupon, Product, ProductPrice
-from .serializers.serializers import PromotionSerializer, CouponSerializer, ProductSerializer
+from .models import ProductIdValue, Promotion, Coupon, Product, ProductPrice, ProductEmailAlert
+from .serializers.serializers import PromotionSerializer, CouponSerializer, ProductSerializer, ProductEmailAlertSerializer, ProductEmailAlertCreateSerializer
 from django import http
 import os
+
+from rest_framework import mixins
 
 from drf_yasg.utils import swagger_auto_schema
 
 from .tasks import get_new_price_for_product_on_amazon
+
 
 scrapyd = ScrapydDjango()
 
@@ -115,5 +118,55 @@ class ProductsViewSet(viewsets.ModelViewSet):
     @action(detail = False, methods=["get"], url_path="cel")
     def start_task(self, request):
         asin = "B0BCWNQPQ7"
+        # product = ProductIdValue.objects.filter(
+        #     product_id_type__name="asin",
+        #     product_id_value=asin
+        # ).product
         get_new_price_for_product_on_amazon()
         return JsonResponse({})
+    
+@swagger_auto_schema()
+class ProductEmailAlertViewSet(mixins.CreateModelMixin,
+                                mixins.ListModelMixin,
+                                viewsets.GenericViewSet):
+    
+    queryset = ProductEmailAlert.objects.all()
+    # lookup_field = "email"
+    # permission_classes = (permissions.IsAuthenticated,)
+    lookup_value_regex = '[^/]+'
+    
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return ProductEmailAlertCreateSerializer
+        return ProductEmailAlertSerializer
+    
+    @action(detail = True, methods=["get"], url_path="unsubscribe")
+    def unsubscribe_user(self, request, email):
+        if not email:
+            return HttpResponse('Need to supply email', status=status.HTTP_400_BAD_REQUEST)
+        
+        alert = ProductEmailAlert.objects.first(email = email)
+        alert.active = False
+        alert.save()
+        
+        return HttpResponse(status=status.HTTP_200_OK)
+    
+    @action(detail = False, methods=["get"], url_path="(?P<asin>[^/.]+)")
+    def get_alert_status_for_user_by_product(self, request, asin):
+        user = request.user
+        # if not email:
+        #     return HttpResponse('Need to supply email', status=status.HTTP_400_BAD_REQUEST)
+        
+        product_id = ProductIdValue.objects.filter(
+        product_id_type__name="asin",
+        product_id_value=asin).first()
+        
+        product = product_id.product
+        
+        alert = ProductEmailAlert.objects.filter(owner = user, product = product).first()
+        
+        if not alert or not alert.active:
+            return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+        
+        return JsonResponse(ProductEmailAlertSerializer(alert).data)
+    

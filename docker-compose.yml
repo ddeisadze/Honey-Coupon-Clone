@@ -7,6 +7,8 @@ services:
       - POSTGRES_DB=unboxr
       - POSTGRES_USER=unboxr
       - POSTGRES_PASSWORD=unboxr
+    ports:
+      - "5432:5432"
 
   djangoProd:
     build:
@@ -88,13 +90,8 @@ services:
       context: ./scraper
       dockerfile: docker/ScrapydDockerFile
     image: xlharambe/unboxr-scrapyd-backend:latest
-    environment:
-      MONGO_HOSTNAME: scrapyDatabase
-      MONGO_PORT: 27017
-      MONGO_DBNAME: unboxr
-      MONGO_COLLECTION: products-crawler
-      MONGO_USER: root
-      MONGO_PASS: example
+    env_file:
+      - docker/env.prod
     ports:
       - 6800:6800
     restart: unless-stopped
@@ -122,32 +119,72 @@ services:
       - '9990:8118'
     environment:
       - TOR_NewCircuitPeriod=60
+<<<<<<< HEAD
+=======
+      - LOCATION=US
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515
     restart: always
 
   torProxy2:
     image: 'dperson/torproxy:latest'
     ports:
+<<<<<<< HEAD
       - '9991:8118'
     environment:
       - TOR_NewCircuitPeriod=60
+=======
+      - '9991:8888'
+    environment:
+      - TOR_NewCircuitPeriod=60
+      - LOCATION=US
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515
     restart: always
 
   torProxy3:
     image: 'dperson/torproxy:latest'
     ports:
+<<<<<<< HEAD
       - '9992:8118'
     environment:
       - TOR_NewCircuitPeriod=60
+=======
+      - '9992:8888'
+    environment:
+      - TOR_NewCircuitPeriod=60
+      - LOCATION=US
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515
     restart: always
 
   torProxy4:
     image: 'dperson/torproxy:latest'
     ports:
+<<<<<<< HEAD
       - '9993:8118'
     environment:
       - TOR_NewCircuitPeriod=60
     restart: always
 
+=======
+      - '9993:8888'
+    environment:
+      - TOR_NewCircuitPeriod=60
+      - LOCATION=US
+    restart: always
+
+  mjml:
+    image: liminspace/mjml-tcpserver:0.11
+    restart: always
+    env_file:
+      - docker/env.prod
+    environment:
+      PORT: "28102"
+      MJML_ARGS: "--mjml.minify=true --mjml.validationLevel=strict"
+    expose:
+      - "28102"
+    ports:
+      - "28102:28102"
+
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515
 volumes:
   .app:
   mongodb:
