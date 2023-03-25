@@ -119,30 +119,52 @@ services:
       - '9990:8118'
     environment:
       - TOR_NewCircuitPeriod=60
+<<<<<<< HEAD
+=======
       - LOCATION=US
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515
     restart: always
 
   torProxy2:
     image: 'dperson/torproxy:latest'
     ports:
+<<<<<<< HEAD
+      - '9991:8118'
+    environment:
+      - TOR_NewCircuitPeriod=60
+=======
       - '9991:8888'
     environment:
       - TOR_NewCircuitPeriod=60
       - LOCATION=US
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515
     restart: always
 
   torProxy3:
     image: 'dperson/torproxy:latest'
     ports:
+<<<<<<< HEAD
+      - '9992:8118'
+    environment:
+      - TOR_NewCircuitPeriod=60
+=======
       - '9992:8888'
     environment:
       - TOR_NewCircuitPeriod=60
       - LOCATION=US
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515
     restart: always
 
   torProxy4:
     image: 'dperson/torproxy:latest'
     ports:
+<<<<<<< HEAD
+      - '9993:8118'
+    environment:
+      - TOR_NewCircuitPeriod=60
+    restart: always
+
+=======
       - '9993:8888'
     environment:
       - TOR_NewCircuitPeriod=60
@@ -162,6 +184,7 @@ services:
     ports:
       - "28102:28102"
 
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515
 volumes:
   .app:
   mongodb:

@@ -23,4 +23,8 @@ class AmazonProductItem(scrapy.Item):
     ProductUrl = scrapy.Field()
     AllTables = scrapy.Field()
     BrandName = scrapy.Field()
+<<<<<<< HEAD
+    Product_Categories = scrapy.Field()
+=======
     Coupons = scrapy.Field()
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515

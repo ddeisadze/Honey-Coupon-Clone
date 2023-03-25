@@ -124,6 +124,10 @@ def parse_product_page(response):
 
     get_all_tables = parse_out_all_tables_on_page(response)
 
+    categories = response.xpath("//table[@id='productDetails_detailBullets_sections1']/tr[th[contains(text(), 'Best Sellers Rank')]]/td/span/span/a/text()").extract()
+
+    if not categories:
+        categories = response.xpath('//text()[contains(., "Best Sellers Rank")]/parent::th/parent::*/td/span//a/text()').extract()
     # category
     # //*[@id="nav-subnav"]@data-category
 
@@ -167,7 +171,11 @@ def parse_product_page(response):
 
     yield AmazonProductItem({'Id': asin, "IdType": "asin", 'Title': title, 'BrandName': brand_name, 'MainImage': image, 'Rating': rating, 'NumberOfReviews': number_of_reviews,
                              'PricePaid': price_to_pay, 'PriceList': list_price, 'PriceDiscount': savingsPercentage, 'AvailableSizes': sizes, 'AvailableColors': colors, 'Details': bullet_points,
+<<<<<<< HEAD
+                             'SellerRank': seller_rank, 'ProductUrl': product_url, 'AllTables': get_all_tables, 'Product_Categories': categories})
+=======
                              'SellerRank': seller_rank, 'ProductUrl': product_url, 'AllTables': get_all_tables, 'Coupons' : detect_amazon_coupon(response)})
+>>>>>>> 9273def2fd80c157651568d4c11f734bd1e0f515
 
 
 def detect_amazon_coupon(response):
